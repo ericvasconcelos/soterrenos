@@ -11,6 +11,7 @@
     "format": "prettier --check .",
     "format:fix": "prettier --write --list-different src/**/*.{ts,tsx}",
     "check-types": "yarn tsc --noEmit --incremental false",
+    "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --coverage --watchAll=false --maxWorkers=50%",
     "prepare": "husky"
@@ -29,8 +30,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@tailwindcss/postcss": "^4.0.6",
+    "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@types/jest": "^29.5.14",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
