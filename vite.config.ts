@@ -25,10 +25,8 @@ export default defineConfig({
           vendor: [
             'axios',
             'classnames',
-            'zustand',
             'yup',
             'usehooks-ts',
-            'react-select',
             'react-hook-form',
           ],
         },
