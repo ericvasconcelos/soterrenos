@@ -1,43 +1,43 @@
-import axios from 'axios';
-import { fetchZipCode } from '.';
+import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { axiosInstanceMock } from './../helper-test';
 import { IZipCodeData } from './types';
-
-// Mock do axios
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+import { fetchZipCode } from '.';
 
 describe('fetchZipCode', () => {
+  const validZipCode = '12345678';
+  const invalidZipCode = '00000000';
+
+  const mockZipCodeData: IZipCodeData = {
+    cep: '12345-678',
+    logradouro: 'Rua Exemplo',
+    complemento: 'Apto 101',
+    bairro: 'Centro',
+    localidade: 'Cidade Exemplo',
+    uf: 'ST',
+    ibge: '1234567',
+    gia: '',
+    ddd: '12',
+    siafi: '7654321',
+  };
+
   it('deve retornar os dados do CEP corretamente', async () => {
-    // Mock dos dados retornados pela API
-    const mockData: IZipCodeData = {
-      cep: '71936-250',
-      logradouro: 'Avenida das Araucárias',
-      complemento: '',
-      bairro: 'Sul (Águas Claras)',
-      localidade: 'Brasília',
-      uf: 'DF',
-      ibge: '5300108',
-      gia: '',
-      ddd: '61',
-      siafi: '9701',
+    const response: AxiosResponse<IZipCodeData> = {
+      data: mockZipCodeData,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {} as InternalAxiosRequestConfig<unknown>,
     };
 
-    // Configura o mock do axios para retornar os dados simulados
-    mockedAxios.get.mockResolvedValue({ data: mockData });
-
-    // Chama a função e verifica o resultado
-    const result = await fetchZipCode('71936250');
-    expect(result).toEqual(mockData);
-    expect(mockedAxios.get).toHaveBeenCalledWith(
-      'https://viacep.com.br/ws/71936250/json/'
-    );
+    (axiosInstanceMock.get as jest.Mock).mockResolvedValue(response);
+    const result = await fetchZipCode(validZipCode);
+    expect(result).toEqual(mockZipCodeData);
   });
 
   it('deve lançar um erro se o CEP for inválido', async () => {
-    // Configura o mock do axios para simular um erro
-    mockedAxios.get.mockRejectedValue(new Error('CEP inválido'));
-
-    // Verifica se a função lança o erro esperado
-    await expect(fetchZipCode('00000000')).rejects.toThrow('CEP inválido');
+    const error = new Error('CEP inválido');
+    (axiosInstanceMock.get as jest.Mock).mockRejectedValue(error);
+    const result = fetchZipCode(invalidZipCode);
+    await expect(result).rejects.toThrow('CEP inválido');
   });
 });

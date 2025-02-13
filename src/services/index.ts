@@ -16,7 +16,6 @@ class ApiClient {
         'Content-Type': 'application/json',
       },
     });
-
     this.setupInterceptors();
   }
 
@@ -34,11 +33,6 @@ class ApiClient {
       (error) => {
         if (error.response?.status === 401) {
           window.location.href = '/';
-        } else if (
-          error.response?.status === 500 &&
-          !window.location.pathname.includes('/upload-pdf')
-        ) {
-          window.location.href = '/erro-interno';
         }
         return Promise.reject(error);
       }

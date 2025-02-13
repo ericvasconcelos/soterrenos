@@ -1,3 +1,8 @@
+jest.mock('./src/envs', () => ({
+  API_URL: 'https://viacep.com.br',
+}));
+
+// global.window.gtag = jest.fn()
 global.ResizeObserver = require('resize-observer-polyfill');
 
 global.DOMRect = {
@@ -26,17 +31,33 @@ global.DOMRect = {
   }),
 };
 
-// Mockando a lista de parceiros
-jest.mock('@/classes/Amplitude', () => ({
-  Amplitude: {
-    track: jest.fn(),
+// Mock de sessionStorage
+const mockSessionStorage = (() => {
+  let store: Record<string, string> = {};
+  return {
+    getItem: (key: string) => store[key] || null,
+    setItem: (key: string, value: string) => {
+      store[key] = value;
+    },
+    removeItem: (key: string) => {
+      delete store[key];
+    },
+    clear: () => {
+      store = {};
+    },
+  };
+})();
+
+Object.defineProperty(window, 'sessionStorage', {
+  value: mockSessionStorage,
+});
+
+// Mock de window.location
+const originalWindowLocation = window.location;
+Object.defineProperty(window, 'location', {
+  value: {
+    ...originalWindowLocation,
+    href: '',
   },
-}));
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    locale: 'pt-BR',
-  }),
-}));
-
-// global.window.gtag = jest.fn()
+  writable: true,
+});
