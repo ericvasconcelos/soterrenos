@@ -1,0 +1,25 @@
+.open-effect {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+.open-effect-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.close-effect-active {
+  @media (min-width: 768px) {
+    opacity: 0;
+  }
+}
+
+.close-effect {
+  transform: translateY(100%);
+  transition: transform 300ms ease-in-out;
+
+  @media (min-width: 768px) {
+    transform: none;
+    transition: opacity 300ms ease-in-out;
+  }
+}
