@@ -6,7 +6,7 @@ export default {
     url: 'https://soterrenos.net/',
     userAgent: 'Agent/007',
   },
-  setupFilesAfterEnv: ['@testing-library/jest-dom', '<rootDir>/jest.setup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '^@/assets(.*)$': '<rootDir>/assets$1',
