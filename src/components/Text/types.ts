@@ -12,6 +12,18 @@ type AsProp =
   | 'h5'
   | 'h6';
 
+export type ISizeText =
+  | 'xs'
+  | 'sm'
+  | 'base'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | '5xl'
+  | '6xl';
+
 export interface IText extends HTMLAttributes<HTMLElement> {
   tag?: AsProp;
   children?: ReactNode;
@@ -24,19 +36,7 @@ export interface IText extends HTMLAttributes<HTMLElement> {
     | 'primary'
     | 'danger'
     | 'warning';
-  size?:
-    | 'xs'
-    | 'sm'
-    | 'base'
-    | 'lg'
-    | 'xl'
-    | '2xl'
-    | '3xl'
-    | '4xl'
-    | '5xl'
-    | '6xl'
-    | '32px'
-    | '20px';
+  size?: ISizeText;
   weight?: 'light' | 'normal' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
 }
