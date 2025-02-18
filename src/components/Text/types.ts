@@ -37,6 +37,6 @@ export interface IText extends HTMLAttributes<HTMLElement> {
     | '6xl'
     | '32px'
     | '20px';
-  weight?: 'light' | 'normal' | 'medium' | 'bold' | 'semi-bold';
+  weight?: 'light' | 'normal' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
 }

@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { ISpinner } from './types';
 import cx from 'classnames';
-import './styles.css';
 
 export const Spinner: FC<ISpinner> = ({ color = 'primary', ...rest }) => {
   const classes = cx(

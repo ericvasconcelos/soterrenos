@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import cx from 'classnames';
-import { Close } from './IconClose';
+import { Icon } from '../Icon';
 import { IModal } from './types';
 import './styles.css';
 
@@ -65,7 +65,7 @@ export const Modal: FC<IModal> = ({ isOpen, onClose, children }) => {
           className="hidden md:block absolute top-6 right-5 text-2xl text-[#1A1A19] cursor-pointer"
           aria-label="Close modal"
         >
-          <Close />
+          <Icon name="x-mark" size={28} color="black" />
         </button>
         {children}
       </div>

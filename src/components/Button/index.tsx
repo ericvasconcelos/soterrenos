@@ -20,7 +20,7 @@ export const Button: FC<IButton> = ({
   // Classes dinâmicas com base nas props
   const classes = cx(
     `flex items-center justify-center gap-2 rounded-lg font-bold text-nowrap
-      transition-opacity transition-colors ease-in-out duration-400
+      transition-opacity transition-colors ease-in-out duration-400 outline-black
     `,
     {
       // Variant primary
@@ -88,7 +88,9 @@ export const Button: FC<IButton> = ({
           color={variant === 'tertiary' ? 'primary-300' : 'light'}
         />
       )}
-      {children}
+
+      <span className="leading-[1.1]">{children}</span>
+
       {iconPosition === 'right' && icon && (
         <Icon
           name={icon}

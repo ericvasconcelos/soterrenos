@@ -839,9 +839,60 @@ const iconList: Record<
       <path d="M376,256a40,40,0,1,0-40,40A40.045,40.045,0,0,0,376,256Zm-40-24a24.039,24.039,0,0,1,22.624,16H313.376A24.039,24.039,0,0,1,336,232Zm-22.624,32h45.248a24,24,0,0,1-45.248,0Z" />
     </svg>
   ),
+  'arrow-right': ({ color, size }) => (
+    <svg
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1}
+      stroke={color}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+      />
+    </svg>
+  ),
+  'arrow-left': ({ color, size }) => (
+    <svg
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1}
+      stroke={color}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+      />
+    </svg>
+  ),
+  'x-mark': ({ color, size }) => (
+    <svg
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1}
+      stroke={color}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M6 18 18 6M6 6l12 12"
+      />
+    </svg>
+  ),
 };
 
-export const Icon = ({ name, color = 'primary', size = 48 }: IIcon) => {
+export const Icon = ({ name, color = 'black', size = 20 }: IIcon) => {
   const IconComponent = iconList[name];
 
   const colors: Record<string, string> = {
