@@ -14,6 +14,7 @@ export const iconNames = [
   'check',
   'check-badge',
   'check-circle',
+  'chevron-down',
   'credit-card',
   'document',
   'document-chart-bar',
