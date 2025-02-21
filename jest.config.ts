@@ -14,6 +14,7 @@ export default {
     '^@/constants(.*)$': '<rootDir>/constants$1',
     '^@/contexts(.*)$': '<rootDir>/contexts$1',
     '^@/hooks(.*)$': '<rootDir>/hooks$1',
+    '^@/layouts(.*)$': '<rootDir>/layouts$1',
     '^@/services(.*)$': '<rootDir>/services$1',
     '^@/types(.*)$': '<rootDir>/types$1',
     '^@/utils(.*)$': '<rootDir>/utils$1',

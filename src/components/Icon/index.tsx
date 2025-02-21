@@ -3,16 +3,16 @@ import { IconNames, IIcon } from './types';
 
 const iconList: Record<
   IconNames,
-  ({ color, size }: Omit<IIcon, 'name'>) => ReactNode
+  ({ color, size, strokeWidth }: Omit<IIcon, 'name'>) => ReactNode
 > = {
-  map: ({ color, size }) => (
+  map: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -22,14 +22,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'map-pin': ({ color, size }) => (
+  'map-pin': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -44,14 +44,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  calendar: ({ color, size }) => (
+  calendar: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -61,14 +61,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'calendar-days': ({ color, size }) => (
+  'calendar-days': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -78,14 +78,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  heart: ({ color, size }) => (
+  heart: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -106,14 +106,14 @@ const iconList: Record<
       <path d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z" />
     </svg>
   ),
-  camera: ({ color, size }) => (
+  camera: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -128,14 +128,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'video-camera': ({ color, size }) => (
+  'video-camera': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -145,14 +145,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'credit-card': ({ color, size }) => (
+  'credit-card': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -162,14 +162,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  banknotes: ({ color, size }) => (
+  banknotes: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -179,14 +179,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  search: ({ color, size }) => (
+  search: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -196,14 +196,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  home: ({ color, size }) => (
+  home: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -213,14 +213,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'building-office': ({ color, size }) => (
+  'building-office': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -230,14 +230,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  document: ({ color, size }) => (
+  document: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -247,14 +247,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'document-text': ({ color, size }) => (
+  'document-text': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -264,14 +264,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'document-check': ({ color, size }) => (
+  'document-check': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -281,14 +281,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'document-chart-bar': ({ color, size }) => (
+  'document-chart-bar': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -298,14 +298,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  bank: ({ color, size }) => (
+  bank: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -315,14 +315,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  user: ({ color, size }) => (
+  user: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -332,14 +332,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  check: ({ color, size }) => (
+  check: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -349,14 +349,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'check-badge': ({ color, size }) => (
+  'check-badge': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -366,14 +366,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'check-circle': ({ color, size }) => (
+  'check-circle': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -383,14 +383,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  phone: ({ color, size }) => (
+  phone: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -413,7 +413,7 @@ const iconList: Record<
       />
     </svg>
   ),
-  droplet: ({ color, size }) => (
+  droplet: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
@@ -421,21 +421,21 @@ const iconList: Record<
       viewBox="0 0 24 24"
       fill="none"
       stroke={color}
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
     >
       <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
     </svg>
   ),
-  bolt: ({ color, size }) => (
+  bolt: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -445,14 +445,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'light-bulb': ({ color, size }) => (
+  'light-bulb': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -485,14 +485,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  wifi: ({ color, size }) => (
+  wifi: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -502,13 +502,13 @@ const iconList: Record<
       />
     </svg>
   ),
-  'gas-station': ({ color, size }) => (
+  'gas-station': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
       fill={color}
     >
@@ -721,14 +721,14 @@ const iconList: Record<
       <path d="M253.531,84.106c-2.485,0-4.5-2.015-4.5-4.5V17.244c0-2.485,2.015-4.5,4.5-4.5s4.5,2.015,4.5,4.5v62.362C258.031,82.091,256.017,84.106,253.531,84.106z" />
     </svg>
   ),
-  'academic-cap': ({ color, size }) => (
+  'academic-cap': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -807,14 +807,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  store: ({ color, size }) => (
+  store: ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={0.8}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -839,14 +839,14 @@ const iconList: Record<
       <path d="M376,256a40,40,0,1,0-40,40A40.045,40.045,0,0,0,376,256Zm-40-24a24.039,24.039,0,0,1,22.624,16H313.376A24.039,24.039,0,0,1,336,232Zm-22.624,32h45.248a24,24,0,0,1-45.248,0Z" />
     </svg>
   ),
-  'arrow-right': ({ color, size }) => (
+  'arrow-right': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -856,14 +856,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'arrow-left': ({ color, size }) => (
+  'arrow-left': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -873,14 +873,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'x-mark': ({ color, size }) => (
+  'x-mark': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -890,14 +890,14 @@ const iconList: Record<
       />
     </svg>
   ),
-  'chevron-down': ({ color, size }) => (
+  'chevron-down': ({ color, size, strokeWidth }) => (
     <svg
       width={size}
       height={size}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      strokeWidth={1}
+      strokeWidth={strokeWidth}
       stroke={color}
     >
       <path
@@ -907,9 +907,31 @@ const iconList: Record<
       />
     </svg>
   ),
+  'menu-bar': ({ color, size, strokeWidth }) => (
+    <svg
+      width={size}
+      height={size}
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={strokeWidth}
+      stroke={color}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+      />
+    </svg>
+  ),
 };
 
-export const Icon = ({ name, color = 'black', size = 20 }: IIcon) => {
+export const Icon = ({
+  name,
+  color = 'black',
+  size = 20,
+  strokeWidth = 1,
+}: IIcon) => {
   const IconComponent = iconList[name];
 
   const colors: Record<string, string> = {
@@ -919,5 +941,11 @@ export const Icon = ({ name, color = 'black', size = 20 }: IIcon) => {
     warning: 'var(--color-warning-700)',
     light: 'var(--color-light)',
   };
-  return <IconComponent color={colors[color]} size={size} />;
+  return (
+    <IconComponent
+      color={colors[color]}
+      size={size}
+      strokeWidth={strokeWidth}
+    />
+  );
 };

@@ -19,7 +19,7 @@ export const Button: FC<IButton> = ({
 }) => {
   // Classes dinâmicas com base nas props
   const classes = cx(
-    `flex items-center justify-center gap-2 rounded-lg font-bold text-nowrap
+    `flex items-center justify-center gap-2 rounded-lg font-medium text-nowrap
       transition-opacity transition-colors ease-in-out duration-400 outline-black
     `,
     {
@@ -27,6 +27,7 @@ export const Button: FC<IButton> = ({
       'bg-primary-700 text-light': variant === 'primary' && color === 'primary',
       'bg-danger-700 text-light': variant === 'primary' && color === 'danger',
       'bg-warning-700 text-light': variant === 'primary' && color === 'warning',
+      'bg-gray-900 text-light': variant === 'primary' && color === 'dark',
 
       // Variant secondary
       'bg-primary-100 text-primary-700':
@@ -35,6 +36,7 @@ export const Button: FC<IButton> = ({
         variant === 'secondary' && color === 'danger',
       'bg-warning-50 text-warning-700':
         variant === 'secondary' && color === 'warning',
+      'bg-gray-200 text-gray-900': variant === 'secondary' && color === 'dark',
 
       // Variant tertiary
       'bg-transparent text-primary-700 hover:bg-primary-100':
@@ -43,11 +45,13 @@ export const Button: FC<IButton> = ({
         variant === 'tertiary' && color === 'danger',
       'bg-transparent text-warning-700 hover:bg-warning-50':
         variant === 'tertiary' && color === 'warning',
+      'bg-transparent text-gray-900 hover:bg-gray-200':
+        variant === 'tertiary' && color === 'dark',
 
       // Sizes
       'h-8 px-4 text-sm': size === 'small',
-      'h-10 px-6 text-base': size === 'default',
-      'h-12 px-8 text-lg': size === 'large',
+      'h-10 px-5 text-base': size === 'default',
+      'h-12 px-6 text-lg': size === 'large',
 
       // Disabled
       'hover:opacity-80 active:opacity-80 cursor-pointer': !disabled,

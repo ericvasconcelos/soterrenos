@@ -4,6 +4,8 @@ jest.mock('./src/envs', () => ({
   API_URL: 'https://viacep.com.br',
 }));
 
+global.TextEncoder = require('util').TextEncoder;
+
 // global.window.gtag = jest.fn()
 global.ResizeObserver = require('resize-observer-polyfill');
 

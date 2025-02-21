@@ -42,10 +42,12 @@ pre {
   -o-tab-size: 2;
   tab-size: 2;
 }
+
 a {
   color: #0074d9;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }

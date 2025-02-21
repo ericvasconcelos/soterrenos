@@ -1,3 +1,9 @@
+import { Page } from '@/layouts/Page';
+
 export default function MyAdvertisements() {
-  return <h1>Meus Anúncios</h1>;
+  return (
+    <Page>
+      <h1>Meus Anúncios</h1>
+    </Page>
+  );
 }

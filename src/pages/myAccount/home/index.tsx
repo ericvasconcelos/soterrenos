@@ -1,3 +1,9 @@
+import { Page } from '@/layouts/Page';
+
 export default function MyAccountHome() {
-  return <h1>Minha Conta</h1>;
+  return (
+    <Page>
+      <h1>Minha Conta</h1>
+    </Page>
+  );
 }

@@ -31,17 +31,17 @@ describe('Avatar Component', () => {
     const { container, rerender } = render(
       <Avatar firstName="A" lastName="B" size="sm" />
     );
-    let span = container.querySelector('span');
+    let span = container.querySelector('i');
     expect(span?.className).toMatch(/w-8/);
     expect(span?.className).toMatch(/h-8/);
 
     rerender(<Avatar firstName="A" lastName="B" size="md" />);
-    span = container.querySelector('span');
+    span = container.querySelector('i');
     expect(span?.className).toMatch(/w-10/);
     expect(span?.className).toMatch(/h-10/);
 
     rerender(<Avatar firstName="A" lastName="B" size="lg" />);
-    span = container.querySelector('span');
+    span = container.querySelector('i');
     expect(span?.className).toMatch(/w-12/);
     expect(span?.className).toMatch(/h-12/);
   });

@@ -32,8 +32,8 @@ export const Avatar: FC<IAvatar> = ({
   );
 
   return (
-    <div className="flex items-center justify-start gap-2">
-      <span
+    <span className="flex items-center justify-start gap-2">
+      <i
         title={completeName}
         role={image ? 'figure' : 'img'}
         className={styleClass}
@@ -52,7 +52,7 @@ export const Avatar: FC<IAvatar> = ({
             {initials}
           </Text>
         )}
-      </span>
-    </div>
+      </i>
+    </span>
   );
 };

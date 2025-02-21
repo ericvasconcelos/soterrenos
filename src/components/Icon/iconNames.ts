@@ -30,6 +30,7 @@ export const iconNames = [
   'light-bulb',
   'map',
   'map-pin',
+  'menu-bar',
   'phone',
   'pharmacy',
   'search',

@@ -6,4 +6,5 @@ export interface IIcon {
   name: IconNames;
   color?: string;
   size?: number;
+  strokeWidth?: number;
 }
