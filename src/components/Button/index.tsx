@@ -19,7 +19,7 @@ export const Button: FC<IButton> = ({
 }) => {
   // Classes dinâmicas com base nas props
   const classes = cx(
-    `flex items-center justify-center gap-2 rounded-lg font-medium text-nowrap
+    `flex items-center justify-center gap-2 rounded-lg font-medium text-nowrap leading-[1.1]
       transition-opacity transition-colors ease-in-out duration-400 outline-black
     `,
     {
@@ -81,28 +81,26 @@ export const Button: FC<IButton> = ({
       return 'warning';
     }
 
-    return 'light';
+    if (color === 'dark') {
+      return 'dark';
+    }
+
+    return 'dark';
   }, [variant, color]);
 
   return (
     <button {...rest} disabled={disabled || isLoading} className={classes}>
       {iconPosition === 'left' && icon && (
-        <Icon
-          name={icon}
-          color={variant === 'tertiary' ? 'primary-300' : 'light'}
-        />
+        <Icon name={icon} color={spinnerColor} />
       )}
 
-      <span className="leading-[1.1]">{children}</span>
+      {children}
 
       {iconPosition === 'right' && icon && (
-        <Icon
-          name={icon}
-          color={variant === 'tertiary' ? 'primary-300' : 'light'}
-        />
+        <Icon name={icon} color={spinnerColor} />
       )}
 
-      {isLoading && <Spinner color={spinnerColor} />}
+      {isLoading && <Spinner color={spinnerColor} className="ml-2" />}
     </button>
   );
 };

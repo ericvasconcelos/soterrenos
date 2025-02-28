@@ -29,7 +29,7 @@ export const Primary: Story = {
 export const WithIcon: Story = {
   args: {
     children: 'Button with Icon',
-    icon: 'arrow-right' as IconNames,
+    icon: 'heart' as IconNames,
     iconPosition: 'right',
   },
 };
