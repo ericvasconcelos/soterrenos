@@ -44,7 +44,7 @@ export const Modal: FC<IModal> = ({ isOpen, onClose, children }) => {
       />
       <div
         className={cx(
-          'relative bg-white rounded-t-2xl md:rounded-2xl shadow-lg px-4 pb-8 pt-14 md:px-12 md:pb-12 md:pt-20 w-full md:max-w-[700px]',
+          'relative bg-white rounded-t-2xl md:rounded-2xl shadow-lg px-6 pb-8 pt-8 md:px-12 w-full md:max-w-[700px]',
           {
             'open-effect': isOpen,
             'open-effect-active': isOpen,
@@ -65,7 +65,7 @@ export const Modal: FC<IModal> = ({ isOpen, onClose, children }) => {
           className="hidden md:block absolute top-6 right-5 text-2xl text-[#1A1A19] cursor-pointer"
           aria-label="Close modal"
         >
-          <Icon name="x-mark" size={28} color="black" />
+          <Icon name="x-mark" size={28} color="dark" />
         </button>
         {children}
       </div>
