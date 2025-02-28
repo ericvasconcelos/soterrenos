@@ -48,7 +48,7 @@ export const Avatar: FC<IAvatar> = ({
             className="block w-full h-full"
           />
         ) : (
-          <Text size={fontSizeClasses[size]} color="white" weight="bold">
+          <Text size={fontSizeClasses[size]} color="light" weight="bold">
             {initials}
           </Text>
         )}
