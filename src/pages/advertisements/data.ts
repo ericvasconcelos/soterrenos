@@ -4,7 +4,7 @@ export const data: IData = {
   code: '1350198862',
   lastUpdate: '21/02/2025',
   title: 'Park Way Lote/terreno A Venda Quadra 23 Conjunto 3',
-  active: false,
+  active: true,
   images: [
     {
       id: '4355127664',
@@ -69,6 +69,7 @@ export const data: IData = {
   condominiumTax: 150,
   propertyTax: 200,
   financingAvailable: true,
+  fgts: false,
   description: `Executive House Imobiliária vende: lote de 2.500m², com área verde de 2.500m2;
     - Lote de fundo com casa de caseiro;
     - Plano;

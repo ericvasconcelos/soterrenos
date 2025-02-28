@@ -33,6 +33,7 @@ export interface IData {
   condominiumTax: number;
   propertyTax: number;
   financingAvailable: boolean;
+  fgts: boolean;
   description: string;
   seller: ISeller;
   infos: IInfos;

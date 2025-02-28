@@ -93,7 +93,7 @@ export const SellersContactForm = () => {
         Contate o vendedor via Whatsapp
       </Text>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="grid gap-4" onSubmit={handleSubmit(onSubmit)}>
         <FieldController
           control={control}
           component={Input}

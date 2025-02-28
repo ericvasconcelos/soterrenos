@@ -193,11 +193,16 @@ export default function Advertisements() {
 
             <Divider space="xl" />
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6">
               <Text size="sm">
                 Aceita financiamento:
                 <br className="block xl:hidden" />{' '}
                 {data.financingAvailable ? 'Sim' : 'Não'}
+              </Text>
+
+              <Text size="sm">
+                Aceita FGTS:
+                <br className="block xl:hidden" /> {data.fgts ? 'Sim' : 'Não'}
               </Text>
 
               <Text size="sm">
