@@ -9,11 +9,12 @@ export const Card: FC<ICard> = ({
   children,
 }) => {
   const classes = cx(
-    'border border-gray-300 rounded-xl',
+    'border border-gray-300 rounded-xl overflow-hidden',
     {
-      'p-4': padding === 'sm',
-      'p-8': padding === 'md',
-      'p-12': padding === 'lg',
+      'p-0': padding === 'none',
+      'p-3 lg:p-4': padding === 'sm',
+      'p-6 lg:p-8': padding === 'md',
+      'p-9 lg:p-12': padding === 'lg',
       'shadow-md': hasShadow,
     },
     className

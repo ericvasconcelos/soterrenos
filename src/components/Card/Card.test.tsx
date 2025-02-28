@@ -15,9 +15,9 @@ describe('Card Component', () => {
     expect(cardDiv).toHaveClass('border');
     expect(cardDiv).toHaveClass('border-gray-300');
     expect(cardDiv).toHaveClass('rounded-xl');
-    expect(cardDiv).toHaveClass('p-8');
-    expect(cardDiv).not.toHaveClass('p-4');
-    expect(cardDiv).not.toHaveClass('p-12');
+    expect(cardDiv).toHaveClass('p-6 lg:p-8');
+    expect(cardDiv).not.toHaveClass('p-3 lg:p-4');
+    expect(cardDiv).not.toHaveClass('p-9 lg:p-12');
     expect(cardDiv).not.toHaveClass('shadow-md');
   });
 
@@ -25,21 +25,21 @@ describe('Card Component', () => {
     const { container } = render(<Card padding="sm">Test</Card>);
     const cardDiv = container.firstChild as HTMLElement;
 
-    expect(cardDiv).toHaveClass('p-4');
+    expect(cardDiv).toHaveClass('p-3 lg:p-4');
   });
 
   it('deve aplicar padding médio quando padding="md"', () => {
     const { container } = render(<Card padding="md">Test</Card>);
     const cardDiv = container.firstChild as HTMLElement;
 
-    expect(cardDiv).toHaveClass('p-8');
+    expect(cardDiv).toHaveClass('p-6 lg:p-8');
   });
 
   it('deve aplicar padding grande quando padding="lg"', () => {
     const { container } = render(<Card padding="lg">Test</Card>);
     const cardDiv = container.firstChild as HTMLElement;
 
-    expect(cardDiv).toHaveClass('p-12');
+    expect(cardDiv).toHaveClass('p-9 lg:p-12');
   });
 
   it('deve aplicar a sombra quando hasShadow é verdadeiro', () => {
