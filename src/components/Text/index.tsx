@@ -5,7 +5,7 @@ import { IText } from './types';
 export const Text: FC<IText> = ({
   tag: Component = 'p',
   size = 'base',
-  color = 'gray900',
+  color = 'gray-900',
   weight = 'normal',
   align = 'left',
   className,
@@ -13,16 +13,8 @@ export const Text: FC<IText> = ({
   ...rest
 }) => {
   const classes = cx(
-    `line-height-[2.4rem]`,
+    `leading-tight text-${color}`,
     {
-      'text-white': color === 'white',
-      'text-gray-900': color === 'gray900',
-      'text-gray-700': color === 'gray700',
-      'text-gray-500': color === 'gray500',
-      'text-[#424242]': color === 'gray',
-      'text-primary': color === 'primary',
-      'text-danger': color === 'danger',
-      'text-warning': color === 'warning',
       'text-xs': size === 'xs',
       'text-sm': size === 'sm',
       'text-base': size === 'base',
