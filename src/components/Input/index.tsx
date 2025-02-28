@@ -14,8 +14,8 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     focus-within:inset-shadow-[0_0_0_2px] rounded-lg bg-white
     text-sm font-normal`,
       {
-        'inset-shadow-gray-500': isValid,
-        'inset-shadow-danger-700': !isValid,
+        'inset-shadow-gray-500': !error,
+        'inset-shadow-danger-700': !!error,
         'opacity-40': disabled,
       }
     );
@@ -36,7 +36,9 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     return (
       <FormField id={id} error={error}>
         <div className={styleClass}>
-          {label && <Label id={id} text={label} invalid={!isValid} />}
+          {label && (
+            <Label id={id} text={label} invalid={!isValid && !!error} />
+          )}
           <input
             ref={ref}
             id={id}
