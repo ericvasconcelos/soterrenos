@@ -9,7 +9,7 @@ export const Card: FC<ICard> = ({
   children,
 }) => {
   const classes = cx(
-    'border border-gray-300 rounded-xl overflow-hidden',
+    'bg-white border border-gray-300 rounded-xl overflow-hidden',
     {
       'p-0': padding === 'none',
       'p-3 lg:p-4': padding === 'sm',

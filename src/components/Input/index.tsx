@@ -10,7 +10,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     ref
   ) => {
     const styleClass = cx(
-      `w-full h-[56px] px-3 py-2 inset-shadow-[0_0_0_1px]
+      `relative w-full h-[56px] px-3 py-2 inset-shadow-[0_0_0_1px]
     focus-within:inset-shadow-[0_0_0_2px] rounded-lg bg-white
     text-sm font-normal`,
       {
@@ -20,7 +20,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
       }
     );
 
-    const inputClasses = `w-full text-gray-900 placeholder:text-gray-500 font-family font-normal outline-none`;
+    const inputClasses = `w-full h-full pt-4 text-gray-900 placeholder:text-gray-500 font-family font-normal outline-none`;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;

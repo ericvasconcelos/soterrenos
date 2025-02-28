@@ -1,5 +1,5 @@
 // types.ts
-import { SelectHTMLAttributes, OptionHTMLAttributes, ChangeEvent } from 'react';
+import { SelectHTMLAttributes, ChangeEvent } from 'react';
 import { IFormFieldProps } from '../FormField/types';
 
 export interface SelectBase
@@ -7,7 +7,10 @@ export interface SelectBase
   label?: string;
   error?: string;
   isValid?: boolean;
-  options: OptionHTMLAttributes<HTMLOptionElement>[];
+  options: {
+    value: string;
+    label: string;
+  }[];
   placeholder?: string;
 }
 
