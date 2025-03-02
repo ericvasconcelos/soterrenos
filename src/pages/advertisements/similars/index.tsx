@@ -1,4 +1,4 @@
-import { Divider, Button, Text, Card } from '@/components';
+import { Button, Card, Divider, Text } from '@/components';
 
 export const Similars = () => {
   const numbers = Array.from({ length: 10 }, (_, i) => i + 1);
@@ -38,12 +38,7 @@ export const Similars = () => {
                   R$ 140.000
                 </Text>
 
-                <Text
-                  color="gray-700"
-                  size="sm"
-                  weight="medium"
-                  className="mb-8"
-                >
+                <Text color="gray-700" size="sm" className="mb-8">
                   400m² - Park Way, Brasília
                 </Text>
 

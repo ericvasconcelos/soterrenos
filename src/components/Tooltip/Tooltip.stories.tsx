@@ -1,7 +1,8 @@
-import { ComponentProps } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Tooltip } from '.';
+import { ComponentProps } from 'react';
+
 import { Text } from '../Text';
+import { Tooltip } from '.';
 
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',

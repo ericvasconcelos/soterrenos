@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { API_URL } from '../envs';
+
+import { API_URL } from '@/envs';
 
 interface IRequest {
   [key: string]: unknown;

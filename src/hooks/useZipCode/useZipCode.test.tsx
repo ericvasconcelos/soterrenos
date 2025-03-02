@@ -1,8 +1,9 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { useZipCode } from '.';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { renderHook, waitFor } from '@testing-library/react';
+
 import { fetchZipCode } from '../../services/zipCode';
 import { IZipCodeData } from '../../services/zipCode/types';
+import { useZipCode } from '.';
 
 // Mock do service
 jest.mock('../../services/zipCode');

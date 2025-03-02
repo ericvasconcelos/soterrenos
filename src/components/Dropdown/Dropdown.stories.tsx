@@ -1,9 +1,10 @@
-import { ComponentProps } from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { Dropdown } from '.';
+import { ComponentProps } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
-import { Icon } from '../Icon';
+
 import { Avatar } from '../Avatar';
+import { Icon } from '../Icon';
+import { Dropdown } from '.';
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',

@@ -1,5 +1,6 @@
-import { FC, useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
+import { FC, useState } from 'react';
+
 import { TooltipProps } from './types';
 
 export const Tooltip: FC<TooltipProps> = ({

@@ -1,10 +1,11 @@
-import { ChangeEvent, useState, forwardRef, useMemo, useCallback } from 'react';
-import cx from 'classnames';
 import * as SelectPrimitive from '@radix-ui/react-select';
-import { ISelect } from './types';
+import cx from 'classnames';
+import { ChangeEvent, forwardRef, useCallback, useMemo, useState } from 'react';
+
 import { FormField } from '../FormField';
-import { Label } from '../Label';
 import { Icon } from '../Icon';
+import { Label } from '../Label';
+import { ISelect } from './types';
 
 export const Select = forwardRef<HTMLButtonElement, ISelect>(
   (
@@ -35,7 +36,6 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
 
     const handleValueChange = useCallback(
       (newValue: string) => {
-        // Se newValue for vazio, não dispara onChange
         if (newValue !== '' && onChange) {
           onChange({
             target: { value: newValue, name },
@@ -53,8 +53,8 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
       `relative w-full h-[56px] px-3 py-2 inset-shadow-[0_0_0_1px]
       rounded-lg bg-white text-sm font-normal`,
       {
-        'inset-shadow-gray-500': isValid,
-        'inset-shadow-danger-700': !isValid,
+        'inset-shadow-gray-500': !error,
+        'inset-shadow-danger-700': !!error,
         'opacity-40': disabled,
         'inset-shadow-[0_0_0_2px]': isOpen,
       }
@@ -63,7 +63,9 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
     return (
       <FormField id={id} error={error}>
         <div className={containerClasses}>
-          {label && <Label id={id} text={label} invalid={!isValid} />}
+          {label && (
+            <Label id={id} text={label} invalid={!isValid && !!error} />
+          )}
 
           <SelectPrimitive.Root
             name={name}

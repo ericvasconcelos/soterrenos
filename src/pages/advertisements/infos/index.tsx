@@ -1,4 +1,5 @@
 import { Divider, Icon, Text } from '@/components';
+
 import { data } from '../data';
 import { generateInfos } from './generateInfos';
 

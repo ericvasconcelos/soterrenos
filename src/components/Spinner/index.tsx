@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import { ISpinner } from './types';
 import cx from 'classnames';
+import { FC } from 'react';
+
+import { ISpinner } from './types';
 
 export const Spinner: FC<ISpinner> = ({
   color = 'primary',

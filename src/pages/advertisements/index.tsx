@@ -1,21 +1,23 @@
+import { useState } from 'react';
+
 import {
-  Container,
   Button,
-  ImageGallery,
-  Text,
+  Container,
   Divider,
   Icon,
+  ImageGallery,
+  Text,
   Tooltip,
 } from '@/components';
 import { Page } from '@/layouts/Page';
-import { data } from './data';
-import { useState } from 'react';
 import { getTotalArea, priceFormatter } from '@/utils';
-import { SellersContactForm } from './sellersContactForm';
-import { Similars } from './similars';
-import { ModalShare } from './modalShare';
+
+import { data } from './data';
 import { Infos } from './infos';
 import { Location } from './location';
+import { ModalShare } from './modalShare';
+import { SellersContactForm } from './sellersContactForm';
+import { Similars } from './similars';
 
 export default function Advertisements() {
   const [isSaved, setIsSaved] = useState<boolean>(false);
@@ -25,7 +27,7 @@ export default function Advertisements() {
   const openModal = (index: number) => setCurrentIndex(index);
   const closeModal = () => setCurrentIndex(null);
   const { landSize, active } = data;
-  const totalArea: number = getTotalArea(landSize);
+  const totalArea = getTotalArea(landSize);
 
   return (
     <Page>
@@ -143,7 +145,7 @@ export default function Advertisements() {
                     weight="bold"
                     className="tracking-tight"
                   >
-                    {totalArea}m²
+                    {totalArea.text}
                   </Text>
                 </div>
               </Tooltip>
@@ -158,7 +160,7 @@ export default function Advertisements() {
                   weight="bold"
                   className="tracking-tight"
                 >
-                  {priceFormatter(data.price / totalArea)}
+                  {priceFormatter(data.price / totalArea.value)}
                 </Text>
               </div>
 

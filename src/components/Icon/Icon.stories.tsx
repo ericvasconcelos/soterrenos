@@ -1,8 +1,9 @@
 import { Meta, StoryFn } from '@storybook/react';
-import { Icon } from '.';
+
 import { Text } from '../Text';
-import { IconNames } from './types';
+import { Icon } from '.';
 import { iconNames } from './iconNames';
+import { IconNames } from './types';
 
 export const List: StoryFn = () => (
   <div

@@ -1,6 +1,8 @@
 import { Link } from 'react-router';
+
 import { Avatar, Button, Container, Icon } from '@/components';
 import { Dropdown } from '@/components/Dropdown';
+
 import { menuItems } from './menu';
 
 export const Header = () => (

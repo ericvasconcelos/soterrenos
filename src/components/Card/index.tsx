@@ -1,6 +1,7 @@
-import { FC } from 'react';
-import { ICard } from './types';
 import cx from 'classnames';
+import { FC } from 'react';
+
+import { ICard } from './types';
 
 export const Card: FC<ICard> = ({
   padding = 'md',

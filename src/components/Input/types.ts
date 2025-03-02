@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, ChangeEvent } from 'react';
+import { ChangeEvent, InputHTMLAttributes } from 'react';
+
 import { IFormFieldProps } from '../FormField/types';
 
 export interface InputBase

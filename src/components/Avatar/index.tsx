@@ -1,8 +1,9 @@
-import { FC } from 'react';
-import { Text } from '../Text';
-import { IAvatar } from './types';
 import cx from 'classnames';
+import { FC } from 'react';
+
+import { Text } from '../Text';
 import { ISizeText } from '../Text/types';
+import { IAvatar } from './types';
 
 const fontSizeClasses: Record<string, ISizeText> = {
   sm: 'sm',

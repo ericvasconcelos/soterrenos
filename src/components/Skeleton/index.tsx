@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import cx from 'classnames';
+import { FC } from 'react';
+
 import { structuresMap } from './structuresMap';
 import { ISkeleton, ISkeletonName } from './types';
 
@@ -13,7 +14,8 @@ export const Skeleton: FC<ISkeleton> = ({
   className,
 }) => {
   const newStyle = structuresMap[name as ISkeletonName];
-  const classes = cx('animate-skeleton', className);
+  const classes = cx('animate-pulse bg-gray-300', className);
+
   return (
     <div
       id={id}

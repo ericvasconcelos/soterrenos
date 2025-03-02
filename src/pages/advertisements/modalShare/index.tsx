@@ -1,7 +1,8 @@
-import { Modal, Icon, Text } from '@/components';
-import { IModalShare } from './types';
+import { Icon, Modal, Text } from '@/components';
 import { getTotalArea, priceFormatter } from '@/utils';
+
 import { data } from '../data';
+import { IModalShare } from './types';
 
 export const ModalShare = ({ isOpen, close }: IModalShare) => {
   const totalArea = getTotalArea(data.landSize);
@@ -87,7 +88,7 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
           </Text>
 
           <Text color="gray-700" size="sm">
-            {totalArea}m² - {data.address.neighborhood}, {data.address.city}
+            {totalArea.text} - {data.address.neighborhood}, {data.address.city}
           </Text>
         </div>
       </div>

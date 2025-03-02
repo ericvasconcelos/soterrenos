@@ -1,4 +1,5 @@
-import { InputHTMLAttributes, ChangeEvent, ReactNode } from 'react';
+import { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
+
 import { IFormFieldProps } from '../FormField/types';
 
 export interface CheckboxBase

@@ -1,5 +1,7 @@
-import { Icon } from '@/components';
 import { useState } from 'react';
+
+import { Icon } from '@/components';
+
 import { IImageGallery } from './types';
 
 export const ImageGallery = ({

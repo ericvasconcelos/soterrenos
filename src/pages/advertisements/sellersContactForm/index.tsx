@@ -1,16 +1,18 @@
+import { useState } from 'react';
+
 import {
   Button,
-  Text,
   Card,
   FieldController,
-  Input,
-  Textarea,
   Icon,
+  Input,
+  Text,
+  Textarea,
 } from '@/components';
 import { filterNameMask, filterPhoneMask } from '@/utils';
-import { IContactForm, useContactForm } from './useContactForm';
+
 import { data } from '../data';
-import { useState } from 'react';
+import { IContactForm, useContactForm } from './useContactForm';
 
 export const SellersContactForm = () => {
   const { name, phoneNumber, whatsappNumber, email, creci, image } =

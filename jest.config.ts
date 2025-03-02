@@ -18,6 +18,7 @@ export default {
     '^@/services(.*)$': '<rootDir>/services$1',
     '^@/types(.*)$': '<rootDir>/types$1',
     '^@/utils(.*)$': '<rootDir>/utils$1',
+    '^@/envs(.*)$': '<rootDir>/envs$1',
   },
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest', // Adicione esta linha

@@ -1,5 +1,6 @@
 // types.ts
-import { SelectHTMLAttributes, ChangeEvent } from 'react';
+import { ChangeEvent, SelectHTMLAttributes } from 'react';
+
 import { IFormFieldProps } from '../FormField/types';
 
 export interface SelectBase

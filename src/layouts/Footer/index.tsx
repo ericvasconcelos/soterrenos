@@ -1,3 +1,1 @@
-export const Fotter = () => {
-  return <footer>FOOTER</footer>;
-};
+export const Fotter = () => <footer>FOOTER</footer>;

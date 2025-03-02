@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { LatLngExpression } from 'leaflet'; // Importar o tipo correto para coordenadas
-import { Icon, Modal, Text, Tooltip } from '@/components';
-import { data } from '../data';
 import 'leaflet/dist/leaflet.css';
+
+import { LatLngExpression } from 'leaflet'; // Importar o tipo correto para coordenadas
+import { useEffect, useState } from 'react';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+
+import { Icon, Modal, Text, Tooltip } from '@/components';
+
+import { data } from '../data';
 
 export const Location = () => {
   const [location, setLocation] = useState<LatLngExpression | null>(null);

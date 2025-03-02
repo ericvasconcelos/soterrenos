@@ -1,6 +1,7 @@
 import { IconNames } from '@/components/Icon/types';
-import { DataInfos, IInfoSection, IInfoItem } from './types';
+
 import { IInfos } from '../types';
+import { DataInfos, IInfoItem, IInfoSection } from './types';
 
 const slopeIcon: Record<string, IconNames> = {
   downhill: 'arrow-down-right',

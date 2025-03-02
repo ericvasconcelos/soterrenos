@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
-import { IRadio } from './types';
+
 import { FormField } from '../FormField';
+import { IRadio } from './types';
 
 export const Radio = forwardRef<HTMLInputElement, IRadio>(
   (

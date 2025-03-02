@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
-import { ICheckbox } from './types';
+
 import { FormField } from '../FormField';
+import { ICheckbox } from './types';
 
 export const Checkbox = forwardRef<HTMLInputElement, ICheckbox>(
   ({ id, error, content, isLoading = false, isValid, ...rest }, ref) => (

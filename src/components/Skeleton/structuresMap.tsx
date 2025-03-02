@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+
 import { ISkeletonName } from './types';
 
 export const structuresMap: Record<ISkeletonName, CSSProperties> = {
@@ -41,5 +42,10 @@ export const structuresMap: Record<ISkeletonName, CSSProperties> = {
     width: '48px',
     height: '48px',
     borderRadius: '52px',
+  },
+  card: {
+    width: '100%',
+    height: '320px',
+    borderRadius: '12px',
   },
 };

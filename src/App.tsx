@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router';
-import Home from './pages/home';
+import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
+
 import Advertisements from './pages/advertisements';
+import Home from './pages/home';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
 import CreateAdvertisement from './pages/myAdvertisements/create';

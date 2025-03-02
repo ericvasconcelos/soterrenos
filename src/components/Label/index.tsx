@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+
 import { ILabel } from './types';
 
 export const Label = ({ id, text, invalid }: ILabel) => {

@@ -1,8 +1,9 @@
-import { FC, useMemo } from 'react';
 import cx from 'classnames';
-import { IButton } from './types';
+import { FC, useMemo } from 'react';
+
 import { Icon } from '../Icon';
 import { Spinner } from '../Spinner';
+import { IButton } from './types';
 
 export const Button: FC<IButton> = ({
   className,

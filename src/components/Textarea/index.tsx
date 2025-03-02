@@ -1,8 +1,9 @@
-import { forwardRef } from 'react';
 import cx from 'classnames';
-import { ITextArea } from './types';
+import { forwardRef } from 'react';
+
 import { FormField } from '../FormField';
 import { Label } from '../Label';
+import { ITextArea } from './types';
 
 export const Textarea = forwardRef<HTMLTextAreaElement, ITextArea>(
   ({ id, label, isValid, error, disabled, ...rest }, ref) => {

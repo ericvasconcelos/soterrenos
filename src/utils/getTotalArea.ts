@@ -5,6 +5,14 @@ type ILandSize = {
   right: number;
 };
 
-export const getTotalArea = (landSize: ILandSize): number =>
-  ((landSize.front + landSize.back) * ((landSize.left + landSize.right) / 2)) /
-  2;
+export const getTotalArea = (landSize: ILandSize) => {
+  const area =
+    ((landSize.front + landSize.back) *
+      ((landSize.left + landSize.right) / 2)) /
+    2;
+
+  return {
+    value: area,
+    text: `${area.toFixed(0)}m²`,
+  };
+};

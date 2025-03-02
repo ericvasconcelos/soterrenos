@@ -1,8 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import './styles.css';
+
 import cx from 'classnames';
+import { FC, useEffect, useState } from 'react';
+
 import { Icon } from '../Icon';
 import { IModal } from './types';
-import './styles.css';
 
 export const Modal: FC<IModal> = ({ isOpen, onClose, children }) => {
   const [isVisible, setIsVisible] = useState(false);

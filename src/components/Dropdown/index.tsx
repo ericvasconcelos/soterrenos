@@ -1,7 +1,8 @@
-import { FC } from 'react';
 import * as Popover from '@radix-ui/react-popover';
-import { IDropdown } from './types';
+import { FC } from 'react';
 import { NavLink } from 'react-router';
+
+import { IDropdown } from './types';
 
 export const Dropdown: FC<IDropdown> = ({ children, items }) => (
   <Popover.Root>
@@ -26,9 +27,9 @@ export const Dropdown: FC<IDropdown> = ({ children, items }) => (
               <NavLink
                 key={label}
                 to={link}
-                className={({ isActive }) => {
-                  return `block px-6 py-3 text-sm text-gray-900 hover:bg-gray-200 hover:font-medium transition ${isActive && 'bg-gray-200'}`;
-                }}
+                className={({ isActive }) =>
+                  `block px-6 py-3 text-sm text-gray-900 hover:bg-gray-200 hover:font-medium transition ${isActive && 'bg-gray-200'}`
+                }
               >
                 {label}
               </NavLink>

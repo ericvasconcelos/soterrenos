@@ -8,7 +8,8 @@ export type ISkeletonName =
   | 'subtitle'
   | 'input'
   | 'button'
-  | 'avatar';
+  | 'avatar'
+  | 'card';
 
 export interface ISkeleton {
   style?: CSSProperties;

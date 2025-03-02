@@ -1,4 +1,4 @@
-import { ReactNode, FocusEventHandler } from 'react';
+import { FocusEventHandler, ReactNode } from 'react';
 import { ChangeHandler } from 'react-hook-form';
 
 export interface IFormField {

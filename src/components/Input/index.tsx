@@ -1,8 +1,9 @@
-import { ChangeEvent, forwardRef } from 'react';
 import cx from 'classnames';
-import { IInput } from './types';
+import { ChangeEvent, forwardRef } from 'react';
+
 import { FormField } from '../FormField';
 import { Label } from '../Label';
+import { IInput } from './types';
 
 export const Input = forwardRef<HTMLInputElement, IInput>(
   (

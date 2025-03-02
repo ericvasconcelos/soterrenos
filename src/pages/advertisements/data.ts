@@ -1,6 +1,6 @@
-import { IData } from './types';
+import { ILand } from '@/types';
 
-export const data: IData = {
+export const data: ILand = {
   code: '1350198862',
   lastUpdate: '21/02/2025',
   title: 'Park Way Lote/terreno A Venda Quadra 23 Conjunto 3',

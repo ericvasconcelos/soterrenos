@@ -1,5 +1,6 @@
-import { IImage } from '@/types';
 import { HTMLAttributes } from 'react';
+
+import { IImage } from '@/types';
 
 export type ISizes = 'sm' | 'md' | 'lg';
 

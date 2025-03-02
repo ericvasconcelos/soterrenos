@@ -1,4 +1,5 @@
 import { ReactNode, useRef } from 'react';
+
 import { Header } from '../Header';
 
 export const Page = ({ children }: { children?: ReactNode }) => {

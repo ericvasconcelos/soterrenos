@@ -1,68 +1,55 @@
-import { useState } from 'react';
-import reactLogo from '../../assets/react.svg';
-import viteLogo from '/vite.svg';
-import { useZipCode } from '../../hooks/useZipCode';
-import './styles.css';
+import { Container } from '@/components';
+import { Page } from '@/layouts/Page';
 
-function App() {
-  const [count, setCount] = useState(0);
-  const [zipCode, setZipCode] = useState('');
-  const { data, isLoading, isError, error } = useZipCode(zipCode);
+import { Nearby } from './nearby';
+import { SearchForm } from './searchForm';
 
-  return (
-    <div id="home">
-      <div className="flex gap-2 justify-center">
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-
-      <div>
-        <i className="fa-solid fa-user"></i>
-
-        <i className="fa-brands fa-github-square"></i>
-      </div>
-
-      <div className="w-full max-w-sm min-w-[200px] mt-4 mb-10">
-        <input
-          className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-          placeholder="CEP"
-          type="text"
-          name="zipCode"
-          onChange={(e) => setZipCode(e.currentTarget.value)}
-          maxLength={8}
+const Home = () => (
+  <Page>
+    <div className="relative w-full h-[530px]">
+      <picture>
+        <source
+          media="(min-width: 1536px)"
+          srcSet="/home/soterrenos-campo-3840.jpg"
         />
+        <source
+          media="(min-width: 1280px)"
+          srcSet="/home/soterrenos-campo-1536.jpg"
+        />
+        <source
+          media="(min-width: 1024px)"
+          srcSet="/home/soterrenos-campo-1280.jpg"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcSet="/home/soterrenos-campo-1024.jpg"
+        />
+        <source
+          media="(min-width: 640px)"
+          srcSet="/home/soterrenos-campo-768.jpg"
+        />
+        <source
+          media="(min-width: 0px)"
+          srcSet="/home/soterrenos-campo-640.jpg"
+        />
+        <img
+          src="/soterrenos-campo-3840.jpg"
+          alt="Campo com rio e vegetação"
+          className="w-full h-full object-cover"
+        />
+      </picture>
 
-        {isLoading && <p>Carregando...</p>}
-        {isError && <p>Erro: {error?.message}</p>}
-        {data && (
-          <div>
-            <h2>Informações do CEP:</h2>
-            <p>CEP: {data.cep}</p>
-            <p>Logradouro: {data.logradouro}</p>
-            <p>Bairro: {data.bairro}</p>
-            <p>Cidade: {data.localidade}</p>
-            <p>Estado: {data.uf}</p>
-          </div>
-        )}
+      <div className="absolute top-0 left-0 right-0 bottom-0">
+        <Container>
+          <SearchForm />
+        </Container>
       </div>
     </div>
-  );
-}
 
-export default App;
+    <Container>
+      <Nearby />
+    </Container>
+  </Page>
+);
+
+export default Home;

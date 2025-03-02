@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { IFormField } from './types';
 
 export const FormField: FC<IFormField> = ({ id, error, children }) => (

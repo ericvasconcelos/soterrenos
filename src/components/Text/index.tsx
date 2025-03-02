@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import cx from 'classnames';
+import { FC } from 'react';
+
 import { IText } from './types';
 
 export const Text: FC<IText> = ({

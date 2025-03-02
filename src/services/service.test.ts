@@ -1,12 +1,14 @@
 import { AxiosInstance, AxiosResponse, CreateAxiosDefaults } from 'axios';
+
+import { API_URL } from '@/envs';
+
+import HttpService from '.';
 import {
   axiosInstanceMock,
   mockedAxios,
   mockRequestInterceptor,
   mockResponseInterceptor,
 } from './helper-test';
-import HttpService from '.';
-import { API_URL } from '../envs';
 
 mockedAxios.create.mockImplementation(
   (config?: CreateAxiosDefaults<unknown>): AxiosInstance => {
