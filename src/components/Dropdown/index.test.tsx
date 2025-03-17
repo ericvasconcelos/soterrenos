@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 
-import { Dropdown } from '.';
+import { Dropdown } from './index';
 import { DropdownItem } from './types';
 
 const items: DropdownItem[] = [

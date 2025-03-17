@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ComponentProps, useState } from 'react';
 
-import { Radio } from '.';
+import { Radio } from './index';
 
 const meta: Meta<typeof Radio> = {
   title: 'Components/Radio',

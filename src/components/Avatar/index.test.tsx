@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 
-import { Avatar } from '.';
+import { Avatar } from './index';
 
 describe('Avatar Component', () => {
   it('should render initials when no image is provided', () => {

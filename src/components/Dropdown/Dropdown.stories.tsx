@@ -4,7 +4,7 @@ import { MemoryRouter, Route, Routes } from 'react-router';
 
 import { Avatar } from '../Avatar';
 import { Icon } from '../Icon';
-import { Dropdown } from '.';
+import { Dropdown } from './index';
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',

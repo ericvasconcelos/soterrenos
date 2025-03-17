@@ -3,7 +3,7 @@ import { renderHook, waitFor } from '@testing-library/react';
 
 import { fetchZipCode } from '../../services/zipCode';
 import { IZipCodeData } from '../../services/zipCode/types';
-import { useZipCode } from '.';
+import { useZipCode } from './index';
 
 // Mock do service
 jest.mock('../../services/zipCode');

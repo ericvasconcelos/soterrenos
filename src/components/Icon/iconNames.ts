@@ -37,6 +37,7 @@ export const iconNames = [
   'hospital',
   'identification',
   'information-circle',
+  'instagram',
   'light-bulb',
   'lock-closed',
   'mail',
@@ -66,5 +67,6 @@ export const iconNames = [
   'whatsapp',
   'wifi',
   'x-mark',
+  'youtube',
   'zoning',
 ] as const;

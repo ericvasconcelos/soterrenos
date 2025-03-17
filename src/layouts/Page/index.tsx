@@ -1,5 +1,6 @@
 import { ReactNode, useRef } from 'react';
 
+import { Footer } from '../Footer';
 import { Header } from '../Header';
 
 export const Page = ({ children }: { children?: ReactNode }) => {
@@ -9,6 +10,7 @@ export const Page = ({ children }: { children?: ReactNode }) => {
     <>
       <Header />
       <main ref={mainRef}>{children}</main>
+      <Footer />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
 import { axiosInstanceMock } from './../helper-test';
-import { fetchZipCode } from '.';
+import { fetchZipCode } from './index';
 import { IZipCodeData } from './types';
 
 describe('fetchZipCode', () => {

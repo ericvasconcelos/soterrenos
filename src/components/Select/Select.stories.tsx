@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { ComponentProps, useState } from 'react';
 
-import { Select } from '.';
+import { Select } from './index';
 
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',

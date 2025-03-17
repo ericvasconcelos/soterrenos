@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 
-import useHash from '.';
+import useHash from './index';
 
 describe('useHash', () => {
   it('should set isClient to true after mounting', () => {

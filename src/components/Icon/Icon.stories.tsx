@@ -1,8 +1,8 @@
 import { Meta, StoryFn } from '@storybook/react';
 
 import { Text } from '../Text';
-import { Icon } from '.';
 import { iconNames } from './iconNames';
+import { Icon } from './index';
 import { IconNames } from './types';
 
 export const List: StoryFn = () => (
@@ -25,7 +25,7 @@ export const List: StoryFn = () => (
         }}
       >
         <Icon name={name} size={32} />
-        <Text size="xs" weight="light" color="gray-900">
+        <Text size="xs" weight="light" align="center" color="gray-900">
           {name}
         </Text>
       </div>

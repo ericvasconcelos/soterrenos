@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 
-import { Card } from '.';
+import { Card } from './index';
 
 describe('Card Component', () => {
   it('deve renderizar os children corretamente', () => {

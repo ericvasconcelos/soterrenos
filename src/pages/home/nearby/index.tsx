@@ -13,7 +13,7 @@ export const Nearby = () => {
         Terrenos na sua cidade
       </Text>
 
-      <div className="grid grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
         {loading &&
           lands.length === 0 &&
           fakeList.map((item) => <Skeleton key={item} name="card" />)}
