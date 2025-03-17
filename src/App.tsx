@@ -5,6 +5,7 @@ import Home from './pages/home';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
 import CreateAdvertisement from './pages/myAdvertisements/create';
+import TermsAndConditions from './pages/termsAndConditions';
 
 const Root = () => (
   <>
@@ -25,6 +26,11 @@ export default function App() {
             <Route index path="ativos" element={<MyAdvertisements />} />
             <Route path="criando" element={<CreateAdvertisement />} />
           </Route>
+
+          <Route
+            path="/termos-e-condicoes-politica-de-privacidade"
+            element={<TermsAndConditions />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -14,7 +14,7 @@ export const Text: FC<IText> = ({
   ...rest
 }) => {
   const classes = cx(
-    `leading-tight text-${color}`,
+    `leading-[1.5] text-${color}`,
     {
       'text-xs': size === 'xs',
       'text-sm': size === 'sm',

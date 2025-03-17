@@ -56,6 +56,8 @@ export const iconNames = [
   'store',
   'sun',
   'telegram',
+  'thumb-down',
+  'thumb-up',
   'tractor',
   'twitter',
   'user',

@@ -13,13 +13,13 @@ export const Footer = () => (
 
           <Link
             className="block text-gray-200 text-sm font-medium mb-3"
-            to="/termos-e-condicoes"
+            to="/termos-e-condicoes-politica-de-privacidade"
           >
             Termos e Condições
           </Link>
           <Link
             className="block text-gray-200 text-sm font-medium mb-3"
-            to="/politica-de-privacidade"
+            to="/termos-e-condicoes-politica-de-privacidade"
           >
             Política de Privacidade
           </Link>
