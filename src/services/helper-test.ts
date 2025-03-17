@@ -10,6 +10,7 @@ interface ErrorHandler {
 }
 
 export const mockRequestInterceptor = jest.fn();
+
 export const mockResponseInterceptor: jest.Mock<unknown, unknown[]> & {
   errorHandler?: ErrorHandler;
 } = jest.fn();
@@ -46,4 +47,4 @@ export const axiosInstanceMock: AxiosInstance = {
   },
 } as unknown as AxiosInstance;
 
-(axios.create as jest.Mock).mockReturnValue(axiosInstanceMock);
+mockedAxios.create.mockReturnValue(axiosInstanceMock);

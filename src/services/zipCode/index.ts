@@ -1,4 +1,4 @@
-import HttpService from '..';
+import { HttpService } from '..';
 import { IZipCodeData } from './types';
 
 const zipCodeService = new HttpService('/ws');

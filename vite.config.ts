@@ -1,7 +1,7 @@
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react-swc';
-import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -17,7 +17,6 @@ export default defineConfig({
       '@/services': resolve(__dirname, 'src/services'),
       '@/types': resolve(__dirname, 'src/types'),
       '@/utils': resolve(__dirname, 'src/utils'),
-      '@/envs': resolve(__dirname, 'src/envs'),
     },
   },
   build: {

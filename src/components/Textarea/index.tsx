@@ -8,7 +8,7 @@ import { ITextArea } from './types';
 export const Textarea = forwardRef<HTMLTextAreaElement, ITextArea>(
   ({ id, label, isValid, error, disabled, ...rest }, ref) => {
     const styleClass = cx(
-      `w-full h-auto px-3 py-2 inset-shadow-[0_0_0_1px]
+      `relative w-full h-auto px-3 pt-6.5 pb-2 inset-shadow-[0_0_0_1px]
     focus-within:inset-shadow-[0_0_0_2px] rounded-lg bg-white
     text-sm font-normal`,
       {

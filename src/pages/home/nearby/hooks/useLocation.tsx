@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { OPEN_STREET_API_URL } from '@/envs';
 import { fetchZipCode } from '@/services/zipCode';
+
+import { OPEN_STREET_API_URL } from '../../../../envs';
 
 export const useLocation = () => {
   const [city, setCity] = useState<string>();

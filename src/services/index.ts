@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { API_URL } from '@/envs';
+import { API_URL } from '../envs';
 
 interface IRequest {
   [key: string]: unknown;
@@ -72,7 +72,7 @@ class ApiClient {
   }
 }
 
-class HttpService {
+export class HttpService {
   private readonly _apiClient: ApiClient;
 
   constructor(endpoint: string) {
@@ -111,5 +111,3 @@ class HttpService {
     return this._apiClient.patch<T>(path, data, config);
   }
 }
-
-export default HttpService;
