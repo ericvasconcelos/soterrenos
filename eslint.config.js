@@ -25,12 +25,12 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'prefer-const': ['error', { ignoreReadBeforeAssign: true }],
       'no-unused-vars': 'off',
-      'sort-imports': 'off',
       '@typescript-eslint/no-unused-vars': ['error'],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
+      'sort-imports': 'off',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       'arrow-body-style': ['error', 'as-needed'],

@@ -1,13 +1,13 @@
 import { AxiosInstance, AxiosResponse, CreateAxiosDefaults } from 'axios';
 
 import { API_URL } from '../envs';
-import { HttpService } from '.';
 import {
   axiosInstanceMock,
   mockedAxios,
   mockRequestInterceptor,
   mockResponseInterceptor,
 } from './helper-test';
+import { HttpService } from './index';
 
 mockedAxios.create.mockImplementation(
   (config?: CreateAxiosDefaults<unknown>): AxiosInstance => {
@@ -29,7 +29,6 @@ describe('HttpService', () => {
     window.location.href = '';
     httpService = new HttpService('/test');
     instance = mockedAxios.create.mock.results[0].value;
-    console.log('instance', instance);
   });
 
   describe('ApiClient Configuration', () => {
