@@ -1,6 +1,7 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
 
 import Advertisements from './pages/advertisements';
+import HelpDesk from './pages/helpDesk';
 import Home from './pages/home';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
@@ -31,6 +32,8 @@ export default function App() {
             path="/termos-e-condicoes-politica-de-privacidade"
             element={<TermsAndConditions />}
           />
+
+          <Route path="/central-de-ajuda" element={<HelpDesk />} />
         </Route>
       </Routes>
     </BrowserRouter>
