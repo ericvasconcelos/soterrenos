@@ -28,7 +28,7 @@ export const SellersContactForm = () => {
   const onSubmit = (formData: IContactForm) => {
     const { name, phoneNumber, email, message } = formData;
     window.open(
-      `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}.%0ANome: ${name}%0AEmail: ${email}%0ATelefone: ${phoneNumber}`
+      `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}%0ANome: ${name}%0AEmail: ${email}%0ATelefone: ${phoneNumber}`
     );
   };
 

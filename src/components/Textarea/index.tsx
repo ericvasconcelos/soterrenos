@@ -31,6 +31,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextArea>(
             id={id}
             disabled={disabled}
             className={textareaClasses}
+            rows={3}
             {...rest}
           ></textarea>
         </div>

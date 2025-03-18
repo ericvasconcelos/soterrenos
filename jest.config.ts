@@ -9,18 +9,11 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    '^@/assets(.*)$': '<rootDir>/assets$1',
-    '^@/components(.*)$': '<rootDir>/components$1',
-    '^@/constants(.*)$': '<rootDir>/constants$1',
-    '^@/contexts(.*)$': '<rootDir>/contexts$1',
-    '^@/hooks(.*)$': '<rootDir>/hooks$1',
-    '^@/layouts(.*)$': '<rootDir>/layouts$1',
-    '^@/services(.*)$': '<rootDir>/services$1',
-    '^@/types(.*)$': '<rootDir>/types$1',
-    '^@/utils(.*)$': '<rootDir>/utils$1',
+    '^.+\\.svg$': 'jest-transformer-svg',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest', // Adicione esta linha
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };

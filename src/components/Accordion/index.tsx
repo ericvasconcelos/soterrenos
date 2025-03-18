@@ -14,7 +14,7 @@ import { IAccordion, IChildren } from './types';
 
 const AccordionTrigger = ({ children }: IChildren) => (
   <Header>
-    <Trigger className="trigger flex items-center w-full justify-between p-4 text-lg font-medium bg-white leading-none text-gray-900 transition-colors hover:bg-gray-100 cursor-pointer">
+    <Trigger className="trigger flex items-center justify-between gap-4 w-full p-4 text-lg font-medium text-left leading-normal bg-white text-gray-900 transition-colors hover:bg-gray-100 cursor-pointer">
       {children}
       <span className="chevron">
         <Icon name="chevron-down" aria-hidden />
