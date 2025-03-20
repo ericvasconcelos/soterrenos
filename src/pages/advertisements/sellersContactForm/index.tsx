@@ -54,11 +54,11 @@ export const SellersContactForm = () => {
         )}
 
         <div>
-          <Text weight="medium" className="mb-2">
+          <Text weight="medium" className="mb-1.5">
             Vendido por {name}
           </Text>
 
-          <Text size="sm" className="flex items-center gap-1 mb-2">
+          <Text size="sm" className="flex items-center gap-1 mb-1.5">
             <Icon name="phone" size={20} />
             {filterPhoneMask(phoneNumber.slice(0, showPhoneNumber ? 11 : 5))}
             {!showPhoneNumber && (
@@ -71,7 +71,7 @@ export const SellersContactForm = () => {
             )}
           </Text>
 
-          <Text size="sm" className="flex items-center gap-1 mb-2">
+          <Text size="sm" className="flex items-center gap-1 mb-1.5">
             <Icon name="mail" size={20} />
             {email.slice(0, showEmail ? 999 : 7)}
             {!showEmail && (

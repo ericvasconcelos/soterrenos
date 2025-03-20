@@ -7,7 +7,7 @@ import {
   mockRequestInterceptor,
   mockResponseInterceptor,
 } from './helper-test';
-import { HttpService } from './index';
+import { ApiService } from './index';
 
 mockedAxios.create.mockImplementation(
   (config?: CreateAxiosDefaults<unknown>): AxiosInstance => {
@@ -18,16 +18,16 @@ mockedAxios.create.mockImplementation(
   }
 );
 
-describe('HttpService', () => {
+describe('ApiService', () => {
   const baseURL = `${API_URL}/test`;
-  let httpService: HttpService;
+  let apiService: ApiService;
   let instance: jest.Mocked<AxiosInstance>;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    window.sessionStorage.clear();
+    window.localStorage.clear();
     window.location.href = '';
-    httpService = new HttpService('/test');
+    apiService = new ApiService('/test');
     instance = mockedAxios.create.mock.results[0].value;
   });
 
@@ -36,16 +36,12 @@ describe('HttpService', () => {
       expect(mockedAxios.create).toHaveBeenCalledWith({
         baseURL,
         headers: {
-          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json',
         },
       });
     });
 
     it('deve configurar os headers corretamente', () => {
-      expect(
-        instance.defaults.headers.common['Access-Control-Allow-Origin']
-      ).toBe('*');
       expect(instance.defaults.headers.common['Content-Type']).toBe(
         'application/json'
       );
@@ -54,7 +50,7 @@ describe('HttpService', () => {
 
   describe('Interceptors', () => {
     it('deve adicionar header Authorization quando token existir', async () => {
-      window.sessionStorage.setItem('token', 'test-token');
+      window.localStorage.setItem('accessToken', 'test-token');
       const mockRequest = { headers: {} };
       const processedRequest = await mockRequestInterceptor(mockRequest);
       expect(processedRequest.headers.Authorization).toBe('Bearer test-token');
@@ -88,7 +84,7 @@ describe('HttpService', () => {
 
     it('get() deve fazer chamada correta', async () => {
       instance.get.mockResolvedValue({ data: mockData } as AxiosResponse);
-      const response = await httpService.get('/path');
+      const response = await apiService.get('/path');
       expect(response.data).toEqual(mockData);
       expect(instance.get).toHaveBeenCalledWith('/path', undefined);
     });
@@ -96,7 +92,7 @@ describe('HttpService', () => {
     it('post() deve fazer chamada correta', async () => {
       instance.post.mockResolvedValue({ data: mockData } as AxiosResponse);
       const payload = { key: 'value' };
-      const response = await httpService.post('/path', payload);
+      const response = await apiService.post('/path', payload);
       expect(response.data).toEqual(mockData);
       expect(instance.post).toHaveBeenCalledWith('/path', payload, undefined);
     });
@@ -104,7 +100,7 @@ describe('HttpService', () => {
     it('put() deve fazer chamada correta', async () => {
       instance.put.mockResolvedValue({ data: mockData } as AxiosResponse);
       const payload = { key: 'value' };
-      const response = await httpService.put('/path', payload);
+      const response = await apiService.put('/path', payload);
       expect(response.data).toEqual(mockData);
       expect(instance.put).toHaveBeenCalledWith('/path', payload, undefined);
     });
@@ -112,7 +108,7 @@ describe('HttpService', () => {
     it('patch() deve fazer chamada correta', async () => {
       instance.patch.mockResolvedValue({ data: mockData } as AxiosResponse);
       const payload = { key: 'value' };
-      const response = await httpService.patch('/path', payload);
+      const response = await apiService.patch('/path', payload);
       expect(response.data).toEqual(mockData);
       expect(instance.patch).toHaveBeenCalledWith('/path', payload, undefined);
     });
@@ -120,13 +116,13 @@ describe('HttpService', () => {
     it('get() deve tratar erro corretamente', async () => {
       const error = new Error('Network Error');
       instance.get.mockRejectedValue(error);
-      await expect(httpService.get('/path')).rejects.toThrow('Network Error');
+      await expect(apiService.get('/path')).rejects.toThrow('Network Error');
     });
 
     it('post() deve tratar erro corretamente', async () => {
       const error = new Error('Request Failed');
       instance.post.mockRejectedValue(error);
-      await expect(httpService.post('/path', { key: 'value' })).rejects.toThrow(
+      await expect(apiService.post('/path', { key: 'value' })).rejects.toThrow(
         'Request Failed'
       );
     });
@@ -134,7 +130,7 @@ describe('HttpService', () => {
     it('put() deve tratar erro corretamente', async () => {
       const error = new Error('Update Failed');
       instance.put.mockRejectedValue(error);
-      await expect(httpService.put('/path', { key: 'value' })).rejects.toThrow(
+      await expect(apiService.put('/path', { key: 'value' })).rejects.toThrow(
         'Update Failed'
       );
     });
@@ -142,9 +138,9 @@ describe('HttpService', () => {
     it('patch() deve tratar erro corretamente', async () => {
       const error = new Error('Patch Error');
       instance.patch.mockRejectedValue(error);
-      await expect(
-        httpService.patch('/path', { key: 'value' })
-      ).rejects.toThrow('Patch Error');
+      await expect(apiService.patch('/path', { key: 'value' })).rejects.toThrow(
+        'Patch Error'
+      );
     });
   });
 });

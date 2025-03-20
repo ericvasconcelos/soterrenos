@@ -12,26 +12,41 @@ export const Dropdown: FC<IDropdown> = ({ children, items }) => (
         side="bottom"
         sideOffset={4}
         align="end"
-        className="w-60 z-10 py-3 rounded-lg bg-white shadow-xl outline-none"
+        className="w-60 z-10 py-3 rounded-lg bg-white shadow-3xl outline-none"
       >
-        {items.map(({ type, label, link }, index) => {
-          if (type === 'separate') {
+        {items.map((item, index) => {
+          if (item.type === 'separate') {
             return (
-              <hr key={`${type}-${index}`} className="border-gray-300 my-2" />
+              <hr
+                key={`${item.type}-${index}`}
+                className="border-gray-300 my-2"
+              />
+            );
+          }
+
+          if (item.type === 'button') {
+            return (
+              <button
+                key={item.label}
+                className="block w-full px-6 py-3 text-sm text-left text-gray-900 cursor-pointer hover:bg-gray-200 hover:font-medium transition"
+                onClick={item.onClick}
+              >
+                {item.label}
+              </button>
             );
           }
 
           return (
-            !!link &&
-            !!label && (
+            !!item.link &&
+            !!item.label && (
               <NavLink
-                key={label}
-                to={link}
+                key={item.label}
+                to={item.link}
                 className={({ isActive }) =>
                   `block px-6 py-3 text-sm text-gray-900 hover:bg-gray-200 hover:font-medium transition ${isActive && 'bg-gray-200'}`
                 }
               >
-                {label}
+                {item.label}
               </NavLink>
             )
           );

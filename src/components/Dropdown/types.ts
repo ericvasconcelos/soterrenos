@@ -3,16 +3,24 @@ export interface IDropdown {
   items: DropdownItem[];
 }
 
-interface LinkItem {
+export interface LinkItem {
   type: 'link';
   label: string;
   link: string;
+  onClick?: never;
 }
 
-interface SeparateItem {
+export interface ButtonItem {
+  type: 'button';
+  label: string;
+  onClick: () => void;
+  link?: never;
+}
+
+export interface SeparateItem {
   type: 'separate';
   label?: never;
   link?: never;
 }
 
-export type DropdownItem = LinkItem | SeparateItem;
+export type DropdownItem = ButtonItem | LinkItem | SeparateItem;

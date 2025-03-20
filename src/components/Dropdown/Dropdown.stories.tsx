@@ -74,9 +74,9 @@ export const Default: Story = {
         link: '/',
       },
       {
-        type: 'link',
+        type: 'button',
         label: 'Sair da conta',
-        link: '/',
+        onClick: () => 'logout',
       },
     ],
   },

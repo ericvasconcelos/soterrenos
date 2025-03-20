@@ -5,50 +5,89 @@ import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router';
 
 import { Dropdown } from './index';
-import { DropdownItem } from './types';
+import { ButtonItem, DropdownItem } from './types';
 
-const items: DropdownItem[] = [
+const mockItems: DropdownItem[] = [
   { type: 'separate' },
-  { type: 'link', label: 'Central de ajuda', link: '/' },
-  { type: 'link', label: 'Sair da conta', link: '/' },
+  { type: 'link', label: 'Central de ajuda', link: '/help' },
+  {
+    type: 'button',
+    label: 'Sair da conta',
+    onClick: jest.fn(),
+  },
 ];
 
-const renderDropdown = () =>
+const renderComponent = () =>
   render(
-    <MemoryRouter initialEntries={['/']}>
-      <Dropdown items={items}>
+    <MemoryRouter>
+      <Dropdown items={mockItems}>
         <button>Open Dropdown</button>
       </Dropdown>
     </MemoryRouter>
   );
 
 describe('Dropdown Component', () => {
-  it('deve renderizar o trigger sem o conteúdo do popover inicialmente', () => {
-    renderDropdown();
+  it('should render trigger button', () => {
+    renderComponent();
 
-    const trigger = screen.getByRole('button', { name: /open dropdown/i });
+    const trigger = screen.getByRole('button', { name: 'Open Dropdown' });
     expect(trigger).toBeInTheDocument();
     expect(screen.queryByText('Central de ajuda')).not.toBeInTheDocument();
   });
 
-  it('deve abrir o popover e renderizar os itens quando o trigger é clicado', async () => {
-    renderDropdown();
+  it('should open dropdown when clicked', async () => {
+    renderComponent();
+    const user = userEvent.setup();
 
-    const trigger = screen.getByRole('button', { name: /open dropdown/i });
-    userEvent.click(trigger);
+    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
 
-    const separator = await screen.findByRole('separator');
-    expect(separator).toBeInTheDocument();
+    expect(screen.getByText('Central de ajuda')).toBeInTheDocument();
+    expect(screen.getByText('Sair da conta')).toBeInTheDocument();
+  });
 
-    const centralLink = screen.getByText('Central de ajuda');
-    expect(centralLink).toBeInTheDocument();
-    expect(centralLink).toHaveAttribute('href', '/');
+  it('should render separator item', async () => {
+    renderComponent();
+    const user = userEvent.setup();
 
-    const sairLink = screen.getByText('Sair da conta');
-    expect(sairLink).toBeInTheDocument();
-    expect(sairLink).toHaveAttribute('href', '/');
+    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
 
-    expect(centralLink.className).toMatch(/bg-gray-200/);
-    expect(sairLink.className).toMatch(/bg-gray-200/);
+    const separators = document.getElementsByTagName('hr');
+    expect(separators.length).toBe(1);
+  });
+
+  it('should navigate when clicking link item', async () => {
+    renderComponent();
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    const linkItem = screen.getByRole('link', { name: 'Central de ajuda' });
+
+    expect(linkItem).toHaveAttribute('href', '/help');
+  });
+
+  it('should trigger onClick when clicking button item', async () => {
+    renderComponent();
+    const user = userEvent.setup();
+
+    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Sair da conta' }));
+
+    expect((mockItems[2] as ButtonItem).onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('should apply active class to active link', async () => {
+    render(
+      <MemoryRouter initialEntries={['/help']}>
+        <Dropdown items={mockItems}>
+          <button>Open Dropdown</button>
+        </Dropdown>
+      </MemoryRouter>
+    );
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+
+    const activeLink = screen.getByRole('link', { name: 'Central de ajuda' });
+    expect(activeLink).toHaveClass('bg-gray-200');
   });
 });

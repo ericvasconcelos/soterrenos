@@ -1,10 +1,12 @@
 import 'leaflet/dist/leaflet.css';
 
+import axios from 'axios';
 import { LatLngExpression } from 'leaflet'; // Importar o tipo correto para coordenadas
 import { useEffect, useState } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import { Icon, Modal, Text, Tooltip } from '@/components';
+import { OPEN_STREET_API_URL } from '@/envs';
 
 import { data } from '../data';
 
@@ -18,13 +20,12 @@ export const Location = () => {
 
   useEffect(() => {
     const fetchCoordinates = async () => {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/search.php?postalcode=${zipCode}&polygon_geojson=1&format=jsonv2`
+      const { data } = await axios.get(
+        `${OPEN_STREET_API_URL}/search.php?postalcode=${zipCode}&polygon_geojson=1&format=jsonv2`
       );
-      const result = await response.json();
 
-      if (result.length > 0) {
-        const { lat, lon } = result[0];
+      if (data.length > 0) {
+        const { lat, lon } = data[0];
         setLocation([parseFloat(lat), parseFloat(lon)]); // Usar array para LatLngExpression
       } else {
         console.error('Endereço não encontrado!');

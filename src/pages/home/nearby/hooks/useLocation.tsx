@@ -1,8 +1,8 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import { OPEN_STREET_API_URL } from '@/envs';
 import { fetchZipCode } from '@/services/zipCode';
-
-import { OPEN_STREET_API_URL } from '../../../../envs';
 
 export const useLocation = () => {
   const [city, setCity] = useState<string>();
@@ -15,10 +15,9 @@ export const useLocation = () => {
         const { latitude, longitude } = position.coords;
 
         try {
-          const response = await fetch(
+          const { data } = await axios.get(
             `${OPEN_STREET_API_URL}/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
           );
-          const data = await response.json();
           const postcode = data?.address?.postcode.replace('-', '');
           const result = await fetchZipCode(postcode);
           setCity(result.localidade);

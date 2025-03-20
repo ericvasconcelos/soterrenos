@@ -6,7 +6,7 @@ import { SignUpForm } from './signUpForm';
 const SignUp = () => (
   <Page>
     <Container>
-      <div className="lg:grid grid-cols-2 gap-8 mt-12">
+      <div className="lg:grid grid-cols-2 gap-8 items-center mt-12">
         <div className="hidden lg:flex items-end justify-center">
           <img
             src="/sign-up/vendedor-de-terrenos.png"

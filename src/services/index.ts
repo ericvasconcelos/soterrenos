@@ -13,7 +13,6 @@ class ApiClient {
     this._api = axios.create({
       baseURL,
       headers: {
-        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json',
       },
     });
@@ -21,18 +20,19 @@ class ApiClient {
   }
 
   private setupInterceptors(): void {
-    this._api.interceptors.request.use((request) => {
-      const token = window.sessionStorage.getItem('token');
+    this._api.interceptors.request.use((config) => {
+      const token = localStorage.getItem('accessToken');
       if (token) {
-        request.headers.Authorization = `Bearer ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
       }
-      return request;
+      return config;
     });
 
     this._api.interceptors.response.use(
       (response) => response,
       (error) => {
         if (error.response?.status === 401) {
+          localStorage.removeItem('accessToken');
           window.location.href = '/';
         }
         return Promise.reject(error);
@@ -72,7 +72,7 @@ class ApiClient {
   }
 }
 
-export class HttpService {
+export class ApiService {
   private readonly _apiClient: ApiClient;
 
   constructor(endpoint: string) {
