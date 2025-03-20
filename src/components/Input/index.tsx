@@ -7,7 +7,17 @@ import { IInput } from './types';
 
 export const Input = forwardRef<HTMLInputElement, IInput>(
   (
-    { id, label, isValid, error, disabled, onChange, filterValue, ...rest },
+    {
+      id,
+      label,
+      isValid,
+      error,
+      disabled,
+      onChange,
+      filterValue,
+      className,
+      ...rest
+    },
     ref
   ) => {
     const styleClass = cx(
@@ -35,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     };
 
     return (
-      <FormField id={id} error={error}>
+      <FormField id={id} error={error} className={className}>
         <div className={styleClass}>
           {label && (
             <Label id={id} text={label} invalid={!isValid && !!error} />

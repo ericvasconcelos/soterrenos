@@ -6,6 +6,7 @@ import Home from './pages/home';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
 import CreateAdvertisement from './pages/myAdvertisements/create';
+import SignUp from './pages/signUp';
 import TermsAndConditions from './pages/termsAndConditions';
 
 const Root = () => (
@@ -34,6 +35,8 @@ export default function App() {
           />
 
           <Route path="/central-de-ajuda" element={<HelpDesk />} />
+
+          <Route path="/cadastrar" element={<SignUp />} />
         </Route>
       </Routes>
     </BrowserRouter>

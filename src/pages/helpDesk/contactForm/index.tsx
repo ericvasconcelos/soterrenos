@@ -6,7 +6,7 @@ import {
   Text,
   Textarea,
 } from '@/components';
-import { filterNameMask } from '@/utils';
+import { filterFullNameMask } from '@/utils';
 
 import { IContactForm, useContactForm } from './useContactForm';
 
@@ -50,7 +50,7 @@ export const ContactForm = () => {
             name="name"
             label="Nome"
             placeholder="Nome Sobrenome"
-            filterValue={filterNameMask}
+            filterValue={filterFullNameMask}
           />
         </div>
 

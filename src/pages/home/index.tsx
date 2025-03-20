@@ -33,7 +33,7 @@ const Home = () => (
           srcSet="/home/soterrenos-campo-640.jpg"
         />
         <img
-          src="/soterrenos-campo-3840.jpg"
+          src="/home/soterrenos-campo-3840.jpg"
           alt="Campo com rio e vegetação"
           className="w-full h-full object-cover"
         />

@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { Container, Icon, Text } from '@/components';
 
 export const Footer = () => (
-  <footer className="mt-20 bg-primary-700">
+  <footer className="bg-primary-700">
     <Container>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 py-12">
         <div>

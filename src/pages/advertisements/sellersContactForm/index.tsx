@@ -9,7 +9,7 @@ import {
   Text,
   Textarea,
 } from '@/components';
-import { filterNameMask, filterPhoneMask } from '@/utils';
+import { filterFullNameMask, filterPhoneMask } from '@/utils';
 
 import { data } from '../data';
 import { IContactForm, useContactForm } from './useContactForm';
@@ -115,7 +115,7 @@ export const SellersContactForm = () => {
             name="name"
             label="Nome"
             placeholder="Nome Sobrenome"
-            filterValue={filterNameMask}
+            filterValue={filterFullNameMask}
             disabled={!data.active}
           />
 

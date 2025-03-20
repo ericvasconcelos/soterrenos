@@ -4,6 +4,7 @@ import { ChangeHandler } from 'react-hook-form';
 export interface IFormField {
   id?: string;
   error?: string;
+  className?: string;
   children: ReactNode;
 }
 

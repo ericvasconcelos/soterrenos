@@ -1,22 +1,63 @@
 export const filterPhoneMask = (value: string) => {
-  let newValue = value.replace(/\D/g, '');
+  const newValue = value.replace(/\D/g, '').substring(0, 11);
 
-  if (newValue.length > 11) {
-    newValue = newValue.substring(0, 11);
+  if (newValue.length <= 2) return newValue;
+
+  const areaCode = newValue.substring(0, 2);
+  const mainPart = newValue.substring(2);
+  const isMobile = newValue.length === 11;
+
+  let formatted = `(${areaCode})`;
+
+  if (mainPart.length > 0) {
+    formatted += ` ${mainPart.substring(0, isMobile ? 5 : 4)}`;
+
+    if (mainPart.length > (isMobile ? 5 : 4)) {
+      formatted += `-${mainPart.substring(isMobile ? 5 : 4)}`;
+    }
   }
 
-  newValue = newValue.replace(/^(\d{2})(\d)/g, '($1) $2');
-  if (newValue.length <= 10) {
-    newValue = newValue.replace(/(\d)(\d{4})$/, '$1-$2');
-  } else {
-    newValue = newValue.replace(/(\d)(\d{4})$/, '$1-$2');
-  }
+  return formatted;
+};
 
+export const filterSimpleNameMask = (value: string) => {
+  const newValue = value.replace(/\d/g, '');
   return newValue;
 };
 
-export const filterNameMask = (value: string) => {
+export const filterFullNameMask = (value: string) => {
   let newValue = value.replace(/\d/g, '');
-  newValue = newValue.replace(/\s{2,}/g, '  ');
+  newValue = newValue.replace(/\s{2,}/g, ' ');
+  return newValue;
+};
+
+export const filterCompanyNameMask = (value: string) => {
+  const newValue = value.replace(/\s{2,}/g, ' ');
+  return newValue;
+};
+
+export const filterCPFMask = (value: string) => {
+  const newValue = value.replace(/\D/g, '').substring(0, 11);
+
+  return newValue
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1');
+};
+
+export const filterCNPJMask = (value: string) => {
+  const newValue = value.replace(/\D/g, '').substring(0, 14);
+
+  return newValue
+    .replace(/(\d{2})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1/$2')
+    .replace(/(\d{4})(\d)/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1');
+};
+
+export const filterOnlyNumbersMask = (value: string) => {
+  const newValue = value.replace(/\D/g, '');
   return newValue;
 };

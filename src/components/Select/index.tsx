@@ -20,6 +20,7 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
       error,
       disabled,
       onChange,
+      className,
     },
     ref
   ) => {
@@ -61,7 +62,7 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
     );
 
     return (
-      <FormField id={id} error={error}>
+      <FormField id={id} error={error} className={className}>
         <div className={containerClasses}>
           {label && (
             <Label id={id} text={label} invalid={!isValid && !!error} />
