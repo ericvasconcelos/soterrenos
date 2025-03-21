@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { lands } from '../../../../utils/lands';
+import { initialLands } from '../../../../utils/lands';
 import { useLocation } from './useLocation';
 
 export const useLandListByCity = () => {
@@ -8,7 +8,7 @@ export const useLandListByCity = () => {
 
   const landsByCity = useMemo(() => {
     if (!city) return [];
-    return lands
+    return initialLands
       .filter((land) => land.address.city.toLowerCase() === city.toLowerCase())
       .sort(() => Math.random() - 0.5)
       .slice(0, 8);

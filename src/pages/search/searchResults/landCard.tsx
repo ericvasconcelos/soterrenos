@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { Card, Text } from '@/components';
 import { formatAddress, getTotalArea, priceFormatter } from '@/utils';
 
-import { ISearchCard } from './types';
+import { ILandCard } from './types';
 
-export const SearchCard: FC<ISearchCard> = ({ item }) => {
+export const LandCard: FC<ILandCard> = ({ item }) => {
   const totalArea = getTotalArea(item.landSize);
   return (
     <Card padding="none" hasShadow className="grid grid-cols-[300px_auto]">

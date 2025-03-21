@@ -1,56 +1,56 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 
 import { Skeleton, Text } from '@/components';
 import { ILand, ISearchForm } from '@/types';
 import { generateArray, wait } from '@/utils';
-import { lands } from '@/utils/lands';
+import { initialLands } from '@/utils/lands';
 
 import { paramConfigs } from '../searchForm/helpers';
-import { SearchCard } from './card';
+import { LandCard } from './landCard';
 
 export const SearchResults = () => {
   const { state, city, neighborhood } = useParams();
   const [searchParams] = useSearchParams();
-  const [properties, setProperties] = useState<ILand[]>(lands);
+  const [lands, setLands] = useState<ILand[]>(initialLands);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   const skeletons = generateArray(6);
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      setLoading(true);
-      await wait(2000);
+  const fetchLands = useCallback(async () => {
+    setLoading(true);
+    await wait(2000);
 
-      try {
-        const filters: Partial<Record<keyof ISearchForm, string | boolean>> = {
-          state: state || '',
-          city: city || '',
-          neighborhood: neighborhood || '',
-        };
+    try {
+      const filters: Partial<Record<keyof ISearchForm, string | boolean>> = {
+        state: state || '',
+        city: city || '',
+        neighborhood: neighborhood || '',
+      };
 
-        paramConfigs.forEach(({ name, transform }) => {
-          const value = searchParams.get(name);
-          filters[name] = transform ? transform(value) : value || '';
-        });
+      paramConfigs.forEach(({ name, transform }) => {
+        const value = searchParams.get(name);
+        filters[name] = transform ? transform(value) : value || '';
+      });
 
-        const { data } = await axios.get<ILand[]>('/api/properties', {
-          params: filters,
-        });
+      const { data } = await axios.get<ILand[]>('/api/lands', {
+        params: filters,
+      });
 
-        if (Array.isArray(data)) setProperties(data);
-        // throw new Error('Problema no servidor');
-      } catch (error) {
-        setError(`Erro na busca: ${error}`);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
+      if (Array.isArray(data)) setLands(data);
+      // throw new Error('Problema no servidor');
+    } catch (error) {
+      setError(`Erro na busca: ${error}`);
+    } finally {
+      setLoading(false);
+    }
   }, [state, city, neighborhood, searchParams]);
+
+  useEffect(() => {
+    fetchLands();
+  }, [fetchLands]);
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -61,7 +61,7 @@ export const SearchResults = () => {
       )}
 
       {!loading &&
-        properties.map((item) => <SearchCard key={item.code} item={item} />)}
+        lands.map((item) => <LandCard key={item.code} item={item} />)}
 
       {loading &&
         skeletons.map((item) => (

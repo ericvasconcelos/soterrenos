@@ -1,5 +1,5 @@
 import { ILand } from '@/types';
 
-export interface ISearchCard {
+export interface ILandCard {
   item: ILand;
 }
