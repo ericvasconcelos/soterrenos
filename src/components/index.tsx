@@ -12,6 +12,7 @@ export { Input } from './Input';
 export { Label } from './Label';
 export { Modal } from './Modal';
 export { Radio } from './Radio';
+export { RadioFields } from './Radio/RadioFields';
 export { Select } from './Select';
 export { Skeleton } from './Skeleton';
 export { Spinner } from './Spinner';

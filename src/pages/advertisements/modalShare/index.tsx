@@ -8,7 +8,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
   const totalArea = getTotalArea(data.landSize);
   const currentUrl = window.location.href;
 
-  // Função para copiar link
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(currentUrl);
@@ -18,7 +17,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     }
   };
 
-  // Compartilhar no WhatsApp
   const handleWhatsAppShare = () => {
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
       `Confira esse terreno: ${currentUrl}`
@@ -26,7 +24,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     window.open(whatsappUrl, '_blank');
   };
 
-  // Compartilhar no Facebook
   const handleFacebookShare = () => {
     const quote = encodeURIComponent('Confira este terreno incrível! 🏡');
     const facebookUrl = `https://www.facebook.com/sharer.php?u=${encodeURIComponent(
@@ -35,7 +32,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     window.open(facebookUrl, '_blank');
   };
 
-  // Compartilhar no Messenger
   const handleMessengerShare = () => {
     const messengerUrl = `https://www.messenger.com/t/?link=${encodeURIComponent(
       currentUrl
@@ -43,7 +39,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     window.open(messengerUrl, '_blank');
   };
 
-  // Compartilhar no Twitter
   const handleTwitterShare = () => {
     const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
       currentUrl
@@ -51,7 +46,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     window.open(twitterUrl, '_blank');
   };
 
-  // Compartilhar no Email
   const handleEmailShare = () => {
     const mailtoUrl = `mailto:?subject=Confira esse terreno&body=${encodeURIComponent(
       `Confira esse terreno disponível: ${currentUrl}`
@@ -59,7 +53,6 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
     window.open(mailtoUrl, '_blank');
   };
 
-  // Compartilhar no Telegram
   const handleTelegramShare = () => {
     const telegramUrl = `https://telegram.me/share/url?url=${encodeURIComponent(
       currentUrl

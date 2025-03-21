@@ -2,28 +2,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Resolver, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-export interface ISearchForm {
-  state: string;
-  city: string;
-  neighborhood: string;
-  minPrice: string;
-  maxPrice: string;
-  minArea: string;
-  maxArea: string;
-  fgts: boolean;
-  financing: boolean;
-}
+import { searchBaseSchema } from '@/schemas';
+import { ISearchForm } from '@/types';
 
 const validationSchema = yup.object().shape({
-  state: yup.string().required('Selecione um estado'),
-  city: yup.string().required('Selecione uma cidade'),
-  neighborhood: yup.string().required('Selecione um bairro'),
-  minPrice: yup.string().optional(),
-  maxPrice: yup.string().optional(),
-  minArea: yup.string().optional(),
-  maxArea: yup.string().optional(),
-  fgts: yup.boolean().optional(),
-  financing: yup.boolean().optional(),
+  ...searchBaseSchema,
 });
 
 export const useSearchForm = () => {

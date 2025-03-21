@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import {
   Button,
@@ -8,18 +9,21 @@ import {
   Input,
   Select,
 } from '@/components';
-import { ISelectOption } from '@/types';
-
-import { ISearchForm, useSearchForm } from './hooks/useSearchForm';
+import { ISearchForm, ISelectOption } from '@/types';
 import {
+  filterMoneyMask,
   findAndSortCities,
   findAndSortNeighborhoods,
+  formatSearchURL,
   generateStates,
-} from './utils';
+} from '@/utils';
+
+import { useSearchForm } from './hooks/useSearchForm';
 
 const states = generateStates();
 
 export const SearchForm = () => {
+  const navigate = useNavigate();
   const [cities, setCities] = useState<ISelectOption[]>([]);
   const [neighborhoods, setNeighborhoods] = useState<ISelectOption[]>([]);
 
@@ -34,9 +38,14 @@ export const SearchForm = () => {
   const selectedState = watch('state');
   const selectedCity = watch('city');
 
-  const onSubmit = (formData: ISearchForm) => {
-    console.log('Buscando terrenos com os filtros:', formData);
-  };
+  const onSubmit = useCallback(
+    (formData: ISearchForm) => {
+      const { state, city, neighborhood, ...filters } = formData;
+      const url = formatSearchURL(state, city, neighborhood, filters);
+      navigate(url);
+    },
+    [navigate]
+  );
 
   useEffect(() => {
     if (!selectedState) return;
@@ -101,8 +110,8 @@ export const SearchForm = () => {
               id="minPrice"
               name="minPrice"
               label="Preço mínimo"
-              type="number"
-              placeholder="R$ 100.000"
+              placeholder="R$ 1.000"
+              filterValue={filterMoneyMask}
             />
 
             <FieldController
@@ -111,8 +120,8 @@ export const SearchForm = () => {
               id="maxPrice"
               name="maxPrice"
               label="Preço máximo"
-              type="number"
               placeholder="R$ 1.000.000"
+              filterValue={filterMoneyMask}
             />
           </div>
 

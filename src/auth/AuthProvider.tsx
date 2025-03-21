@@ -1,22 +1,16 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { ApiService } from '@/services';
 
-import { IAuthContextType } from './types';
-
-const AuthContext = createContext<IAuthContextType>({} as IAuthContextType);
+import { AuthContext } from './AuthContext';
+import { isValidToken } from './helpers';
+import { IAuthProviderProps } from './types';
 
 const loggedPaths = ['/entrar', '/cadastrar'];
 
 const authService = new ApiService('/auth');
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -69,15 +63,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setToken(null);
   };
 
-  const isValidToken = (token: string) => {
-    try {
-      const { exp } = JSON.parse(atob(token.split('.')[1]));
-      return Date.now() < exp * 1000;
-    } catch {
-      return false;
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -93,5 +78,3 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);

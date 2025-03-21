@@ -1,4 +1,4 @@
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/auth';
 import { DropdownItem } from '@/components/Dropdown/types';
 
 export const useMenuItems = (): DropdownItem[] => {

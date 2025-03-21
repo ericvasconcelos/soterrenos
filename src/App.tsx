@@ -1,6 +1,6 @@
 import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
 
-import { AuthProvider } from './auth/AuthContext';
+import { AuthProvider } from './auth/AuthProvider';
 import Advertisements from './pages/advertisements';
 import HelpDesk from './pages/helpDesk';
 import Home from './pages/home';
@@ -8,6 +8,7 @@ import Login from './pages/login';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
 import CreateAdvertisement from './pages/myAdvertisements/create';
+import Search from './pages/search';
 import SignUp from './pages/signUp';
 import TermsAndConditions from './pages/termsAndConditions';
 import { ProtectedRoute } from './RrotectedRoute';
@@ -35,6 +36,11 @@ export default function App() {
                 <Route path="criando" element={<CreateAdvertisement />} />
               </Route>
             </Route>
+
+            <Route
+              path="/vendas/:state/:city/:neighborhood"
+              element={<Search />}
+            />
 
             <Route path="/entrar" element={<Login />} />
             <Route path="/cadastrar" element={<SignUp />} />

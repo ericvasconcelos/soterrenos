@@ -1,10 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
-// Mock do Axios
 jest.mock('axios');
 export const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-// Mock dos interceptors
 interface ErrorHandler {
   (error: unknown): Promise<never>;
 }

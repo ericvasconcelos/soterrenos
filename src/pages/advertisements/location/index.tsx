@@ -7,6 +7,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import { Icon, Modal, Text, Tooltip } from '@/components';
 import { OPEN_STREET_API_URL } from '@/envs';
+import { formatAddress } from '@/utils';
 
 import { data } from '../data';
 
@@ -14,9 +15,8 @@ export const Location = () => {
   const [location, setLocation] = useState<LatLngExpression | null>(null);
   const [isModalLocationOpen, setIsModalLocationOpen] =
     useState<boolean>(false);
-  const { street, condominium, neighborhood, city, state, zipCode } =
-    data.address;
-  const address = `${street}${condominium ? ', ' + condominium : ''}, ${neighborhood}, ${city}, ${state} - CEP: ${zipCode}`;
+  const { zipCode } = data.address;
+  const address = formatAddress(data.address);
 
   useEffect(() => {
     const fetchCoordinates = async () => {

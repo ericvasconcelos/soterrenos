@@ -1,4 +1,3 @@
-// src/services/zipCode/index.ts
 import axios from 'axios';
 
 import { VIA_CEP_API_URL } from '../../envs';

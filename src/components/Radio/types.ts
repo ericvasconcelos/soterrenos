@@ -11,3 +11,19 @@ export interface RadioBase
 }
 
 export type IRadio = RadioBase & IFormFieldProps<ChangeEvent<HTMLInputElement>>;
+
+export type IRadioOption<Value> = {
+  value: Value;
+  label: string;
+  disabled?: boolean;
+};
+
+export interface IRadioField<Value = string> extends IFormFieldProps<Value> {
+  title?: string;
+  disabled?: boolean;
+  value?: Value;
+  options?: Array<IRadioOption<Value>>;
+  direction?: 'column' | 'row';
+  error?: string;
+  className?: string;
+}

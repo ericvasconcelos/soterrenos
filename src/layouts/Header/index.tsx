@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-import { useAuth } from '@/auth/AuthContext';
+import { useAuth } from '@/auth';
 import { Avatar, Button, Container, Icon } from '@/components';
 import { Dropdown } from '@/components/Dropdown';
 

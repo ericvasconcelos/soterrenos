@@ -1,3 +1,5 @@
+import { priceFormatter, sanitizePrice } from './price';
+
 export const filterPhoneMask = (value: string) => {
   const newValue = value.replace(/\D/g, '').substring(0, 11);
 
@@ -60,4 +62,10 @@ export const filterCNPJMask = (value: string) => {
 export const filterOnlyNumbersMask = (value: string) => {
   const newValue = value.replace(/\D/g, '');
   return newValue;
+};
+
+export const filterMoneyMask = (value: string) => {
+  const sanitizedPrice = sanitizePrice(value);
+  if (!isNaN(sanitizedPrice)) return priceFormatter(sanitizedPrice);
+  return '';
 };

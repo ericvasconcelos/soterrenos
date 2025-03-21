@@ -1,4 +1,3 @@
-// src/services/zipCode/zipCode.test.ts
 import axios from 'axios';
 
 import { fetchZipCode } from './index';

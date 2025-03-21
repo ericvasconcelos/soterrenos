@@ -1,0 +1,1 @@
+export { searchBaseSchema } from './searchBaseSchema';
