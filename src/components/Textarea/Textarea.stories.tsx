@@ -6,12 +6,7 @@ import { Textarea } from './index';
 const meta: Meta<typeof Textarea> = {
   title: 'Components/Textarea',
   component: Textarea,
-  argTypes: {
-    label: { control: 'text' },
-    placeholder: { control: 'text' },
-    error: { control: 'text' },
-    isValid: { control: 'boolean' },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

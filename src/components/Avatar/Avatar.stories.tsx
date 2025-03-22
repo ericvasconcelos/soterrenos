@@ -5,9 +5,7 @@ import { Avatar } from './index';
 const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar',
   component: Avatar,
-  argTypes: {
-    size: { control: { type: 'select', options: ['sm', 'md', 'lg'] } },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

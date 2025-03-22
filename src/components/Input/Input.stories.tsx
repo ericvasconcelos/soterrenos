@@ -6,12 +6,7 @@ import { Input } from './index';
 const meta: Meta<typeof Input> = {
   title: 'Components/Input',
   component: Input,
-  argTypes: {
-    label: { control: 'text' },
-    placeholder: { control: 'text' },
-    error: { control: 'text' },
-    isValid: { control: 'boolean' },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

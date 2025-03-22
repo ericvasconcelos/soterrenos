@@ -6,12 +6,7 @@ import { Select } from './index';
 const meta: Meta<typeof Select> = {
   title: 'Components/Select',
   component: Select,
-  argTypes: {
-    label: { control: 'text' },
-    error: { control: 'text' },
-    isValid: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

@@ -6,11 +6,7 @@ import { Checkbox } from './index';
 const meta: Meta<typeof Checkbox> = {
   title: 'Components/Checkbox',
   component: Checkbox,
-  argTypes: {
-    isLoading: { control: 'boolean' },
-    isValid: { control: 'boolean' },
-    content: { control: 'text' },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

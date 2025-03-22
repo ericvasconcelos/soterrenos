@@ -5,6 +5,7 @@ import { Accordion } from './index';
 const meta: Meta<typeof Accordion> = {
   title: 'Components/Accordion',
   component: Accordion,
+  tags: ['autodocs'],
 };
 
 export default meta;

@@ -6,12 +6,7 @@ import { Button } from './index';
 const meta: Meta<typeof Button> = {
   title: 'Components/Button',
   component: Button,
-  argTypes: {
-    onClick: { action: 'clicked' },
-    icon: {
-      control: { type: 'select', options: ['home', 'settings', 'user'] }, // exemplo de ícones
-    },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

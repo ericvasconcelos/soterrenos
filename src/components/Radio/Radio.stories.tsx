@@ -6,6 +6,7 @@ import { Radio } from './index';
 const meta: Meta<typeof Radio> = {
   title: 'Components/Radio',
   component: Radio,
+  tags: ['autodocs'],
 };
 
 export default meta;

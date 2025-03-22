@@ -9,7 +9,7 @@ import { Dropdown } from './index';
 const meta: Meta<typeof Dropdown> = {
   title: 'Components/Dropdown',
   component: Dropdown,
-  argTypes: {},
+  tags: ['autodocs'],
 };
 
 export default meta;

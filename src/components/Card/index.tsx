@@ -8,6 +8,7 @@ export const Card: FC<ICard> = ({
   hasShadow = false,
   className,
   children,
+  ...rest
 }) => {
   const classes = cx(
     'bg-white border border-gray-300 rounded-xl overflow-hidden',
@@ -21,5 +22,9 @@ export const Card: FC<ICard> = ({
     className
   );
 
-  return <div className={classes}>{children}</div>;
+  return (
+    <div className={classes} {...rest}>
+      {children}
+    </div>
+  );
 };

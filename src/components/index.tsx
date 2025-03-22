@@ -10,6 +10,7 @@ export { Icon } from './Icon';
 export { ImageGallery } from './ImageGallery';
 export { Input } from './Input';
 export { Label } from './Label';
+export { LandCard } from './LandCard';
 export { Modal } from './Modal';
 export { Radio } from './Radio';
 export { RadioFields } from './Radio/RadioFields';

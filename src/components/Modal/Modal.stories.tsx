@@ -7,6 +7,7 @@ import { Modal } from './index';
 const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
+  tags: ['autodocs'],
 };
 
 export default meta;

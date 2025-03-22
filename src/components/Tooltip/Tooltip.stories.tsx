@@ -7,12 +7,7 @@ import { Tooltip } from './index';
 const meta: Meta<typeof Tooltip> = {
   title: 'Components/Tooltip',
   component: Tooltip,
-  argTypes: {
-    content: { control: 'text' },
-    contentPosition: {
-      control: { type: 'select', options: ['top', 'right', 'bottom', 'left'] },
-    },
-  },
+  tags: ['autodocs'],
 };
 
 export default meta;

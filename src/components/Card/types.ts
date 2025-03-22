@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-export interface ICard {
+export interface ICard extends HTMLAttributes<HTMLDivElement> {
   padding?: 'none' | 'sm' | 'md' | 'lg';
   hasShadow?: boolean;
   className?: string;
