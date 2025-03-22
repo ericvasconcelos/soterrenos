@@ -2,6 +2,7 @@ import { ISearchForm } from '@/types';
 
 export type SearchParamConfig = {
   name: keyof ISearchForm;
+  type: 'string' | 'boolean';
   transform?: (value: string | null) => string | boolean;
 };
 

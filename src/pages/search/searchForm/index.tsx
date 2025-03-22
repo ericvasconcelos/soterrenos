@@ -121,6 +121,16 @@ export const SearchForm = () => {
     setNeighborhoods(neighborhoodList);
   }, [selectedCity, resetField, selectedState]);
 
+  const handleClearFilters = useCallback(() => {
+    paramConfigs.forEach(({ name, type }) => {
+      setValue(name, type === 'string' ? '' : false);
+    });
+
+    commonAreas.forEach(({ name }) => {
+      setValue(name, false);
+    });
+  }, [setValue]);
+
   return (
     <div>
       <Card padding="sm" hasShadow>
@@ -430,6 +440,13 @@ export const SearchForm = () => {
           <Button isFull disabled={!isValid}>
             Buscar Terrenos
           </Button>
+
+          <button
+            onClick={handleClearFilters}
+            className="block w-full mt-4 mb-2 text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
+          >
+            Limpar filtros
+          </button>
 
           {!showAdvancedFilters && (
             <button
