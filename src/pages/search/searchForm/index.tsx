@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import cx from 'classnames';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router';
 
 import {
   Button,
-  Card,
   Checkbox,
   Divider,
   FieldController,
+  Icon,
   Input,
   RadioFields,
   Select,
@@ -33,9 +34,15 @@ export const SearchForm = () => {
   const [searchParams] = useSearchParams();
   const [cities, setCities] = useState<ISelectOption[]>([]);
   const [neighborhoods, setNeighborhoods] = useState<ISelectOption[]>([]);
+  const [openFilters, setOpenFilters] = useState(false);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(() =>
     advancedParams.some((param) => searchParams.has(param))
   );
+
+  const numberOfFiltersApplied: number = useMemo(() => {
+    const paramCount = Object.keys(Object.fromEntries(searchParams)).length;
+    return paramCount;
+  }, [searchParams]);
 
   const {
     control,
@@ -99,6 +106,7 @@ export const SearchForm = () => {
         commonAreas: filteredCommonAreas,
       });
       navigate(url);
+      setOpenFilters(false);
     },
     [navigate]
   );
@@ -132,9 +140,38 @@ export const SearchForm = () => {
   }, [setValue]);
 
   return (
-    <div>
-      <Card padding="sm" hasShadow>
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <Button
+        onClick={() => setOpenFilters(true)}
+        variant="secondary"
+        className="md:hidden mb-4"
+      >
+        Mostrar Filtros ({numberOfFiltersApplied})
+      </Button>
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={cx(
+          'bg-gray-50 fixed z-10 top-0 left-0 bottom-0 max-w-[360px] max-h-full md:sticky md:top-4 md:mt-[-16px] md:max-h-[calc(100vh-32px)] overflow-hidden',
+          {
+            'hidden md:block': !openFilters,
+          }
+        )}
+      >
+        <div className="flex md:hidden justify-between px-4 py-3 border-b-1 border-gray-300">
+          <Text size="lg" weight="medium">
+            Filtros
+          </Text>
+
+          <button
+            onClick={() => setOpenFilters(false)}
+            className="block md:hidden cursor-pointer"
+            aria-label="Fechar filtro"
+          >
+            <Icon name="x-mark" size={26} color="dark" />
+          </button>
+        </div>
+        <div className="max-h-[calc(100%-181px)] md:max-h-[calc(100%-129px)] p-4 scroll overflow-auto">
           <div className="grid grid-cols-1 gap-4 mb-4">
             <FieldController
               control={control}
@@ -310,7 +347,7 @@ export const SearchForm = () => {
                   { value: 'sandy', label: 'Arenoso' },
                   { value: 'rocky', label: 'Rochoso' },
                 ]}
-                className="mb-4"
+                className="mb-2"
               />
 
               <FieldController
@@ -324,7 +361,7 @@ export const SearchForm = () => {
                   { value: 'uphill', label: 'Aclive' },
                   { value: 'flat', label: 'Plano' },
                 ]}
-                className="mb-4"
+                className="mb-2"
               />
 
               <FieldController
@@ -338,7 +375,7 @@ export const SearchForm = () => {
                   { value: 'commercial', label: 'Comercial' },
                   { value: 'industrial', label: 'Industrial' },
                 ]}
-                className="mb-4"
+                className="mb-2"
               />
 
               <FieldController
@@ -351,7 +388,7 @@ export const SearchForm = () => {
                   { value: 'east-facing', label: 'Nascente' },
                   { value: 'west-facing', label: 'Poente' },
                 ]}
-                className="mb-4"
+                className="mb-2"
               />
 
               <Text weight="medium" className="mb-2">
@@ -416,7 +453,7 @@ export const SearchForm = () => {
                   className="mb-2"
                 />
 
-                <div className="mb-3">
+                <div>
                   <Text size="sm" weight="medium" className="mb-1">
                     Áreas comuns
                   </Text>
@@ -436,28 +473,40 @@ export const SearchForm = () => {
               </div>
             </div>
           )}
+        </div>
 
-          <Button isFull disabled={!isValid}>
+        <div className="p-4 border-t-1 border-gray-300">
+          <Button type="submit" isFull disabled={!isValid} className="mb-2">
             Buscar Terrenos
           </Button>
 
           <button
+            type="button"
             onClick={handleClearFilters}
-            className="block w-full mt-4 mb-2 text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
+            className="block w-full mb-2 text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
           >
             Limpar filtros
           </button>
 
-          {!showAdvancedFilters && (
+          {showAdvancedFilters ? (
             <button
+              type="button"
+              onClick={() => setShowAdvancedFilters(false)}
+              className="block w-full text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
+            >
+              Esconder filtros avançados
+            </button>
+          ) : (
+            <button
+              type="button"
               onClick={() => setShowAdvancedFilters(true)}
-              className="block w-full mt-4 mb-2 text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
+              className="block w-full text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
             >
               Mostrar filtros avançados
             </button>
           )}
-        </form>
-      </Card>
-    </div>
+        </div>
+      </form>
+    </>
   );
 };

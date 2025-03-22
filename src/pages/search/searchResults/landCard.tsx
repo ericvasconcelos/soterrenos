@@ -8,7 +8,11 @@ import { ILandCard } from './types';
 export const LandCard: FC<ILandCard> = ({ item }) => {
   const totalArea = getTotalArea(item.landSize);
   return (
-    <Card padding="none" hasShadow className="grid grid-cols-[300px_auto]">
+    <Card
+      padding="none"
+      hasShadow
+      className="grid lg:grid-cols-[240px_auto] xl:grid-cols-[280px_auto] 2xl:grid-cols-[300px_auto]"
+    >
       <img
         src={item.images[0].src}
         width={item.images[0].width}

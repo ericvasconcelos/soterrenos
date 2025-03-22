@@ -51,7 +51,7 @@ export const RadioFields = forwardRef<HTMLInputElement, IRadioField>(
 
           <div
             className={cx('flex', {
-              'gap-4 items-center': direction === 'row',
+              'items-center flex-wrap': direction === 'row',
               'flex-col gap-2': direction === 'column',
             })}
           >
@@ -67,6 +67,7 @@ export const RadioFields = forwardRef<HTMLInputElement, IRadioField>(
                 onKeyDown={handleKeyDown}
                 disabled={!!option.disabled || !!disabled}
                 ref={isCurrentRef(option, value, index) ? ref : undefined}
+                className="mr-4 last:mr-0 mb-2"
               />
             ))}
           </div>

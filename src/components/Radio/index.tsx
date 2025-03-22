@@ -12,11 +12,12 @@ export const Radio = forwardRef<HTMLInputElement, IRadio>(
       isLoading = false,
       disabled = false,
       isValid,
+      className,
       ...rest
     },
     ref
   ) => (
-    <FormField id={id} error={error}>
+    <FormField id={id} error={error} className={className}>
       <label className="flex items-center gap-2 cursor-pointer [&:has(input:disabled)]:cursor-not-allowed">
         <input
           ref={ref}
