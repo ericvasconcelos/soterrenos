@@ -22,7 +22,7 @@ import {
   sanitizePriceForSearch,
 } from '@/utils';
 
-import { advancedParams, paramConfigs } from './helpers';
+import { advancedParams, commonAreas, paramConfigs } from './helpers';
 import { useSearchForm } from './hooks/useSearchForm';
 
 const states = generateStates();
@@ -55,6 +55,17 @@ export const SearchForm = () => {
       setValue(name, transform ? transform(value) : value || '');
     });
 
+    const commonAreasParam = searchParams.get('commonAreas');
+    if (commonAreasParam) {
+      const commonAreaFields = commonAreasParam.split(
+        ','
+      ) as (keyof ISearchForm)[];
+
+      commonAreaFields.forEach((name) => {
+        setValue(name, true);
+      });
+    }
+
     setValue('state', state || '');
     setTimeout(() => {
       setValue('city', city || '');
@@ -67,6 +78,16 @@ export const SearchForm = () => {
     (formData: ISearchForm) => {
       const { state, city, neighborhood, ...filters } = formData;
 
+      const filteredCommonAreas = commonAreas
+        .filter(({ name }) => {
+          const key = name as keyof typeof filters;
+          const isSelected = !!filters[key];
+          delete filters[key];
+          return isSelected;
+        })
+        .map(({ name }) => name)
+        .join(',');
+
       const url = formatSearchURL(state, city, neighborhood, {
         ...filters,
         ...(filters.minPrice && {
@@ -75,6 +96,7 @@ export const SearchForm = () => {
         ...(filters.maxPrice && {
           maxPrice: sanitizePriceForSearch(filters.maxPrice),
         }),
+        commonAreas: filteredCommonAreas,
       });
       navigate(url);
     },
@@ -102,11 +124,8 @@ export const SearchForm = () => {
   return (
     <div>
       <Card padding="sm" hasShadow>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="grid grid-cols-1 gap-4"
-        >
-          <div className="grid grid-cols-1 gap-4">
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-1 gap-4 mb-4">
             <FieldController
               control={control}
               component={Select}
@@ -136,11 +155,11 @@ export const SearchForm = () => {
               label="Bairro"
               placeholder="Selecione um bairro"
               options={neighborhoods}
-              disabled={!watch('city')}
+              disabled={!selectedCity}
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <FieldController
               control={control}
               component={Input}
@@ -188,6 +207,7 @@ export const SearchForm = () => {
             id="fgts"
             name="fgts"
             content="Pode usar FGTS"
+            className="mb-1"
           />
 
           <FieldController
@@ -196,6 +216,7 @@ export const SearchForm = () => {
             id="financing"
             name="financing"
             content="Compra com financiamento"
+            className="mb-4"
           />
 
           {showAdvancedFilters && (
@@ -320,7 +341,89 @@ export const SearchForm = () => {
                   { value: 'east-facing', label: 'Nascente' },
                   { value: 'west-facing', label: 'Poente' },
                 ]}
+                className="mb-4"
               />
+
+              <Text weight="medium" className="mb-2">
+                Sobre o condomínio
+              </Text>
+
+              <div className="grid grid-cols-1 gap-1">
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="established"
+                  name="established"
+                  content="Condomínio Formado"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="paved"
+                  name="paved"
+                  content="Rua Asfaltada"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="streetLighting"
+                  name="streetLighting"
+                  content="Iluminação na rua"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="sanitationBasic"
+                  name="sanitationBasic"
+                  content="Saneamento Básico"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="sidewalks"
+                  name="sidewalks"
+                  content="Calçadas"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="gatedEntrance"
+                  name="gatedEntrance"
+                  content="Portaria"
+                />
+
+                <FieldController
+                  control={control}
+                  component={Checkbox}
+                  id="security"
+                  name="security"
+                  content="Segurança 24h"
+                  className="mb-2"
+                />
+
+                <div className="mb-3">
+                  <Text size="sm" weight="medium" className="mb-1">
+                    Áreas comuns
+                  </Text>
+
+                  {commonAreas.map(({ name, label }) => (
+                    <FieldController
+                      key={name}
+                      control={control}
+                      component={Checkbox}
+                      id={name}
+                      name={name}
+                      content={label}
+                      className="mb-1"
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -331,7 +434,7 @@ export const SearchForm = () => {
           {!showAdvancedFilters && (
             <button
               onClick={() => setShowAdvancedFilters(true)}
-              className="text-sm text-primary-700 cursor-pointer hover:opacity-80 transition"
+              className="block w-full mt-4 mb-2 text-sm text-center text-primary-700 cursor-pointer hover:opacity-80 transition"
             >
               Mostrar filtros avançados
             </button>

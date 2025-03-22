@@ -19,4 +19,17 @@ export interface ISearchForm {
   slope?: string;
   zoning?: string;
   sunPosition?: string;
+  established?: boolean;
+  paved?: boolean;
+  streetLighting?: boolean;
+  sanitationBasic?: boolean;
+  sidewalks?: boolean;
+  gatedEntrance?: boolean;
+  security?: boolean;
+  sports_court?: boolean;
+  party_hall?: boolean;
+  gym?: boolean;
+  swimming_pool?: boolean;
+  sauna?: boolean;
+  playground?: boolean;
 }
