@@ -1,4 +1,4 @@
-import { ISelectOption } from '@/types';
+import { ISelectOption } from '../../types';
 
 export const formatAndSort = (items: ISelectOption[]): ISelectOption[] =>
   items

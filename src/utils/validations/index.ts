@@ -1,6 +1,9 @@
 export const validateCPF = (cpf: string) => {
   cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf === '') return false;
+
+  if (/^(\d)\1{10}$/.test(cpf)) return false;
+
   if (cpf.length !== 11) return false;
 
   let numbers = cpf.substring(0, 9);

@@ -1,10 +1,12 @@
+import { normalizeText } from '../normalizeText';
+
 export const formatSearchURL = (
   state: string,
   city: string,
   neighborhood: string,
   filters: Record<string, string | boolean>
 ) => {
-  const basePath = `/vendas/${state.toLowerCase()}/${city.toLowerCase().replace(/ /g, '-')}/${neighborhood.toLowerCase().replace(/ /g, '-')}`;
+  const basePath = `/vendas/${normalizeText(state)}/${normalizeText(city)}/${normalizeText(neighborhood)}`;
 
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([key, value]) => {
@@ -13,5 +15,9 @@ export const formatSearchURL = (
     }
   });
 
-  return `${basePath}?${params.toString()}`;
+  if (params.toString()) {
+    return `${basePath}?${params.toString()}`;
+  }
+
+  return basePath;
 };

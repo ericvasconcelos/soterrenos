@@ -1,4 +1,4 @@
-import { IAddress } from '@/types';
+import { IAddress } from '../../types';
 
 export const formatAddress = ({
   street,

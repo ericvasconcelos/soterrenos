@@ -1,5 +1,4 @@
-import { ISelectOption } from '@/types';
-
+import { ISelectOption } from '../../types';
 import { formatAndSort } from '../formatAndSort';
 import { IState } from '../generateStates/types';
 

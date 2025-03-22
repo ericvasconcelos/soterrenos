@@ -1,11 +1,4 @@
-import { jwtDecode } from 'jwt-decode';
-
-type JwtPayload = {
-  exp: number;
-  iat: number;
-  sub: string;
-  role: string;
-};
+import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 export const decodeToken = (token: string): JwtPayload => {
   try {
@@ -16,6 +9,10 @@ export const decodeToken = (token: string): JwtPayload => {
 };
 
 export const checkTokenExpiration = (token: string): boolean => {
-  const { exp } = decodeToken(token);
-  return Date.now() < exp * 1000;
+  try {
+    const { exp } = decodeToken(token);
+    return exp ? Date.now() < exp * 1000 : false;
+  } catch {
+    return false;
+  }
 };

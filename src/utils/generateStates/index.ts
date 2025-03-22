@@ -1,12 +1,6 @@
 import { initialLands } from '../lands';
+import { normalizeText } from '../normalizeText';
 import { IState } from './types';
-
-const normalizeText = (str: string) =>
-  str
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ /g, '-')
-    .toLowerCase();
 
 export function generateStates(): IState[] {
   const stateMap = new Map<string, IState>();

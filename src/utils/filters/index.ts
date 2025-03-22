@@ -1,4 +1,4 @@
-import { priceFormatter, sanitizePrice } from './price';
+import { priceFormatter, sanitizePrice } from '../price';
 
 export const filterPhoneMask = (value: string) => {
   const newValue = value.replace(/\D/g, '').substring(0, 11);
