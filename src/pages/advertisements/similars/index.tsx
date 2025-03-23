@@ -1,5 +1,5 @@
 import { Divider, LandCard, Text } from '@/components';
-import { initialLands } from '@/utils/lands';
+import { landList } from '@/data';
 
 export const Similars = () => (
   <div className="mb-16">
@@ -10,7 +10,7 @@ export const Similars = () => (
     </Text>
 
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
-      {initialLands.slice(0, 8).map((infos) => (
+      {landList.slice(0, 8).map((infos) => (
         <LandCard {...infos} />
       ))}
     </div>

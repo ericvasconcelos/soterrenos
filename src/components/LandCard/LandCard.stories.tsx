@@ -19,19 +19,19 @@ const mockLandData: ILandCard = {
   url: 'terreno-exemplo-123',
   images: [
     {
-      src: '  https://placehold.co/400x300',
+      src: 'https://placehold.co/400x300',
       width: 400,
       height: 300,
       alt: 'Imagem do terreno',
     },
     {
-      src: '  https://placehold.co/400x300/FF0000',
+      src: 'https://placehold.co/400x300/FF0000',
       width: 400,
       height: 300,
       alt: 'Imagem adicional 1',
     },
     {
-      src: '  https://placehold.co/400x300/00FF00',
+      src: 'https://placehold.co/400x300/00FF00',
       width: 400,
       height: 300,
       alt: 'Imagem adicional 2',

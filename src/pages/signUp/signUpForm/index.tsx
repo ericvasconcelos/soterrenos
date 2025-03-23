@@ -10,6 +10,7 @@ import {
   Select,
   Text,
 } from '@/components';
+import { states } from '@/data';
 import {
   filterCNPJMask,
   filterCompanyNameMask,
@@ -17,7 +18,6 @@ import {
   filterFullNameMask,
   filterPhoneMask,
   filterSimpleNameMask,
-  states,
 } from '@/utils';
 
 import { types } from './data';

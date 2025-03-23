@@ -8,6 +8,7 @@ import Login from './pages/login';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
 import CreateAdvertisement from './pages/myAdvertisements/create';
+import Salesperson from './pages/salesPerson';
 import Search from './pages/search';
 import SignUp from './pages/signUp';
 import TermsAndConditions from './pages/termsAndConditions';
@@ -51,6 +52,7 @@ export default function App() {
             />
 
             <Route path="/central-de-ajuda" element={<HelpDesk />} />
+            <Route path="/corretores" element={<Salesperson />} />
           </Route>
         </Routes>
       </BrowserRouter>

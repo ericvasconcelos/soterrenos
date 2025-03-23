@@ -3,9 +3,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 
 import { Skeleton, Text } from '@/components';
+import { landList } from '@/data';
 import { ILand, ISearchForm } from '@/types';
 import { generateArray, wait } from '@/utils';
-import { initialLands } from '@/utils/lands';
 
 import { paramConfigs } from '../searchForm/helpers';
 import { LandCard } from './landCard';
@@ -13,7 +13,7 @@ import { LandCard } from './landCard';
 export const SearchResults = () => {
   const { state, city, neighborhood } = useParams();
   const [searchParams] = useSearchParams();
-  const [lands, setLands] = useState<ILand[]>(initialLands);
+  const [lands, setLands] = useState<ILand[]>(landList);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 

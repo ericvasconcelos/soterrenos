@@ -1,11 +1,11 @@
-import { initialLands } from '../lands';
+import { landList } from '../../data';
 import { normalizeText } from '../normalizeText';
 import { IState } from './types';
 
 export function generateStates(): IState[] {
   const stateMap = new Map<string, IState>();
 
-  for (const land of initialLands) {
+  for (const land of landList) {
     const { state, city, neighborhood } = land.address;
 
     if (!stateMap.has(state)) {

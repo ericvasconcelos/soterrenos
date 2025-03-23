@@ -8,6 +8,5 @@ export * from './generateArray';
 export * from './generateStates';
 export * from './getTotalArea';
 export * from './price';
-export * from './states';
 export * from './validations';
 export * from './wait';

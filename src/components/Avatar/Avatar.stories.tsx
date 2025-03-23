@@ -22,7 +22,7 @@ export const Default: Story = {
 export const WithImage: Story = {
   args: {
     image: {
-      src: 'https://fakeimg.pl/100x100/8be8e5/909090?text=JD&font_size=80',
+      src: 'https://placehold.co/100x100',
       width: 100,
       height: 100,
       alt: 'Profile image',

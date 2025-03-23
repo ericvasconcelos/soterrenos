@@ -1,6 +1,6 @@
 import { ILand } from '@/types';
 
-export const initialLands: ILand[] = [
+export const landList: ILand[] = [
   {
     code: '1350198862',
     lastUpdate: '27/02/2025',
