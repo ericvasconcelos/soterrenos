@@ -7,7 +7,9 @@ import Home from './pages/home';
 import Login from './pages/login';
 import MyAccountHome from './pages/myAccount/home';
 import MyAdvertisements from './pages/myAdvertisements';
+import { Actives } from './pages/myAdvertisements/actives';
 import CreateAdvertisement from './pages/myAdvertisements/create';
+import { Inactives } from './pages/myAdvertisements/inactives';
 import Agencies from './pages/partners/agencies';
 import Salesperson from './pages/partners/salesPerson';
 import Search from './pages/search';
@@ -33,9 +35,11 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="/minha-conta" element={<MyAccountHome />} />
 
-              <Route path="meus-anuncios">
-                <Route index path="ativos" element={<MyAdvertisements />} />
-                <Route path="criando" element={<CreateAdvertisement />} />
+              <Route path="meus-anuncios" element={<MyAdvertisements />}>
+                <Route index path="ativos" element={<Actives />} />
+                <Route path="inativos" element={<Inactives />} />
+                <Route path="criar-anuncio" element={<CreateAdvertisement />} />
+                <Route path="criar-anuncio" element={<CreateAdvertisement />} />
               </Route>
             </Route>
 

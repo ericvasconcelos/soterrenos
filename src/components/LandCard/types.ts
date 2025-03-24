@@ -2,5 +2,7 @@ import { ILand } from '@/types';
 
 export type ILandCard = Pick<
   ILand,
-  'images' | 'url' | 'price' | 'landSize' | 'address'
->;
+  'code' | 'images' | 'url' | 'price' | 'landSize' | 'address'
+> & {
+  type?: 'infos' | 'edit';
+};

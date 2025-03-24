@@ -34,35 +34,37 @@ const TermsAndConditions = () => {
           ))}
         </div>
 
-        <Card hasShadow>
-          <Text
-            tag="h2"
-            size="lg"
-            weight="bold"
-            align="center"
-            className="mb-6 uppercase"
-          >
-            Você acha que esse conteúdo foi útil?
-          </Text>
-
-          <nav className="flex justify-center gap-6">
-            <Button
-              onClick={() => setIsGood(true)}
-              variant={isGood ? 'primary' : 'secondary'}
-              icon="thumb-up"
+        <div className="flex justify-center mb-12">
+          <Card hasShadow>
+            <Text
+              tag="h2"
+              size="lg"
+              weight="bold"
+              align="center"
+              className="mb-6 uppercase"
             >
-              Super útil
-            </Button>
+              Você acha que esse conteúdo foi útil?
+            </Text>
 
-            <Button
-              onClick={() => setIsGood(false)}
-              variant={isGood === false ? 'primary' : 'secondary'}
-              icon="thumb-down"
-            >
-              Precisa melhorar
-            </Button>
-          </nav>
-        </Card>
+            <nav className="flex justify-center gap-6">
+              <Button
+                onClick={() => setIsGood(true)}
+                variant={isGood ? 'primary' : 'secondary'}
+                icon="thumb-up"
+              >
+                Super útil
+              </Button>
+
+              <Button
+                onClick={() => setIsGood(false)}
+                variant={isGood === false ? 'primary' : 'secondary'}
+                icon="thumb-down"
+              >
+                Precisa melhorar
+              </Button>
+            </nav>
+          </Card>
+        </div>
       </Container>
     </Page>
   );

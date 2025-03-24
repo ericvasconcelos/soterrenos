@@ -25,7 +25,7 @@ export const ContactForm = () => {
   };
 
   return (
-    <Card className="max-w-3xl m-auto" hasShadow>
+    <Card className="max-w-3xl m-auto mb-12" hasShadow>
       <Text size="lg" weight="medium" className="mb-4">
         Está com alguma dúvida? <br />
         Envie uma mensagem para nossa equipe e responderemos assim que possível

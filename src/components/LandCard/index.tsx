@@ -9,6 +9,8 @@ import { Text } from '../Text';
 import { ILandCard } from './types';
 
 export const LandCard = ({
+  type = 'infos',
+  code,
   url,
   images,
   price,
@@ -18,8 +20,10 @@ export const LandCard = ({
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(() => {
-    navigate(`/anuncios/${url}`);
-  }, [navigate, url]);
+    const link =
+      type === 'edit' ? `/meus-anuncios/editar/${code}` : `/anuncios/${url}`;
+    navigate(link);
+  }, [code, navigate, type, url]);
 
   return (
     <Card
