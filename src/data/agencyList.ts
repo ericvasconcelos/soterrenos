@@ -1,11 +1,11 @@
-import { ISalesperson } from '@/types';
+import { IAgency } from '@/types';
 
-export const salespersonList: ISalesperson[] = [
+export const agencyList: IAgency[] = [
   {
     id: '2871',
     type: 'salesperson',
-    firstName: 'Cicero',
-    lastName: 'Roberto Zanardi',
+    tradeName: 'Cicero',
+    legalName: 'Roberto Zanardi',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Cicero Roberto Zanardi',
@@ -33,8 +33,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '4593',
     type: 'salesperson',
-    firstName: 'Ana',
-    lastName: 'Carolina Silva',
+    tradeName: 'Ana',
+    legalName: 'Carolina Silva',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Ana Carolina Silva',
@@ -62,8 +62,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '6724',
     type: 'salesperson',
-    firstName: 'Marcos',
-    lastName: 'Antonio Costa',
+    tradeName: 'Marcos',
+    legalName: 'Antonio Costa',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Marcos Antonio Costa',
@@ -91,8 +91,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '3489',
     type: 'salesperson',
-    firstName: 'Fernanda',
-    lastName: 'Lima Oliveira',
+    tradeName: 'Fernanda',
+    legalName: 'Lima Oliveira',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Fernanda Lima Oliveira',
@@ -120,8 +120,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '7612',
     type: 'salesperson',
-    firstName: 'Ricardo',
-    lastName: 'Almeida Santos',
+    tradeName: 'Ricardo',
+    legalName: 'Almeida Santos',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Ricardo Almeida Santos',
@@ -149,8 +149,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '9054',
     type: 'salesperson',
-    firstName: 'Juliana',
-    lastName: 'Ribeiro Costa',
+    tradeName: 'Juliana',
+    legalName: 'Ribeiro Costa',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Juliana Ribeiro Costa',
@@ -178,8 +178,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '1267',
     type: 'salesperson',
-    firstName: 'Gustavo',
-    lastName: 'Henrique Pereira',
+    tradeName: 'Gustavo',
+    legalName: 'Henrique Pereira',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Gustavo Henrique Pereira',
@@ -207,8 +207,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '5543',
     type: 'salesperson',
-    firstName: 'Patrícia',
-    lastName: 'Souza Martins',
+    tradeName: 'Patrícia',
+    legalName: 'Souza Martins',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Patrícia Souza Martins',
@@ -236,8 +236,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '7890',
     type: 'salesperson',
-    firstName: 'Rodrigo',
-    lastName: 'Ferreira Gomes',
+    tradeName: 'Rodrigo',
+    legalName: 'Ferreira Gomes',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Rodrigo Ferreira Gomes',
@@ -265,8 +265,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '2234',
     type: 'salesperson',
-    firstName: 'Camila',
-    lastName: 'Alves Barbosa',
+    tradeName: 'Camila',
+    legalName: 'Alves Barbosa',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Camila Alves Barbosa',
@@ -294,8 +294,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '6678',
     type: 'salesperson',
-    firstName: 'Lucas',
-    lastName: 'Mendes Carvalho',
+    tradeName: 'Lucas',
+    legalName: 'Mendes Carvalho',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Lucas Mendes Carvalho',
@@ -323,8 +323,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '1122',
     type: 'salesperson',
-    firstName: 'Amanda',
-    lastName: 'Cunha Rocha',
+    tradeName: 'Amanda',
+    legalName: 'Cunha Rocha',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Amanda Cunha Rocha',
@@ -352,8 +352,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '3345',
     type: 'salesperson',
-    firstName: 'Thiago',
-    lastName: 'Nunes Lima',
+    tradeName: 'Thiago',
+    legalName: 'Nunes Lima',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Thiago Nunes Lima',
@@ -381,8 +381,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '8899',
     type: 'salesperson',
-    firstName: 'Isabela',
-    lastName: 'Pereira Dias',
+    tradeName: 'Isabela',
+    legalName: 'Pereira Dias',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Isabela Pereira Dias',
@@ -410,8 +410,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '4455',
     type: 'salesperson',
-    firstName: 'Roberto',
-    lastName: 'Silveira Castro',
+    tradeName: 'Roberto',
+    legalName: 'Silveira Castro',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Roberto Silveira Castro',
@@ -439,8 +439,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '9988',
     type: 'salesperson',
-    firstName: 'Beatriz',
-    lastName: 'Santana Moraes',
+    tradeName: 'Beatriz',
+    legalName: 'Santana Moraes',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Beatriz Santana Moraes',
@@ -468,8 +468,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '7766',
     type: 'salesperson',
-    firstName: 'Felipe',
-    lastName: 'Costa Ribeiro',
+    tradeName: 'Felipe',
+    legalName: 'Costa Ribeiro',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Felipe Costa Ribeiro',
@@ -497,8 +497,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '1234',
     type: 'salesperson',
-    firstName: 'Carolina',
-    lastName: 'Araújo Melo',
+    tradeName: 'Carolina',
+    legalName: 'Araújo Melo',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Carolina Araújo Melo',
@@ -526,8 +526,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '4321',
     type: 'salesperson',
-    firstName: 'Rafael',
-    lastName: 'Oliveira Sousa',
+    tradeName: 'Rafael',
+    legalName: 'Oliveira Sousa',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Rafael Oliveira Sousa',
@@ -555,8 +555,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '5566',
     type: 'salesperson',
-    firstName: 'Mariana',
-    lastName: 'Lopes Fernandes',
+    tradeName: 'Mariana',
+    legalName: 'Lopes Fernandes',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Mariana Lopes Fernandes',
@@ -584,8 +584,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '7788',
     type: 'salesperson',
-    firstName: 'Diego',
-    lastName: 'Martins Rocha',
+    tradeName: 'Diego',
+    legalName: 'Martins Rocha',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Diego Martins Rocha',
@@ -613,8 +613,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '9900',
     type: 'salesperson',
-    firstName: 'Larissa',
-    lastName: 'Cavalcanti Santos',
+    tradeName: 'Larissa',
+    legalName: 'Cavalcanti Santos',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem da corretora Larissa Cavalcanti Santos',
@@ -642,8 +642,8 @@ export const salespersonList: ISalesperson[] = [
   {
     id: '1123',
     type: 'salesperson',
-    firstName: 'Vinícius',
-    lastName: 'Gonçalves Almeida',
+    tradeName: 'Vinícius',
+    legalName: 'Gonçalves Almeida',
     image: {
       src: 'https://placehold.co/300x300',
       alt: 'Imagem do corretor Vinícius Gonçalves Almeida',
