@@ -24,7 +24,7 @@ export default function MyAdvertisements() {
             Meus Anúncios
           </Text>
           <Button variant="primary">
-            <Link to="/meus-anuncios/criar-anuncio">+ Novo Anúncio</Link>
+            <Link to="/criar-anuncio/novo">Novo Anúncio</Link>
           </Button>
         </div>
 

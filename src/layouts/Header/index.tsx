@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 import { useAuth } from '@/auth';
 import { Avatar, Button, Container, Icon } from '@/components';
@@ -9,6 +9,7 @@ import { useMenuItems } from './useMenuItems';
 export const Header = () => {
   const menuItems = useMenuItems();
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <header className="py-5 border-b-1 border-b-gray-300">
@@ -24,7 +25,9 @@ export const Header = () => {
         </Link>
 
         <menu className="flex items-center justify-end gap-4">
-          <Button size="small">Anuncie seu terreno grátis</Button>
+          <Button size="small" onClick={() => navigate('/criar-anuncio/novo')}>
+            Anuncie seu terreno grátis
+          </Button>
 
           <Dropdown items={menuItems}>
             <button className="unset flex justify-between items-center w-[90px] p-0 border border-gray-300 rounded-full cursor-pointer">

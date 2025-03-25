@@ -21,7 +21,7 @@ export const LandCard = ({
 
   const handleNavigate = useCallback(() => {
     const link =
-      type === 'edit' ? `/meus-anuncios/editar/${code}` : `/anuncios/${url}`;
+      type === 'edit' ? `/criar-anuncio/${code}` : `/anuncios/${url}`;
     navigate(link);
   }, [code, navigate, type, url]);
 

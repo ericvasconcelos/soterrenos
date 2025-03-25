@@ -17,6 +17,7 @@ export { RadioFields } from './Radio/RadioFields';
 export { Select } from './Select';
 export { Skeleton } from './Skeleton';
 export { Spinner } from './Spinner';
+export { Switch } from './Switch';
 export { Text } from './Text';
 export { Textarea } from './Textarea';
 export { Tooltip } from './Tooltip';
