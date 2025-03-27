@@ -29,6 +29,7 @@ export interface ILand {
   lastUpdate: string;
   title: string;
   images: IImage[];
+  videoUrl?: string;
   address: IAddress;
   landSize: ILandSize;
   price: number;

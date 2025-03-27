@@ -1,6 +1,6 @@
 import { IconNames } from '@/components/Icon/types';
+import { IInfos } from '@/types';
 
-import { IInfos } from '../types';
 import { DataInfos, IInfoItem, IInfoSection } from './types';
 
 const slopeIcon: Record<string, IconNames> = {

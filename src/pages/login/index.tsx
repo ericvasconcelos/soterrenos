@@ -10,7 +10,6 @@ import {
   Input,
   Text,
 } from '@/components';
-import { Page } from '@/layouts/Page';
 
 import { ILogin } from './types';
 import { useLoginForm } from './useLoginForm';
@@ -35,54 +34,52 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Page>
-      <Container>
-        <Card hasShadow className="max-w-lg mx-auto my-14">
-          <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-            <Text tag="h1" size="3xl" weight="bold">
-              Acessar
+    <Container>
+      <Card hasShadow className="max-w-lg mx-auto my-14">
+        <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+          <Text tag="h1" size="3xl" weight="bold">
+            Acessar
+          </Text>
+
+          <FieldController
+            control={control}
+            component={Input}
+            id="email"
+            type="email"
+            name="email"
+            label="Email"
+            placeholder="seuemail@gmail.com"
+          />
+
+          <FieldController
+            control={control}
+            component={Input}
+            type="password"
+            id="password"
+            name="password"
+            label="Senha"
+            placeholder="********"
+          />
+
+          <Button isFull size="large" disabled={!isValid} isLoading={loading}>
+            Acessar
+          </Button>
+
+          {error && (
+            <Text size="sm" align="center" color="danger-900">
+              {error}
             </Text>
+          )}
 
-            <FieldController
-              control={control}
-              component={Input}
-              id="email"
-              type="email"
-              name="email"
-              label="Email"
-              placeholder="seuemail@gmail.com"
-            />
-
-            <FieldController
-              control={control}
-              component={Input}
-              type="password"
-              id="password"
-              name="password"
-              label="Senha"
-              placeholder="********"
-            />
-
-            <Button isFull size="large" disabled={!isValid} isLoading={loading}>
-              Acessar
-            </Button>
-
-            {error && (
-              <Text size="sm" align="center" color="danger-900">
-                {error}
-              </Text>
-            )}
-
-            <Text size="sm" align="center">
-              É novo aqui? Acesse a{' '}
-              <Link to="/cadastrar" className="text-primary-700">
-                área de cadastro
-              </Link>
-            </Text>
-          </form>
-        </Card>
-      </Container>
-    </Page>
+          <Text size="sm" align="center">
+            É novo aqui? Acesse a{' '}
+            <Link to="/cadastrar" className="text-primary-700">
+              área de cadastro
+            </Link>
+          </Text>
+        </form>
+      </Card>
+    </Container>
   );
 };
 

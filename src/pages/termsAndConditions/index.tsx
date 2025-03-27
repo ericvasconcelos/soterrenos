@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Button, Card, Container, Text } from '@/components';
-import { Page } from '@/layouts/Page';
 
 import { chapters } from './data';
 
@@ -9,7 +8,7 @@ const TermsAndConditions = () => {
   const [isGood, setIsGood] = useState<boolean | undefined>();
 
   return (
-    <Page>
+    <>
       <Container>
         <div className="mb-20">
           <Text
@@ -66,7 +65,7 @@ const TermsAndConditions = () => {
           </Card>
         </div>
       </Container>
-    </Page>
+    </>
   );
 };
 

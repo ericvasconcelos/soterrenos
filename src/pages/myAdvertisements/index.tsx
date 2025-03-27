@@ -2,7 +2,6 @@ import { Link, NavLink, Outlet } from 'react-router';
 
 import { Button, Container, Text } from '@/components';
 import { activeList, inactiveList } from '@/data';
-import { Page } from '@/layouts/Page';
 
 export default function MyAdvertisements() {
   const tabs = [
@@ -17,7 +16,7 @@ export default function MyAdvertisements() {
   ];
 
   return (
-    <Page>
+    <>
       <Container className="mb-12">
         <div className="flex justify-between items-center mt-12 mb-8">
           <Text tag="h1" size="2xl" weight="bold">
@@ -48,6 +47,6 @@ export default function MyAdvertisements() {
 
         <Outlet />
       </Container>
-    </Page>
+    </>
   );
 }

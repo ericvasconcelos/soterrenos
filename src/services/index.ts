@@ -49,7 +49,7 @@ class ApiClient {
 
   public async post<T>(
     url: string,
-    data?: IRequest,
+    data?: IRequest | FormData,
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
     return this._api.post<T>(url, data, config);

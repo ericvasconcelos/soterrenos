@@ -1,6 +1,7 @@
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router';
+import { BrowserRouter, Route, Routes } from 'react-router';
 
 import { AuthProvider } from './auth/AuthProvider';
+import { Page } from './layouts/Page';
 import Advertisements from './pages/advertisements';
 import CreateAdvertisement from './pages/createAd';
 import HelpDesk from './pages/helpDesk';
@@ -22,7 +23,7 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Outlet />}>
+          <Route path="/" element={<Page />}>
             <Route index element={<Home />} />
             <Route path="/anuncios/:title" element={<Advertisements />} />
 

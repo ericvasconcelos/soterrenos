@@ -8,8 +8,19 @@ export const useCreateForm = () =>
     resolver: yupResolver(createAdSchema) as Resolver<ICreateFormData>,
     defaultValues: {
       active: true,
+      videoUrl: '',
       images: [],
-      address: {},
+      address: {
+        zipCode: '',
+        street: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+        condominium: '',
+      },
+      price: '',
+      propertyTax: '',
+      condominiumTax: '',
       landSize: {
         front: 0,
         left: 0,
@@ -52,6 +63,9 @@ export const useCreateForm = () =>
           gasStation: false,
           bank: false,
         },
+      },
+      seller: {
+        reuseUserInfos: false,
       },
     },
   });

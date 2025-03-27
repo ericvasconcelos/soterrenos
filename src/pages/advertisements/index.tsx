@@ -9,7 +9,6 @@ import {
   Text,
   Tooltip,
 } from '@/components';
-import { Page } from '@/layouts/Page';
 import { getTotalArea, priceFormatter } from '@/utils';
 
 import { data } from './data';
@@ -30,7 +29,7 @@ export default function Advertisements() {
   const totalArea = getTotalArea(landSize);
 
   return (
-    <Page>
+    <>
       <Container>
         <div className="flex items-center justify-between gap-4 my-5">
           <Text tag="h1" size="2xl" weight="medium">
@@ -253,6 +252,6 @@ export default function Advertisements() {
           close={() => setIsModalShareOpen(false)}
         />
       )}
-    </Page>
+    </>
   );
 }

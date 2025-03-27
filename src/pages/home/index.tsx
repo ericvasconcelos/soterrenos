@@ -1,11 +1,10 @@
 import { Container } from '@/components';
-import { Page } from '@/layouts/Page';
 
 import { Nearby } from './nearby';
 import { SearchForm } from './searchForm';
 
 const Home = () => (
-  <Page>
+  <>
     <div className="relative w-full h-[530px]">
       <picture>
         <source
@@ -49,7 +48,7 @@ const Home = () => (
     <Container>
       <Nearby />
     </Container>
-  </Page>
+  </>
 );
 
 export default Home;

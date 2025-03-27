@@ -1,10 +1,9 @@
 import { Container } from '@/components';
-import { Page } from '@/layouts/Page';
 
 import { SignUpForm } from './signUpForm';
 
 const SignUp = () => (
-  <Page>
+  <>
     <Container>
       <div className="lg:grid grid-cols-2 gap-8 items-center mt-12">
         <div className="hidden lg:flex items-end justify-center">
@@ -18,7 +17,7 @@ const SignUp = () => (
         <SignUpForm />
       </div>
     </Container>
-  </Page>
+  </>
 );
 
 export default SignUp;

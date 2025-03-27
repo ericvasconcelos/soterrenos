@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,12 +24,16 @@ import {
   sunPositionOptions,
   zoningOptions,
 } from '@/data';
-import { filterMoneyMask, sanitizePrice } from '@/utils';
+import { uploadImages } from '@/services/uploadImages';
+import { filterMoneyMask, filterPhoneMask, sanitizePrice } from '@/utils';
 
 import { ICreateFormData } from './schema';
 import { useCreateForm } from './useCreateForm';
 
 export const CreateAdForm = () => {
+  const [uploadProgress] = useState<Record<string, number>>({});
+  const [, setUploadErrors] = useState<Record<string, string>>({});
+
   const {
     control,
     handleSubmit,
@@ -42,23 +46,37 @@ export const CreateAdForm = () => {
   const hasCondominium = !!watch('address.condominium');
 
   const handleImageUpload = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
+    async (event: ChangeEvent<HTMLInputElement>) => {
       const { files } = event.target;
-      if (!imageList) return;
-      const newImages = [...imageList];
+      if (!files || !files.length) return;
 
-      if (files) {
-        for (const file of files) {
-          newImages.push({
-            id: uuidv4(),
-            src: URL.createObjectURL(file),
-            featured: false,
-            type: file.type,
-            size: file.size,
-          });
+      await uploadImages(files[0]);
+
+      const newImages = [...(imageList || [])];
+
+      for (const file of Array.from(files)) {
+        if (file.size > 200 * 1024) {
+          setUploadErrors((prev) => ({
+            ...prev,
+            [file.name]: 'Tamanho máximo de 200KB excedido',
+          }));
+          continue;
         }
 
-        setValue('images', [...imageList, ...newImages]);
+        const fileId = uuidv4();
+        const fileName = `images/${fileId}-${file.name}`;
+
+        newImages.push({
+          id: fileId,
+          src: URL.createObjectURL(file),
+          featured: false,
+          type: file.type,
+          size: file.size,
+          uploadStatus: 'uploading',
+          fileName, // Armazenamos o nome do arquivo para referência
+        });
+
+        setValue('images', newImages);
       }
     },
     [imageList, setValue]
@@ -140,7 +158,7 @@ export const CreateAdForm = () => {
               control={control}
               id="price"
               name="price"
-              label="Preço (R$)"
+              label="Valor do Terreno (R$)"
               filterValue={filterMoneyMask}
             />
 
@@ -176,8 +194,19 @@ export const CreateAdForm = () => {
 
       <Card>
         <Text tag="h2" size="xl" weight="bold" className="mb-4">
-          Imagens
+          Video e Imagens
         </Text>
+
+        <FieldController
+          component={Input}
+          control={control}
+          type="url"
+          id="videoUrl"
+          name="videoUrl"
+          label="Vídeo do Youtube"
+          placeholder="https://www.youtube.com/watch?v=h01Lz6qu1VI"
+          className="mb-8"
+        />
 
         <label
           htmlFor="upload-images"
@@ -194,7 +223,7 @@ export const CreateAdForm = () => {
           />
 
           <Text size="xl" weight="medium">
-            Solte seus arquivos aqui
+            Solte suas imagens
           </Text>
 
           <Button
@@ -206,6 +235,10 @@ export const CreateAdForm = () => {
             Buscar arquivos
           </Button>
         </label>
+
+        <Text size="sm" color="gray-600" className="mt-2">
+          ** Limite máximo do tamanho de imagens de 200kb
+        </Text>
 
         <div className="grid grid-cols-4 gap-4 mt-4">
           {imageList?.map((image, index) => (
@@ -232,6 +265,17 @@ export const CreateAdForm = () => {
                   onChange={() => handleSetFeatured(image.id)}
                 />
               </div>
+
+              {image.uploadStatus === 'uploading' && (
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                  <div className="w-full bg-gray-200 rounded-full h-2.5 mx-4">
+                    <div
+                      className="bg-blue-600 h-2.5 rounded-full"
+                      style={{ width: `${uploadProgress[image.id] || 0}%` }}
+                    ></div>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -669,6 +713,70 @@ export const CreateAdForm = () => {
               )}
             />
           ))}
+        </div>
+      </Card>
+
+      <Card>
+        <Text tag="h2" size="xl" weight="bold" className="mb-4">
+          Informações do Vendedor
+        </Text>
+
+        <FieldController
+          component={Checkbox}
+          control={control}
+          id="seller.reuseUserInfos"
+          name="seller.reuseUserInfos"
+          content="Usar informações do usuário"
+          className="mb-4"
+        />
+
+        <div className="grid grid-cols-3 gap-4">
+          <FieldController
+            component={Input}
+            control={control}
+            id="seller.whatsappNumber"
+            name="seller.whatsappNumber"
+            label="Whatsapp"
+            placeholder="(61) 99999-9999"
+            filterValue={filterPhoneMask}
+          />
+
+          <FieldController
+            component={Input}
+            control={control}
+            id="seller.phoneNumber"
+            name="seller.phoneNumber"
+            label="Telefone de contato"
+            placeholder="(61) 9999-9999"
+            filterValue={filterPhoneMask}
+          />
+
+          <FieldController
+            component={Input}
+            control={control}
+            type="email"
+            id="seller.email"
+            name="seller.email"
+            label="Email"
+            placeholder="seuemail@gmail.com"
+          />
+
+          <FieldController
+            component={Input}
+            control={control}
+            id="seller.creci"
+            name="seller.creci"
+            label="CRECI"
+          />
+
+          <FieldController
+            component={Select}
+            control={control}
+            id="seller.creciState"
+            name="seller.creciState"
+            label="Estado do CRECI"
+            options={states}
+          />
         </div>
       </Card>
 
