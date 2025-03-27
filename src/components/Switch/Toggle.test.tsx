@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
@@ -6,14 +6,14 @@ import { Switch } from '.';
 
 describe('Switch Component', () => {
   test('should render with correct label', () => {
-    render(<Switch label="Enable feature" onChange={() => {}} />);
+    render(<Switch labelActive="Enable feature" onChange={() => {}} />);
     const labelText = screen.getByText('Enable feature');
     expect(labelText).toBeInTheDocument();
   });
 
   test('should be checked when checked prop is true', () => {
     render(
-      <Switch checked={true} label="Enable feature" onChange={() => {}} />
+      <Switch checked={true} labelActive="Enable feature" onChange={() => {}} />
     );
     const switchButton = screen.getByRole('checkbox');
     expect(switchButton).toBeChecked();
@@ -21,7 +21,11 @@ describe('Switch Component', () => {
 
   test('should not be checked when checked prop is false', () => {
     render(
-      <Switch checked={false} label="Enable feature" onChange={() => {}} />
+      <Switch
+        checked={false}
+        labelActive="Enable feature"
+        onChange={() => {}}
+      />
     );
     const switchButton = screen.getByRole('checkbox');
     expect(switchButton).not.toBeChecked();
@@ -29,7 +33,7 @@ describe('Switch Component', () => {
 
   test('should call onChange handler when clicked', () => {
     const handleChange = jest.fn();
-    render(<Switch label="Enable feature" onChange={handleChange} />);
+    render(<Switch labelActive="Enable feature" onChange={handleChange} />);
     const switchButton = screen.getByRole('checkbox');
     fireEvent.click(switchButton);
     expect(handleChange).toHaveBeenCalled();
@@ -37,7 +41,11 @@ describe('Switch Component', () => {
 
   test('should not be clickable when disabled', () => {
     render(
-      <Switch disabled={true} label="Enable feature" onChange={() => {}} />
+      <Switch
+        disabled={true}
+        labelActive="Enable feature"
+        onChange={() => {}}
+      />
     );
     const switchButton = screen.getByRole('checkbox');
     expect(switchButton).toBeDisabled();
