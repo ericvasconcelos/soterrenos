@@ -8,7 +8,7 @@ export const Switch = forwardRef<HTMLInputElement, ISwitch>(
       id,
       labelActive,
       labelInactive,
-      value,
+      value = false,
       disabled,
       isLoading = false,
       isValid,

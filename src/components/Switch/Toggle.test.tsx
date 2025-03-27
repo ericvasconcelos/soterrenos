@@ -6,14 +6,25 @@ import { Switch } from '.';
 
 describe('Switch Component', () => {
   test('should render with correct label', () => {
-    render(<Switch labelActive="Enable feature" onChange={() => {}} />);
-    const labelText = screen.getByText('Enable feature');
+    render(
+      <Switch
+        labelActive="Active feature"
+        labelInactive="Inactive feature"
+        onChange={() => {}}
+      />
+    );
+    const labelText = screen.getByText('Inactive feature');
     expect(labelText).toBeInTheDocument();
   });
 
   test('should be checked when checked prop is true', () => {
     render(
-      <Switch checked={true} labelActive="Enable feature" onChange={() => {}} />
+      <Switch
+        checked={true}
+        labelActive="Active feature"
+        labelInactive="Inactive feature"
+        onChange={() => {}}
+      />
     );
     const switchButton = screen.getByRole('checkbox');
     expect(switchButton).toBeChecked();
@@ -23,7 +34,8 @@ describe('Switch Component', () => {
     render(
       <Switch
         checked={false}
-        labelActive="Enable feature"
+        labelActive="Active feature"
+        labelInactive="Inactive feature"
         onChange={() => {}}
       />
     );
@@ -33,7 +45,7 @@ describe('Switch Component', () => {
 
   test('should call onChange handler when clicked', () => {
     const handleChange = jest.fn();
-    render(<Switch labelActive="Enable feature" onChange={handleChange} />);
+    render(<Switch labelActive="Active feature" onChange={handleChange} />);
     const switchButton = screen.getByRole('checkbox');
     fireEvent.click(switchButton);
     expect(handleChange).toHaveBeenCalled();
@@ -43,7 +55,7 @@ describe('Switch Component', () => {
     render(
       <Switch
         disabled={true}
-        labelActive="Enable feature"
+        labelActive="Active feature"
         onChange={() => {}}
       />
     );
