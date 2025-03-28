@@ -30,7 +30,7 @@ describe('Dropdown Component', () => {
   it('should render trigger button', () => {
     renderComponent();
 
-    const trigger = screen.getByRole('button', { name: 'Open Dropdown' });
+    const trigger = screen.getByRole('button', { name: 'Menu' });
     expect(trigger).toBeInTheDocument();
     expect(screen.queryByText('Central de ajuda')).not.toBeInTheDocument();
   });
@@ -39,7 +39,7 @@ describe('Dropdown Component', () => {
     renderComponent();
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
 
     expect(screen.getByText('Central de ajuda')).toBeInTheDocument();
     expect(screen.getByText('Sair da conta')).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe('Dropdown Component', () => {
     renderComponent();
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
 
     const separators = document.getElementsByTagName('hr');
     expect(separators.length).toBe(1);
@@ -59,7 +59,7 @@ describe('Dropdown Component', () => {
     renderComponent();
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
     const linkItem = screen.getByRole('link', { name: 'Central de ajuda' });
 
     expect(linkItem).toHaveAttribute('href', '/help');
@@ -69,7 +69,7 @@ describe('Dropdown Component', () => {
     renderComponent();
     const user = userEvent.setup();
 
-    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
     await user.click(screen.getByRole('button', { name: 'Sair da conta' }));
 
     expect((mockItems[2] as ButtonItem).onClick).toHaveBeenCalledTimes(1);
@@ -85,7 +85,7 @@ describe('Dropdown Component', () => {
     );
 
     const user = userEvent.setup();
-    await user.click(screen.getByRole('button', { name: 'Open Dropdown' }));
+    await user.click(screen.getByRole('button', { name: 'Menu' }));
 
     const activeLink = screen.getByRole('link', { name: 'Central de ajuda' });
     expect(activeLink).toHaveClass('bg-gray-200');

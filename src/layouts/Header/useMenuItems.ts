@@ -14,7 +14,7 @@ export const useMenuItems = (): DropdownItem[] => {
       {
         type: 'link',
         label: 'Minha conta',
-        link: '/minha-conta',
+        link: '/minha-conta/meus-dados',
       },
       {
         type: 'separate',

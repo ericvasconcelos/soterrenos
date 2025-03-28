@@ -14,7 +14,7 @@ export const Header = () => {
   return (
     <header className="py-5 border-b-1 border-b-gray-300">
       <Container className="flex items-center justify-between gap-4">
-        <Link to="/" className="block h-auto">
+        <Link to="/" className="block h-auto outline-black">
           <img
             src="/logos/logo.svg"
             width={120}

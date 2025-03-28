@@ -1,6 +1,7 @@
-export { agencyList } from './agencyList';
-export { landList } from './landList';
-export { activeList, inactiveList } from './myAdvertisements';
+export * from './agencyList';
+export * from './landList';
+export * from './myAdvertisements';
 export * from './options';
-export { salespersonList } from './salespersonList';
-export { states } from './states';
+export * from './salespersonList';
+export * from './states';
+export * from './userTypes';

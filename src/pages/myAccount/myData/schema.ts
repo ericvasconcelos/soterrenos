@@ -1,18 +1,36 @@
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Resolver, useForm } from 'react-hook-form';
-import { object, ref, string } from 'yup';
+import { InferType, mixed, number, object, ref, string } from 'yup';
 
 import { IUserType } from '@/types';
 import { validateCNPJ, validateCPF } from '@/utils';
 import { errors } from '@/utils/form';
 
-import { ISignUpForm } from './types';
-
-const schemaSignUp = object().shape({
+export const updateUserSchema = object().shape({
   type: string<IUserType>()
     .oneOf(['agency', 'owner', 'salesperson'])
     .required(errors.required),
   // Common fields
+  newImage: mixed()
+    .required('Foto de perfil é obrigatória')
+    .test('file-size', 'A imagem deve ter no máximo 2MB', (value) => {
+      if (!value || !Array.isArray(value)) return false;
+      return value[0].size <= 2 * 1024 * 1024;
+    })
+    .test('file-type', 'Apenas imagens são permitidas', (value) => {
+      if (!value || !Array.isArray(value)) return false;
+      return ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(
+        value[0].type
+      );
+    }),
+  profileImage: object().shape({
+    src: string().required(),
+    width: number(),
+    height: number(),
+  }),
+  whatsappNumber: string()
+    .required(errors.required)
+    .test('whatsapp-format', 'Formato inválido', (value) =>
+      /^\(\d{2}\) \d{4,5}-\d{4}$/.test(value)
+    ),
   phoneNumber: string().required(errors.required),
   email: string()
     .required(errors.required)
@@ -104,24 +122,4 @@ const schemaSignUp = object().shape({
   }),
 });
 
-export const useSignUpForm = () =>
-  useForm<ISignUpForm>({
-    resolver: yupResolver(schemaSignUp) as Resolver<ISignUpForm>,
-    mode: 'onBlur',
-    reValidateMode: 'onChange',
-    defaultValues: {
-      type: 'owner',
-      personalName: '',
-      personalLastName: '',
-      personalId: '',
-      legalName: '',
-      tradeName: '',
-      companyId: '',
-      creci: '',
-      creciState: '',
-      password: '',
-      confirmPassword: '',
-      email: '',
-      phoneNumber: '',
-    },
-  });
+export type IUpdateUserForm = InferType<typeof updateUserSchema>;

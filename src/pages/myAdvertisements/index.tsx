@@ -1,9 +1,11 @@
-import { Link, NavLink, Outlet } from 'react-router';
+import { NavLink, Outlet, useNavigate } from 'react-router';
 
 import { Button, Container, Text } from '@/components';
 import { activeList, inactiveList } from '@/data';
 
 export default function MyAdvertisements() {
+  const navigate = useNavigate();
+
   const tabs = [
     {
       to: 'ativos',
@@ -22,8 +24,12 @@ export default function MyAdvertisements() {
           <Text tag="h1" size="2xl" weight="bold">
             Meus Anúncios
           </Text>
-          <Button variant="primary">
-            <Link to="/criar-anuncio/novo">Novo Anúncio</Link>
+
+          <Button
+            variant="primary"
+            onClick={() => navigate('/criar-anuncio/novo')}
+          >
+            Novo Anúncio
           </Button>
         </div>
 
@@ -33,7 +39,7 @@ export default function MyAdvertisements() {
               key={tab.to}
               to={tab.to}
               className={({ isActive }) =>
-                `px-4 py-2 rounded-t-sm font-medium ${
+                `px-4 py-2 rounded-t-sm font-medium outline-black ${
                   isActive
                     ? 'border-b-2 bg-primary-100 border-primary-700 text-primary-700'
                     : 'text-gray-500 hover:text-primary-700'

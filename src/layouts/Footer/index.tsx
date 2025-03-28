@@ -12,19 +12,19 @@ export const Footer = () => (
           </Text>
 
           <Link
-            className="block text-gray-200 text-sm font-medium mb-3"
+            className="block text-gray-200 text-sm font-medium mb-3 outline-black"
             to="/termos-e-condicoes-politica-de-privacidade"
           >
             Termos e Condições
           </Link>
           <Link
-            className="block text-gray-200 text-sm font-medium mb-3"
+            className="block text-gray-200 text-sm font-medium mb-3 outline-black"
             to="/termos-e-condicoes-politica-de-privacidade"
           >
             Política de Privacidade
           </Link>
           <Link
-            className="block text-gray-200 text-sm font-medium mb-3"
+            className="block text-gray-200 text-sm font-medium mb-3 outline-black"
             to="/central-de-ajuda"
           >
             Central de Ajuda
@@ -36,13 +36,13 @@ export const Footer = () => (
           </Text>
 
           <Link
-            className="block text-gray-200 text-sm font-medium mb-3"
+            className="block text-gray-200 text-sm font-medium mb-3 outline-black"
             to="/corretores"
           >
             Corretores Parceiros
           </Link>
           <Link
-            className="block text-gray-200 text-sm font-medium mb-3"
+            className="block text-gray-200 text-sm font-medium mb-3 outline-black"
             to="/imobiliarias"
           >
             Imobiliárias Parceiras
@@ -54,15 +54,15 @@ export const Footer = () => (
           </Text>
 
           <nav className="flex gap-4">
-            <a href="#" target="_blank">
+            <a href="#" target="_blank" className="outline-black">
               <Icon name="facebook" color="light" size={28} />
             </a>
 
-            <a href="#" target="_blank">
+            <a href="#" target="_blank" className="outline-black">
               <Icon name="instagram" color="light" size={28} />
             </a>
 
-            <a href="#" target="_blank">
+            <a href="#" target="_blank" className="outline-black">
               <Icon name="youtube" color="light" size={28} />
             </a>
           </nav>

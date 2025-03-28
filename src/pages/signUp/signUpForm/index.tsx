@@ -10,7 +10,7 @@ import {
   Select,
   Text,
 } from '@/components';
-import { states } from '@/data';
+import { states, userTypes } from '@/data';
 import {
   filterCNPJMask,
   filterCompanyNameMask,
@@ -20,7 +20,6 @@ import {
   filterSimpleNameMask,
 } from '@/utils';
 
-import { types } from './data';
 import { ISignUpForm } from './types';
 import { useSignUpForm } from './useSignUpForm';
 
@@ -107,7 +106,7 @@ export const SignUpForm: React.FC = () => {
             id="type"
             name="type"
             label="Tipo de usuário"
-            options={types}
+            options={userTypes}
           />
 
           {userType === 'agency' && (
@@ -242,8 +241,8 @@ export const SignUpForm: React.FC = () => {
           />
         </div>
 
-        <Button isFull size="large" icon="whatsapp" disabled={!isValid}>
-          Enviar mensagem
+        <Button isFull size="large" disabled={!isValid}>
+          Cadastrar
         </Button>
 
         <Text size="sm" align="center" className="my-4">

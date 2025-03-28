@@ -1,9 +1,13 @@
-import { IUserType } from '@/types';
+import { IImage } from './Image';
 
-export interface ISignUpForm {
+export type IUserType = 'agency' | 'owner' | 'salesperson';
+
+export interface IUser {
   type: IUserType;
   email: string;
   phoneNumber: string;
+  whatsappNumber?: string;
+  profileImage?: IImage;
   password: string;
   confirmPassword: string;
   personalName?: string;

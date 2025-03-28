@@ -29,7 +29,7 @@ export const LandCard = ({
     <Card
       hasShadow
       padding="none"
-      className="cursor-pointer"
+      className="cursor-pointer outline-black"
       role="button"
       tabIndex={0}
       onClick={handleNavigate}
