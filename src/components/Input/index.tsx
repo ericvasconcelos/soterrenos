@@ -56,6 +56,8 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
             disabled={disabled}
             className={inputClasses}
             onChange={handleChange}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error` : undefined}
             {...rest}
           />
         </div>
