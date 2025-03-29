@@ -47,5 +47,15 @@ describe('Avatar Component', () => {
     span = container.querySelector('i');
     expect(span?.className).toMatch(/w-12/);
     expect(span?.className).toMatch(/h-12/);
+
+    rerender(<Avatar firstName="A" lastName="B" size="xl" />);
+    span = container.querySelector('i');
+    expect(span?.className).toMatch(/w-20/);
+    expect(span?.className).toMatch(/h-20/);
+
+    rerender(<Avatar firstName="A" lastName="B" size="2xl" />);
+    span = container.querySelector('i');
+    expect(span?.className).toMatch(/w-28/);
+    expect(span?.className).toMatch(/h-28/);
   });
 });

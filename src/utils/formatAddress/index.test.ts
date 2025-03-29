@@ -1,4 +1,5 @@
-import { IAddress } from '../../types';
+import { IAddress } from '@/types';
+
 import { formatAddress } from './index';
 
 describe('formatAddress', () => {

@@ -1,3 +1,8 @@
+import { resolve } from 'node:path';
+import { pathsToModuleNameMapper } from 'ts-jest';
+
+const { compilerOptions } = require(resolve(__dirname, 'tsconfig.app.json'));
+
 export default {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
@@ -8,16 +13,22 @@ export default {
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
+    ...pathsToModuleNameMapper(compilerOptions.paths, {
+      prefix: '<rootDir>/src/',
+    }),
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     '^.+\\.svg$': 'jest-transformer-svg',
-    '^@/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
-    '^.+\\.(ts|tsx)$': ['ts-jest', { useESM: true }],
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        useESM: true,
+        tsconfig: 'tsconfig.app.json',
+      },
+    ],
   },
   extensionsToTreatAsEsm: ['.ts', '.tsx'],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  transformIgnorePatterns: [
-    'node_modules/(?!(string-width|cliui)/)',
-  ],
+  transformIgnorePatterns: ['node_modules/(?!(string-width|cliui)/)'],
 };

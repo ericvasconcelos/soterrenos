@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchZipCode } from '../../services/zipCode';
-import { IZipCodeData } from '../../services/zipCode/types';
+import { fetchZipCode } from '@/services/zipCode';
+import { IZipCodeData } from '@/services/zipCode/types';
 
 export const useZipCode = (zipCode: string) =>
   useQuery<IZipCodeData, Error>({

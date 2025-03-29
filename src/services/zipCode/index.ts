@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-import { VIA_CEP_API_URL } from '../../envs';
+import { VIA_CEP_API_URL } from '@/envs';
+
 import { IZipCodeData } from './types';
 
 export const fetchZipCode = async (zipCode: string): Promise<IZipCodeData> => {

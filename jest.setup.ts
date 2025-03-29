@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-jest.mock('./src/envs', () => ({
+jest.mock('@/envs', () => ({
   API_URL: 'https://viacep.com.br',
 }));
 

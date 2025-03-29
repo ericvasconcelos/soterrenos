@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 
-import { landList } from '../../../../data';
+import { landList } from '@/data';
+
 import { useLocation } from './useLocation';
 
 export const useLandListByCity = () => {

@@ -1,4 +1,5 @@
-import { ISelectOption } from '../../types';
+import { ISelectOption } from '@/types';
+
 import { formatAndSort } from './index';
 
 describe('formatAndSort', () => {
