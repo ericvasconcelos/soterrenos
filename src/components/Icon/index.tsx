@@ -1406,6 +1406,7 @@ export const Icon = ({
     warning: 'var(--color-warning-700)',
     light: 'var(--color-light)',
   };
+
   return (
     <IconComponent
       color={colors[color]}

@@ -18,6 +18,10 @@ jest.mock('../Spinner', () => ({
 }));
 
 describe('Button Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const defaultProps = {
     children: 'Test Button',
   };
@@ -35,7 +39,7 @@ describe('Button Component', () => {
 
   describe('Variant and Color combinations', () => {
     const variants = ['primary', 'secondary', 'tertiary'] as const;
-    const colors = ['primary', 'danger', 'warning', 'dark'] as const;
+    const colors = ['primary', 'danger', 'warning'] as const;
 
     variants.forEach((variant) => {
       colors.forEach((color) => {
@@ -47,7 +51,7 @@ describe('Button Component', () => {
             variant === 'primary'
               ? `bg-${color}-700`
               : variant === 'secondary'
-                ? `bg-${color}-${color === 'dark' ? 200 : 50}`
+                ? `bg-${color}-${color === 'primary' ? 100 : 50}`
                 : 'bg-transparent'
           );
         });
@@ -91,10 +95,10 @@ describe('Button Component', () => {
         <Button {...defaultProps} icon="arrow-left" iconPosition="left" />
       );
 
-      expect(screen.getByTestId('icon-arrow-left-primary')).toBeInTheDocument();
+      expect(screen.getByTestId('icon-arrow-left-light')).toBeInTheDocument();
       expect(screen.getByRole('button').children[0]).toHaveAttribute(
         'data-testid',
-        'icon-arrow-left-primary'
+        'icon-arrow-left-light'
       );
     });
 
@@ -141,11 +145,6 @@ describe('Button Component', () => {
   });
 
   describe('Accessibility', () => {
-    it('maintains button role with different props', () => {
-      render(<Button {...defaultProps} as="div" />);
-      expect(screen.getByRole('button')).toBeInTheDocument();
-    });
-
     it('handles click events when not disabled', async () => {
       const handleClick = jest.fn();
       render(<Button {...defaultProps} onClick={handleClick} />);

@@ -9,7 +9,7 @@ export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   icon?: IconNames;
   iconPosition?: 'left' | 'right';
   isFull?: boolean;
-  color?: 'primary' | 'danger' | 'warning' | 'dark';
+  color?: 'primary' | 'danger' | 'warning';
   variant?: 'primary' | 'secondary' | 'tertiary';
   size?: 'small' | 'default' | 'large';
 }
