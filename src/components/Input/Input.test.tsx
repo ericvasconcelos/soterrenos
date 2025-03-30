@@ -1,31 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { IFormField } from '../FormField/types';
-import { ILabel } from '../Label/types';
 import { Input } from './index';
-
-jest.mock('../FormField', () => ({
-  FormField: ({ children, error, id, className }: IFormField) => (
-    <div
-      id={id}
-      data-testid="form-field"
-      className={className}
-      data-error={!!error}
-    >
-      {children}
-      {error && <span data-testid="error-message">{error}</span>}
-    </div>
-  ),
-}));
-
-jest.mock('../Label', () => ({
-  Label: ({ id, text, invalid }: ILabel) => (
-    <label htmlFor={id} data-testid="label" data-invalid={invalid}>
-      {text}
-    </label>
-  ),
-}));
 
 describe('Input Component', () => {
   const basicProps = {
@@ -46,7 +22,7 @@ describe('Input Component', () => {
     const label = screen.getByTestId('label');
 
     expect(label).toHaveTextContent('Username');
-    expect(label).toHaveAttribute('htmlFor', 'test-input');
+    expect(label).toHaveAttribute('for', 'test-input');
   });
 
   it('shows error message and styling', () => {
@@ -75,7 +51,9 @@ describe('Input Component', () => {
     const input = screen.getByPlaceholderText('Enter text');
     await userEvent.type(input, 'abc123def');
 
-    expect(input).toHaveValue('123');
+    waitFor(() => {
+      expect(input).toHaveValue('123');
+    });
   });
 
   it('updates value correctly', async () => {

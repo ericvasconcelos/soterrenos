@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     };
 
     return (
-      <FormField id={id} error={error} className={className}>
+      <FormField error={error} className={className}>
         <div className={styleClass}>
           {label && (
             <Label id={id} text={label} invalid={!isValid && !!error} />

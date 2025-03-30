@@ -10,7 +10,6 @@ import { IRadioField } from './types';
 export const RadioFields = forwardRef<HTMLInputElement, IRadioField>(
   (props, ref) => {
     const {
-      id,
       error,
       title,
       options,
@@ -42,7 +41,7 @@ export const RadioFields = forwardRef<HTMLInputElement, IRadioField>(
 
     return (
       <div className={className}>
-        <FormField id={id} error={error}>
+        <FormField error={error}>
           {title && (
             <Text size="sm" weight="medium" className="mb-1">
               {title}
