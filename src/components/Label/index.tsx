@@ -12,7 +12,12 @@ export const Label = ({ id, text, invalid }: ILabel) => {
   );
 
   return (
-    <label htmlFor={id} className={labelClasses}>
+    <label
+      htmlFor={id}
+      className={labelClasses}
+      data-testid="label"
+      data-invalid={invalid}
+    >
       {text}
     </label>
   );

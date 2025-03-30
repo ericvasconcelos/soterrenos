@@ -2,14 +2,13 @@ import { FC } from 'react';
 
 import { IFormField } from './types';
 
-export const FormField: FC<IFormField> = ({
-  id,
-  error,
-  className,
-  children,
-}) => (
-  <div {...(id && { 'data-testid': id })} className={className}>
+export const FormField: FC<IFormField> = ({ error, className, children }) => (
+  <div className={className} data-testid="form-field" data-error={!!error}>
     {children}
-    {error && <p className="mt-2 text-xs text-danger-900">{error}</p>}
+    {error && (
+      <p className="mt-2 text-xs text-danger-900" data-testid="error-message">
+        {error}
+      </p>
+    )}
   </div>
 );
