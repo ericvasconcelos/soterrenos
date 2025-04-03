@@ -20,7 +20,7 @@ export const Nearby = () => {
 
         {!loading &&
           lands.length > 0 &&
-          lands.map((item) => <LandCard {...item} />)}
+          lands.map((item) => <LandCard key={item.id} {...item} />)}
       </div>
     </div>
   );

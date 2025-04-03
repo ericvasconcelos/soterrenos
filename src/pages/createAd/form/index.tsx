@@ -104,7 +104,7 @@ export const CreateAdForm = () => {
   const onSubmit = useCallback((formData: ICreateFormData) => {
     const landData = {
       ...formData,
-      code: uuidv4(),
+      id: uuidv4(),
       lastUpdate: new Date().toLocaleDateString(),
       price: sanitizePrice(formData.price),
       ...(formData?.propertyTax && {

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'react-router';
+import { useLocation, useParams, useSearchParams } from 'react-router';
 
 import { Skeleton, Text } from '@/components';
 import { landList } from '@/data';
+import { SEO } from '@/layouts/Seo';
 import { ILand, ISearchForm } from '@/types';
 import { generateArray, wait } from '@/utils';
 
@@ -11,6 +12,7 @@ import { paramConfigs } from '../searchForm/helpers';
 import { LandCard } from './landCard';
 
 export const SearchResults = () => {
+  const location = useLocation();
   const { state, city, neighborhood } = useParams();
   const [searchParams] = useSearchParams();
   const [lands, setLands] = useState<ILand[]>(landList);
@@ -53,20 +55,42 @@ export const SearchResults = () => {
   }, [fetchLands]);
 
   return (
-    <div className="grid grid-cols-1 gap-4">
-      {!loading && error && (
-        <Text size="2xl" color="danger-900" weight="medium" align="center">
-          {error}
-        </Text>
-      )}
+    <>
+      <SEO
+        title={`Terrenos à Venda em ${neighborhood}, ${city} - ${state}`}
+        description={`Encontre terrenos à venda em ${neighborhood}, ${city}. Filtre por preço, área e localização. Dados atualizados diariamente para garantir precisão!`}
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          itemListElement:
+            !loading &&
+            lands?.map(({ title, url }, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              item: {
+                '@type': 'RealEstateListing',
+                name: title,
+                url: `${location.pathname}/${url}`,
+              },
+            })),
+        }}
+      />
 
-      {!loading &&
-        lands.map((item) => <LandCard key={item.code} item={item} />)}
+      <div className="grid grid-cols-1 gap-4">
+        {!loading && error && (
+          <Text size="2xl" color="danger-900" weight="medium" align="center">
+            {error}
+          </Text>
+        )}
 
-      {loading &&
-        skeletons.map((item) => (
-          <Skeleton key={item} width="100%" height={231} borderRadius={12} />
-        ))}
-    </div>
+        {!loading &&
+          lands.map((item) => <LandCard key={item.id} item={item} />)}
+
+        {loading &&
+          skeletons.map((item) => (
+            <Skeleton key={item} width="100%" height={231} borderRadius={12} />
+          ))}
+      </div>
+    </>
   );
 };

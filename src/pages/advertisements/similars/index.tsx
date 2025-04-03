@@ -11,7 +11,7 @@ export const Similars = () => (
 
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
       {landList.slice(0, 8).map((infos) => (
-        <LandCard {...infos} />
+        <LandCard key={infos.id} {...infos} />
       ))}
     </div>
   </div>

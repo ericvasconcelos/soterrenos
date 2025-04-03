@@ -9,6 +9,7 @@ import {
   Text,
   Tooltip,
 } from '@/components';
+import { SEO } from '@/layouts/Seo';
 import { getTotalArea, priceFormatter } from '@/utils';
 
 import { data } from './data';
@@ -28,8 +29,33 @@ export default function Advertisements() {
   const { landSize, active } = data;
   const totalArea = getTotalArea(landSize);
 
+  const description = `Compre Terreno em ${data.address.neighborhood}, ${data.address.city} - ${data.address.state}. Área de ${totalArea.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
+
   return (
     <>
+      <SEO
+        title={`Terreno à venda de ${totalArea.text} em ${data.address.neighborhood}, ${data.address.city} -  ${data.address.state}`}
+        description={description}
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'RealEstateListing',
+          name: '${data.title}',
+          description: '${description}',
+          url: '[URL dinâmica do anúncio]',
+          listingStatus: 'ForSale',
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: '${data.address.city}',
+            addressRegion: '${data.address.state}',
+            addressNeighborhood: '${data.address.neighborhood}',
+          },
+          price: '${priceFormatter(data.price)}',
+          priceCurrency: 'BRL',
+          size: '${totalArea.text}',
+          image: '${data.images[0].src}',
+        }}
+      />
+
       <Container>
         <div className="flex items-center justify-between gap-4 my-5">
           <Text tag="h1" size="2xl" weight="medium">
@@ -39,7 +65,7 @@ export default function Advertisements() {
           <div className="flex items-center justify-end">
             <Button
               variant="tertiary"
-              color="dark"
+              color="primary"
               size="small"
               icon="share"
               iconPosition="left"
@@ -50,7 +76,7 @@ export default function Advertisements() {
 
             <Button
               variant="tertiary"
-              color="dark"
+              color="primary"
               size="small"
               icon={isSaved ? 'heart-filled' : 'heart'}
               iconPosition="left"
@@ -208,7 +234,7 @@ export default function Advertisements() {
 
               <Text size="sm">
                 Código do anúncio:
-                <br className="block xl:hidden" /> {data.code}
+                <br className="block xl:hidden" /> {data.id}
               </Text>
 
               <Text size="sm">

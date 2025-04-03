@@ -1,10 +1,37 @@
 import { Container } from '@/components';
+import { SEO } from '@/layouts/Seo';
 
 import { Nearby } from './nearby';
 import { SearchForm } from './searchForm';
 
 const Home = () => (
   <>
+    <SEO
+      title="Terrenos à Venda no Distrito Federal e Entorno"
+      description="Encontre seu terreno ideal no DF e região! Conectamos compradores e vendedores com agilidade, transparência e as melhores condições. Verificação rigorosa de dados."
+      schemaMarkup={{
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Só Terrenos',
+        url: 'https://soterrenos.com.br',
+        description:
+          'Plataforma especializada em compra e venda de terrenos no Distrito Federal e entorno',
+        potentialAction: {
+          '@type': 'SearchAction',
+          target:
+            'https://soterrenos.com.br/vendas/{state}/{city}/{neighborhood}',
+          'query-input': 'required name=location',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Só Terrenos',
+          mission:
+            'Conectar vendedores e compradores de terrenos de forma ágil e barata',
+          founder: 'Nome do Fundador (opcional)',
+        },
+      }}
+    />
+
     <div className="relative w-full h-[530px]">
       <picture>
         <source

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Button, Card, Container, Text } from '@/components';
+import { SEO } from '@/layouts/Seo';
 
 import { chapters } from './data';
 
@@ -9,6 +10,21 @@ const TermsAndConditions = () => {
 
   return (
     <>
+      <SEO
+        title="Termos de Uso e Política de Privacidade"
+        description="Conheça nossas políticas de transparência e segurança de dados. Compromisso com a ética e legislação vigente."
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: 'Termos e Condições',
+          datePublished: '2024-01-01',
+          author: {
+            '@type': 'Organization',
+            name: 'Só Terrenos',
+          },
+        }}
+      />
+
       <Container>
         <div className="mb-20">
           <Text

@@ -65,13 +65,13 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
         visibleAds.map((ad, index) => {
           if (visibleAds.length === index + 1) {
             return (
-              <div ref={lastElementRef} key={ad.code}>
+              <div ref={lastElementRef} key={ad.id}>
                 <LandCard type="edit" {...ad} />
               </div>
             );
           }
 
-          return <LandCard type="edit" key={ad.code} {...ad} />;
+          return <LandCard type="edit" key={ad.id} {...ad} />;
         })}
 
       {!initialLoading && !loadingMore && error && (
