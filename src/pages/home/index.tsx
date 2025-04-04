@@ -1,8 +1,13 @@
-import { Container } from '@/components';
+import { lazy, Suspense } from 'react';
+
+import { Container, Spinner } from '@/components';
 import { SEO } from '@/layouts/Seo';
 
-import { Nearby } from './nearby';
 import { SearchForm } from './searchForm';
+
+const Nearby = lazy(() =>
+  import('./nearby').then((module) => ({ default: module.Nearby }))
+);
 
 const Home = () => (
   <>
@@ -72,8 +77,16 @@ const Home = () => (
       </div>
     </div>
 
-    <Container>
-      <Nearby />
+    <Container className="mt-16 mb-16">
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-[200px]">
+            <Spinner size="lg" />
+          </div>
+        }
+      >
+        <Nearby />
+      </Suspense>
     </Container>
   </>
 );

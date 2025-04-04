@@ -7,4 +7,5 @@ export interface IIcon {
   color?: string;
   size?: number;
   strokeWidth?: number;
+  className?: string;
 }

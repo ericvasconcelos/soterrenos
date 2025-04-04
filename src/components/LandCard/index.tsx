@@ -38,7 +38,7 @@ export const LandCard = ({
           src={images[0].src}
           width={images[0].width}
           height={images[0].height}
-          alt={images[0].alt}
+          alt={images[0].alt || `Imagem do anúncio ${id}`}
           className="block w-full h-full object-cover"
         />
       </div>

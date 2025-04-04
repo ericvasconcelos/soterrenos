@@ -8,7 +8,7 @@ export const Nearby = () => {
   const { lands, loading } = useLandListByCity();
 
   return (
-    <div className="mt-16 mb-16">
+    <>
       <Text size="2xl" weight="bold" className="mb-8">
         Terrenos na sua cidade
       </Text>
@@ -22,6 +22,6 @@ export const Nearby = () => {
           lands.length > 0 &&
           lands.map((item) => <LandCard key={item.id} {...item} />)}
       </div>
-    </div>
+    </>
   );
 };

@@ -13,7 +13,7 @@ export const Infos = () => {
         <div key={key}>
           <Divider space="xl" />
 
-          <Text tag="h3" size="xl" weight="medium" className="pt-4 mb-8">
+          <Text tag="h2" size="xl" weight="medium" className="pt-4 mb-8">
             {title}
           </Text>
 

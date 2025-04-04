@@ -54,15 +54,30 @@ export const Footer = () => (
           </Text>
 
           <nav className="flex gap-4">
-            <a href="#" target="_blank" className="outline-black">
+            <a
+              href="https://www.facebook.com/soterrenos"
+              target="_blank"
+              className="outline-black"
+              aria-label="Facebook"
+            >
               <Icon name="facebook" color="light" size={28} />
             </a>
 
-            <a href="#" target="_blank" className="outline-black">
+            <a
+              href="https://www.instagram.com/soterrenos"
+              target="_blank"
+              className="outline-black"
+              aria-label="Instagram"
+            >
               <Icon name="instagram" color="light" size={28} />
             </a>
 
-            <a href="#" target="_blank" className="outline-black">
+            <a
+              href="https://www.youtube.com/@SoTerrenos"
+              target="_blank"
+              className="outline-black"
+              aria-label="Youtube"
+            >
               <Icon name="youtube" color="light" size={28} />
             </a>
           </nav>

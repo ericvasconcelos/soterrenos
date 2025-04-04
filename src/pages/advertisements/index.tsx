@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 import {
   Button,
@@ -6,6 +6,7 @@ import {
   Divider,
   Icon,
   ImageGallery,
+  Skeleton,
   Text,
   Tooltip,
 } from '@/components';
@@ -13,11 +14,22 @@ import { SEO } from '@/layouts/Seo';
 import { getTotalArea, priceFormatter } from '@/utils';
 
 import { data } from './data';
-import { Infos } from './infos';
 import { Location } from './location';
 import { ModalShare } from './modalShare';
-import { SellersContactForm } from './sellersContactForm';
-import { Similars } from './similars';
+
+const Infos = lazy(() =>
+  import('./infos').then((module) => ({ default: module.Infos }))
+);
+
+const SellersContactForm = lazy(() =>
+  import('./sellersContactForm').then((module) => ({
+    default: module.SellersContactForm,
+  }))
+);
+
+const Similars = lazy(() =>
+  import('./similars').then((module) => ({ default: module.Similars }))
+);
 
 export default function Advertisements() {
   const [isSaved, setIsSaved] = useState<boolean>(false);
@@ -107,7 +119,7 @@ export default function Advertisements() {
                 src={data.images[0].src}
                 width={data.images[0].width}
                 height={data.images[0].height}
-                alt="Foto Principal"
+                alt={`${data.title} - Imagem Principal`}
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
@@ -124,7 +136,7 @@ export default function Advertisements() {
                   src={image.src}
                   width={image.width}
                   height={image.height}
-                  alt={`Image ${index + 1}`}
+                  alt={`${data.title} - Imagem ${index + 1}`}
                   className="w-full h-full object-cover rounded-md"
                 />
               </div>
@@ -158,11 +170,17 @@ export default function Advertisements() {
                   Lado direito: ${landSize.right}m
                   Fundos: ${landSize.back}m
                 `}
+                aria-label="Medidas do terreno"
               >
                 <div className="xl:flex xl:items-end gap-2">
                   <Text size="sm" className="flex gap-1 mb-[3px]">
                     Área Total:
-                    <Icon name="information-circle" size={18} strokeWidth={2} />
+                    <Icon
+                      name="information-circle"
+                      size={18}
+                      strokeWidth={2}
+                      aria-hidden="true"
+                    />
                   </Text>
                   <Text
                     color="primary-700"
@@ -246,38 +264,48 @@ export default function Advertisements() {
             <Divider space="xl" />
 
             <div>
-              <Text tag="h3" size="xl" weight="medium" className="pt-4 mb-8">
+              <Text tag="h2" size="xl" weight="medium" className="pt-4 mb-8">
                 Descrição
               </Text>
 
               <p className="whitespace-pre-line">{data.description}</p>
             </div>
 
-            <Infos />
+            <Suspense>
+              <Infos />
+            </Suspense>
           </div>
 
           <div className="mt-8 md:mt-0">
-            <SellersContactForm />
+            <Suspense fallback={<Skeleton name="card" borderRadius={12} />}>
+              <SellersContactForm />
+            </Suspense>
           </div>
         </div>
 
-        <Similars />
+        <Suspense>
+          <Similars />
+        </Suspense>
       </Container>
 
-      {currentIndex !== null && (
-        <ImageGallery
-          images={data.images}
-          initialIndex={currentIndex}
-          close={closeModal}
-        />
-      )}
+      <Suspense>
+        {currentIndex !== null && (
+          <ImageGallery
+            images={data.images}
+            initialIndex={currentIndex}
+            close={closeModal}
+          />
+        )}
+      </Suspense>
 
-      {isModalShareOpen && (
-        <ModalShare
-          isOpen={isModalShareOpen}
-          close={() => setIsModalShareOpen(false)}
-        />
-      )}
+      <Suspense>
+        {isModalShareOpen && (
+          <ModalShare
+            isOpen={isModalShareOpen}
+            close={() => setIsModalShareOpen(false)}
+          />
+        )}
+      </Suspense>
     </>
   );
 }

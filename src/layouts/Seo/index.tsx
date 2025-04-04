@@ -6,8 +6,6 @@ export const SEO = (props: ISEO) => {
   const { title, description, type, name, canonical, image, schemaMarkup } =
     props;
 
-  console.log(props);
-
   return (
     <Helmet>
       <title>{title} | Só Terrenos</title>

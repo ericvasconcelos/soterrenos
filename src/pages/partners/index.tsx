@@ -246,8 +246,10 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
           </div>
 
           <div className="flex justify-end items-center gap-2">
-            <Text>Itens por página:</Text>
+            <Text tag="label">Itens por página:</Text>
             <select
+              id="size"
+              name="size"
               value={size}
               onChange={(e) => {
                 setSearchParams({ page: '1', size: e.target.value });
