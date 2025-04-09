@@ -5,13 +5,8 @@ import { IFormField } from '../FormField/types';
 import { Checkbox } from './index';
 
 jest.mock('../FormField', () => ({
-  FormField: ({ children, error, id, className }: IFormField) => (
-    <div
-      id={id}
-      data-testid="form-field"
-      className={className}
-      data-error={!!error}
-    >
+  FormField: ({ children, error, className }: IFormField) => (
+    <div data-testid="form-field" className={className} data-error={!!error}>
       {children}
       {error && <span data-testid="error-message">{error}</span>}
     </div>
