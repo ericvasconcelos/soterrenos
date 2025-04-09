@@ -1,11 +1,11 @@
 # Estágio 1: Construção da aplicação
-FROM node:20.12.2-alpine AS builder
+FROM node:20.10.0 as build
 
-WORKDIR /app
+WORKDIR /soterrenos
 
 # Cache de dependências
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install
 
 # Copiar arquivos do projeto e buildar
 COPY . .
@@ -14,13 +14,10 @@ RUN yarn build
 # Estágio 2: Servidor web de produção
 FROM nginx:alpine
 
-# Remover configuração padrão do Nginx
 RUN rm -rf /etc/nginx/conf.d/*
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /soterrenos/dist /usr/share/nginx/html
 
-# Copiar configuração customizada do Nginx
-COPY nginx/nginx.conf /etc/nginx/templates/default.conf.template
+EXPOSE 80
 
-# Copiar os arquivos buildados
-COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Não é necessário EXPOSE pois o Cloud Run usa variável PORT
+CMD ["nginx", "-g", "daemon off;"]
