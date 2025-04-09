@@ -37,21 +37,31 @@ export const Location = () => {
 
   return (
     <>
-      <Text size="lg" className="mb-8">
+      <Text tag="div" size="lg" className="mb-8 flex items-start">
         {address}
-        <button
-          className="ml-2 cursor-pointer"
+        <div
+          role="button"
+          tabIndex={0}
+          className="inline-block ml-2 -mt-1 h-7 cursor-pointer"
           onClick={() => setIsModalLocationOpen(true)}
+          aria-label="Localização do Terreno"
         >
-          <Tooltip align="center" content="Visualizar a localização no mapa">
+          <Tooltip
+            align="center"
+            content="Visualizar a localização no mapa"
+            aria-label="Localização do Terreno"
+            className="cursor-pointer"
+          >
             <Icon
               name="arrow-top-right-on-square"
-              size={22}
+              size={28}
               strokeWidth={1.5}
               color="primary"
+              aria-hidden="true"
+              className="cursor-pointer"
             />
           </Tooltip>
-        </button>
+        </div>
       </Text>
 
       <Modal

@@ -24,7 +24,7 @@ export type IInfos = Record<
 
 export interface ILand {
   url?: string;
-  code: string;
+  id: string;
   active: boolean;
   lastUpdate: string;
   title: string;

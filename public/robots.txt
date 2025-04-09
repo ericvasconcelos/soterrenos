@@ -1,0 +1,33 @@
+User-agent: *
+Crawl-delay: 5
+Allow: /vendas/
+Allow: /anuncios/
+Allow: /corretores
+Allow: /imobiliarias
+Allow: /central-de-ajuda
+Allow: /termos-e-condicoes-politica-de-privacidade
+Allow: /cadastrar
+Allow: /entrar
+Allow: /minha-conta
+Allow: /criar-anuncio
+
+Disallow: /meus-anuncios/
+Disallow: /*/privado/
+Disallow: /*?*
+Disallow: /*/edit
+Disallow: /*/delete
+
+# Bloqueio de parâmetros específicos
+Disallow: /*?utm_
+Disallow: /*?sessionid=
+Disallow: /*?ref=
+
+# Arquivos e diretórios do sistema
+Disallow: /admin/
+Disallow: /cms/
+Disallow: /wp-admin/
+Disallow: /arquivos/
+Disallow: /backup/
+Disallow: /config/
+
+Sitemap: https://www.soterrenos.com.br/sitemap.xml

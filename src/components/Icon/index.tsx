@@ -1396,6 +1396,8 @@ export const Icon = ({
   color = 'dark',
   size = 20,
   strokeWidth = 1,
+  className = '',
+  ...rest
 }: IIcon) => {
   const IconComponent = iconList[name];
 
@@ -1412,6 +1414,8 @@ export const Icon = ({
       color={colors[color]}
       size={size}
       strokeWidth={strokeWidth}
+      className={className}
+      {...rest}
     />
   );
 };

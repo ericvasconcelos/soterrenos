@@ -10,7 +10,7 @@ import { ILandCard } from './types';
 
 export const LandCard = ({
   type = 'infos',
-  code,
+  id,
   url,
   images,
   price,
@@ -20,10 +20,9 @@ export const LandCard = ({
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(() => {
-    const link =
-      type === 'edit' ? `/criar-anuncio/${code}` : `/anuncios/${url}`;
+    const link = type === 'edit' ? `/criar-anuncio/${id}` : `/anuncios/${url}`;
     navigate(link);
-  }, [code, navigate, type, url]);
+  }, [id, navigate, type, url]);
 
   return (
     <Card
@@ -39,7 +38,7 @@ export const LandCard = ({
           src={images[0].src}
           width={images[0].width}
           height={images[0].height}
-          alt={images[0].alt}
+          alt={images[0].alt || `Imagem do anúncio ${id}`}
           className="block w-full h-full object-cover"
         />
       </div>

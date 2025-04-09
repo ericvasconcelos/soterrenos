@@ -11,6 +11,7 @@ import {
 } from '@/components';
 import { states } from '@/data';
 import { useUser } from '@/hooks/useUser';
+import { SEO } from '@/layouts/Seo';
 import {
   filterCNPJMask,
   filterCompanyNameMask,
@@ -75,6 +76,17 @@ const MyData: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Meus Dados | Área do Cliente"
+        description="Atualize suas informações pessoais e preferências de conta. Segurança e privacidade garantidas."
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          name: 'Meus Dados',
+          description: 'Área de gerenciamento de dados do usuário',
+        }}
+      />
+
       <Container>
         <form onSubmit={handleSubmit(onSubmit)} className="mt-12 mb-20">
           <Text tag="h1" size="2xl" weight="bold" className="mb-8">

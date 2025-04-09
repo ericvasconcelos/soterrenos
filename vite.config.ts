@@ -24,7 +24,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ['react', 'react-dom', 'react-helmet', 'react-router'],
+          react: ['react', 'react-dom', 'react-helmet-async', 'react-router'],
           vendor: [
             'axios',
             'classnames',

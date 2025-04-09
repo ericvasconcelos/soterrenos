@@ -10,6 +10,7 @@ import {
   Input,
   Text,
 } from '@/components';
+import { SEO } from '@/layouts/Seo';
 import { IBasePartner } from '@/types';
 import { filterPhoneMask } from '@/utils';
 
@@ -99,6 +100,17 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
 
   return (
     <>
+      <SEO
+        title={`Parceria com ${plural} | Divulgue Terrenos`}
+        description="Amplie seu alcance! Cadastre seus terrenos em nossa plataforma e conecte-se a compradores qualificados."
+        schemaMarkup={{
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: `Só Terrenos - Parceria para ${plural}`,
+          url: 'https://soterrenos.com.br/corretores',
+          description: `Plataforma para ${plural} divulgarem terrenos no DF e entorno`,
+        }}
+      />
       <Container>
         <div className="mb-8">
           <Text tag="h1" size="2xl" weight="bold" className="mt-12 mb-8">
@@ -234,8 +246,10 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
           </div>
 
           <div className="flex justify-end items-center gap-2">
-            <Text>Itens por página:</Text>
+            <Text tag="label">Itens por página:</Text>
             <select
+              id="size"
+              name="size"
               value={size}
               onChange={(e) => {
                 setSearchParams({ page: '1', size: e.target.value });

@@ -17,7 +17,7 @@ export default meta;
 // Mock data
 const mockLandData: ILandCard = {
   url: 'terreno-exemplo-123',
-  code: '12345',
+  id: '12345',
   images: [
     {
       src: 'https://placehold.co/400x300',

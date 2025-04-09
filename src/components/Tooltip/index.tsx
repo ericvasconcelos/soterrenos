@@ -8,18 +8,22 @@ export const Tooltip: FC<TooltipProps> = ({
   content,
   contentPosition = 'top',
   align = 'center',
+  className = '',
+  ...rest
 }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger asChild>
-        <div
+        <button
           onMouseOver={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
+          className={className}
+          {...rest}
         >
           {children}
-        </div>
+        </button>
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
