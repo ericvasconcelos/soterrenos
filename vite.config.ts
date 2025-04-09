@@ -20,7 +20,9 @@ export default defineConfig({
       '@/utils': resolve(__dirname, 'src/utils'),
     },
   },
+  base: '/',
   build: {
+    manifest: true,
     rollupOptions: {
       output: {
         manualChunks: {
