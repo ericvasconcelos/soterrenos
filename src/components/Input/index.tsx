@@ -45,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     };
 
     return (
-      <FormField id={id} error={error} className={className}>
+      <FormField error={error} className={className}>
         <div className={styleClass}>
           {label && (
             <Label id={id} text={label} invalid={!isValid && !!error} />
@@ -56,6 +56,8 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
             disabled={disabled}
             className={inputClasses}
             onChange={handleChange}
+            aria-invalid={!!error}
+            aria-describedby={error ? `${id}-error` : undefined}
             {...rest}
           />
         </div>

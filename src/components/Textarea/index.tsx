@@ -21,7 +21,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, ITextArea>(
     const textareaClasses = `w-full text-gray-900 placeholder:text-gray-500 font-family font-normal outline-none`;
 
     return (
-      <FormField id={id} error={error}>
+      <FormField error={error}>
         <div className={styleClass}>
           {label && (
             <Label id={id} text={label} invalid={!isValid && !!error} />
