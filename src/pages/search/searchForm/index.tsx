@@ -339,7 +339,6 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={RadioFields}
-                id="soilType"
                 name="soilType"
                 title="Tipo de solo"
                 options={[
@@ -353,7 +352,6 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={RadioFields}
-                id="slope"
                 name="slope"
                 title="Inclinação"
                 options={[
@@ -367,7 +365,6 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={RadioFields}
-                id="zoning"
                 name="zoning"
                 title="Zoneamento"
                 options={[
@@ -381,7 +378,6 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={RadioFields}
-                id="sunPosition"
                 name="sunPosition"
                 title="Posição solar"
                 options={[

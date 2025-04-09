@@ -424,7 +424,6 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            id="infos.whatHas.soilType"
             name="infos.whatHas.soilType"
             title="Tipo de Solo"
             options={soilTypeOptions}
@@ -433,7 +432,6 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            id="infos.whatHas.slope"
             name="infos.whatHas.slope"
             title="Inclinação"
             options={slopeOptions}
@@ -442,7 +440,6 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            id="infos.whatHas.zoning"
             name="infos.whatHas.zoning"
             title="Zoneamento"
             options={zoningOptions}
@@ -451,7 +448,6 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            id="infos.whatHas.sunPosition"
             name="infos.whatHas.sunPosition"
             title="Posição do Sol"
             options={sunPositionOptions}
