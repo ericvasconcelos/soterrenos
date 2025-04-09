@@ -1,23 +1,17 @@
-# Estágio 1: Construção da aplicação
-FROM node:20.10.0 as build
+# step 1: build application
+FROM node:20.12.2-alpine as builder
 
-WORKDIR /soterrenos
+WORKDIR /app
 
-# Cache de dependências
 COPY package.json yarn.lock ./
 RUN yarn install
 
-# Copiar arquivos do projeto e buildar
 COPY . .
 RUN yarn build
 
-# Estágio 2: Servidor web de produção
+# Step 2: create nginx server for production
 FROM nginx:alpine
 
 RUN rm -rf /etc/nginx/conf.d/*
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /soterrenos/dist /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+COPY nginx/nginx.conf /etc/nginx/templates/default.conf.template
+COPY --from=builder /app/dist /usr/share/nginx/html
