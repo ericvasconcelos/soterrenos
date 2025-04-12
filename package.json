@@ -15,7 +15,9 @@
     "test:watch": "jest --watch",
     "coverage": "jest --coverage --watchAll=false --maxWorkers=50%",
     "prepare": "husky",
-    "storybook": "storybook dev -p 6006"
+    "storybook": "storybook dev -p 6006",
+    "docker:build": "docker build -t soterrenos-front .",
+    "docker:run": "docker run -e PORT=8080 -p 8080:8080 soterrenos-front"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",
@@ -40,6 +42,7 @@
     "react-hook-form": "^7.54.2",
     "react-leaflet": "^5.0.0",
     "react-router": "^7.1.5",
+    "react-toastify": "^11.0.5",
     "storybook": "^8.6.11",
     "storybook-addon-aria-live": "^1.0.1",
     "usehooks-ts": "^3.1.1",

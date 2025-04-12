@@ -40,7 +40,7 @@ const MyData: React.FC = () => {
   const newImage = watch('newImage');
   const profileImage = watch('profileImage');
 
-  const { data } = useUser('agency');
+  const { data } = useUser();
 
   useEffect(() => {
     reset(data);
@@ -67,7 +67,11 @@ const MyData: React.FC = () => {
       return profileImage;
     }
 
-    return '';
+    return {
+      src: 'https://placehold.co/300x300',
+      width: 300,
+      height: 300,
+    };
   }, [newImage, profileImage]);
 
   const onSubmit = (formData: IUpdateUserForm) => {
@@ -168,8 +172,8 @@ const MyData: React.FC = () => {
                 <FieldController
                   control={control}
                   component={Input}
-                  id="personalName"
-                  name="personalName"
+                  id="personalFirstName"
+                  name="personalFirstName"
                   label="Nome"
                   placeholder="Seu nome"
                   filterValue={filterSimpleNameMask}

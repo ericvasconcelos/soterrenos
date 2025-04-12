@@ -2,11 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Resolver, useForm } from 'react-hook-form';
 import { object, ref, string } from 'yup';
 
-import { IUserType } from '@/types';
+import { ISignUpForm, IUserType } from '@/types';
 import { validateCNPJ, validateCPF } from '@/utils';
 import { errors } from '@/utils/form';
-
-import { ISignUpForm } from './types';
 
 const schemaSignUp = object().shape({
   type: string<IUserType>()
@@ -14,6 +12,7 @@ const schemaSignUp = object().shape({
     .required(errors.required),
   // Common fields
   phoneNumber: string().required(errors.required),
+  whatsappNumber: string().required(errors.required),
   email: string()
     .required(errors.required)
     .email('O e-mail deve seguir o formato: exemplo@email.com')
@@ -32,7 +31,7 @@ const schemaSignUp = object().shape({
     .oneOf([ref('password')], errors.password.equal)
     .required(errors.required),
   // Fields for "owner" and "salesperson"
-  personalName: string().when('type', {
+  personalFirstName: string().when('type', {
     is: (val: string) => ['owner', 'salesperson'].includes(val),
     then: (schema) =>
       schema
@@ -111,7 +110,7 @@ export const useSignUpForm = () =>
     reValidateMode: 'onChange',
     defaultValues: {
       type: 'owner',
-      personalName: '',
+      personalFirstName: '',
       personalLastName: '',
       personalId: '',
       legalName: '',
@@ -123,5 +122,6 @@ export const useSignUpForm = () =>
       confirmPassword: '',
       email: '',
       phoneNumber: '',
+      whatsappNumber: '',
     },
   });

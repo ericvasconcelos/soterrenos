@@ -50,7 +50,7 @@ export const updateUserSchema = object().shape({
     .oneOf([ref('password')], errors.password.equal)
     .required(errors.required),
   // Fields for "owner" and "salesperson"
-  personalName: string().when('type', {
+  personalFirstName: string().when('type', {
     is: (val: string) => ['owner', 'salesperson'].includes(val),
     then: (schema) =>
       schema

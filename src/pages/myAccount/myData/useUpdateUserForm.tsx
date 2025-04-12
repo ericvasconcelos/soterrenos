@@ -10,7 +10,7 @@ export const useUpdateUserForm = () =>
     reValidateMode: 'onChange',
     defaultValues: {
       type: 'owner',
-      personalName: '',
+      personalFirstName: '',
       personalLastName: '',
       personalId: '',
       legalName: '',

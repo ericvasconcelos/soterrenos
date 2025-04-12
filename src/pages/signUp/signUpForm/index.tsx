@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useWatch } from 'react-hook-form';
 import { Link } from 'react-router';
 
@@ -11,6 +11,7 @@ import {
   Text,
 } from '@/components';
 import { states, userTypes } from '@/data';
+import { ISignUpForm } from '@/types';
 import {
   filterCNPJMask,
   filterCompanyNameMask,
@@ -20,76 +21,25 @@ import {
   filterSimpleNameMask,
 } from '@/utils';
 
-import { ISignUpForm } from './types';
+import { useSignUp } from '../hooks/useSignUp';
 import { useSignUpForm } from './useSignUpForm';
 
 export const SignUpForm: React.FC = () => {
+  const { mutateAsync: signUp } = useSignUp();
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    formState: { isValid, isSubmitting },
   } = useSignUpForm();
 
   const userType = useWatch({ control, name: 'type' });
 
-  const onSubmit = (formData: ISignUpForm) => {
-    const {
-      type,
-      email,
-      phoneNumber,
-      password,
-      personalName,
-      personalLastName,
-      personalId,
-      legalName,
-      tradeName,
-      companyId,
-      creci,
-      creciState,
-    } = formData;
-
-    const baseData = {
-      type,
-      email,
-      phoneNumber,
-      password,
-    };
-
-    if (formData.type === 'owner') {
-      const ownerData = {
-        ...baseData,
-        personalName,
-        personalLastName,
-        personalId,
-      };
-      console.log(ownerData);
-      return;
-    }
-
-    if (formData.type === 'salesperson') {
-      const salesPersonData = {
-        ...baseData,
-        personalName,
-        personalLastName,
-        personalId,
-        creci,
-        creciState,
-      };
-      console.log(salesPersonData);
-      return;
-    }
-
-    if (formData.type === 'agency') {
-      const agencyData = {
-        ...baseData,
-        legalName,
-        tradeName,
-        companyId,
-      };
-      console.log(agencyData);
-      return;
-    }
-  };
+  const onSubmit = useCallback(
+    async (formData: ISignUpForm) => {
+      await signUp(formData);
+    },
+    [signUp]
+  );
 
   return (
     <Card hasShadow className="h-auto">
@@ -158,8 +108,8 @@ export const SignUpForm: React.FC = () => {
               <FieldController
                 control={control}
                 component={Input}
-                id="personalName"
-                name="personalName"
+                id="personalFirstName"
+                name="personalFirstName"
                 label="Nome"
                 placeholder="Seu nome"
                 filterValue={filterSimpleNameMask}
@@ -213,6 +163,16 @@ export const SignUpForm: React.FC = () => {
           <FieldController
             control={control}
             component={Input}
+            id="whatsappNumber"
+            name="whatsappNumber"
+            label="Número do Whatsapp"
+            placeholder="(99) 99999-9999"
+            filterValue={filterPhoneMask}
+          />
+
+          <FieldController
+            control={control}
+            component={Input}
             id="email"
             type="email"
             name="email"
@@ -241,7 +201,12 @@ export const SignUpForm: React.FC = () => {
           />
         </div>
 
-        <Button isFull size="large" disabled={!isValid}>
+        <Button
+          isFull
+          size="large"
+          disabled={!isValid}
+          isLoading={isSubmitting}
+        >
           Cadastrar
         </Button>
 

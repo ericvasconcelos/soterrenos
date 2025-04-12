@@ -4,9 +4,10 @@ export interface ISignUpForm {
   type: IUserType;
   email: string;
   phoneNumber: string;
+  whatsappNumber: string;
   password: string;
   confirmPassword: string;
-  personalName?: string;
+  personalFirstName?: string;
   personalLastName?: string;
   personalId?: string;
   legalName?: string;
