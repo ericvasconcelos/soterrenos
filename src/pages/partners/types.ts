@@ -1,7 +1,7 @@
-import { IBasePartner } from '@/types';
+import { IUserType } from '@/types';
 
-export interface IPartner<T extends IBasePartner> {
-  data: T[];
+export interface IPartner {
+  type: IUserType;
   variants: {
     singular: string;
     plural: string;

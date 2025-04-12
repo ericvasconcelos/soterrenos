@@ -3,7 +3,7 @@
   "email": "maria.silva@exemplo.com",
   "phoneNumber": "(11) 98765-4321",
   "whatsappNumber": "(11) 98765-4321",
-  "personalName": "Maria",
+  "personalFirstName": "Maria",
   "personalLastName": "Silva",
   "personalId": "123.456.789-09",
   "profileImage": {
