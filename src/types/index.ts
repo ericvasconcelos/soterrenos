@@ -4,4 +4,5 @@ export type * from './Land';
 export type * from './Partners';
 export type * from './SearchForm';
 export type * from './SelectOption';
+export type * from './SignUpForm';
 export type * from './User';
