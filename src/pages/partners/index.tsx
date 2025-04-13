@@ -1,22 +1,13 @@
-import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import {
-  Avatar,
-  Button,
-  Card,
-  Container,
-  Icon,
-  Input,
-  Skeleton,
-  Text,
-} from '@/components';
+import { Button, Container, Input, Skeleton, Text } from '@/components';
 import { SEO } from '@/layouts/Seo';
 import { IUser } from '@/types';
-import { filterPhoneMask, generateArray, getPartnerName } from '@/utils';
+import { generateArray, getPartnerName } from '@/utils';
 
 import { useUsersByType } from './hooks';
+import { PartnerCard } from './partnerCard';
 import { IPartner } from './types';
 
 const Partners = ({ type, variants }: IPartner) => {
@@ -28,20 +19,12 @@ const Partners = ({ type, variants }: IPartner) => {
   const urlSearchText = searchParams.get('searchText') || '';
 
   const [searchText, setSearchText] = useState(urlSearchText);
-  const [showPhoneNumber, setShowPhoneNumber] = useState(false);
-  const [showEmail, setShowEmail] = useState(false);
 
   const { data, isLoading, lastPage, prevPage, nextPage } = useUsersByType(
     type,
     page,
     size
   );
-
-  const handleSendMessage = (whatsappNumber: string, message: string) => {
-    window.open(
-      `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}`
-    );
-  };
 
   const filteredData = useMemo(
     () =>
@@ -70,8 +53,6 @@ const Partners = ({ type, variants }: IPartner) => {
     }
 
     setSearchParams(params);
-    setShowPhoneNumber(false);
-    setShowEmail(false);
   };
 
   const handleSearchChange = (value: string) => {
@@ -124,106 +105,14 @@ const Partners = ({ type, variants }: IPartner) => {
             <Skeleton key={item} name="card" height={233} className="mb-4" />
           ))}
 
-        {filteredData.map((info) => {
-          const partnerName = getPartnerName(info);
-          return (
-            <Card
-              key={info.id}
-              hasShadow
-              className="grid md:grid-cols-[auto_280px] gap-4 mb-4"
-            >
-              <div>
-                <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                  {info?.profileImage?.src && (
-                    <Avatar image={info.profileImage} size="2xl" />
-                  )}
-
-                  <div className="flex flex-col items-start gap-1">
-                    <Text tag="h2" size="xl" weight="bold">
-                      {partnerName}
-                    </Text>
-
-                    <Text size="sm" className="flex items-center gap-1">
-                      <Icon name="phone" size={20} />
-                      {filterPhoneMask(
-                        info.phoneNumber.slice(0, showPhoneNumber ? 14 : 5)
-                      )}
-                      {!showPhoneNumber && (
-                        <button
-                          className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
-                          onClick={() => setShowPhoneNumber(true)}
-                        >
-                          Ver telefone
-                        </button>
-                      )}
-                    </Text>
-
-                    <Text size="sm" className="flex items-center gap-1">
-                      <Icon name="mail" size={20} />
-                      {info.email.slice(0, showEmail ? 999 : 7)}
-                      {!showEmail && (
-                        <button
-                          className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
-                          onClick={() => setShowEmail(true)}
-                        >
-                          Ver email
-                        </button>
-                      )}
-                    </Text>
-
-                    {info.creci && <Text size="sm">CRECI: {info.creci}</Text>}
-
-                    <Text size="sm">
-                      Terrenos à venda: <b>{info?.activeLandsCount}</b>
-                    </Text>
-
-                    <Text
-                      size="xs"
-                      className="inline-block bg-gray-200 rounded-sm px-3 py-1"
-                    >
-                      Parceiro desde{' '}
-                      {dayjs(info.createdAt).format('DD/MM/YYYY')}
-                    </Text>
-                  </div>
-                </div>
-                {info?.servedCities && info?.servedCities.length > 0 && (
-                  <Text size="sm" color="gray-700">
-                    Atendimento:{' '}
-                    {info?.servedCities
-                      ?.map(({ city, state }) => `${city} - ${state}`)
-                      .join(', ')}
-                  </Text>
-                )}
-              </div>
-
-              <nav className="flex flex-col gap-4">
-                <Button
-                  onClick={() =>
-                    handleSendMessage(
-                      info.whatsappNumber,
-                      `Olá ${partnerName}, gostaria de saber algumas informações importantes sobre o seu trabalho.`
-                    )
-                  }
-                  variant="primary"
-                >
-                  Falar com {article} {singular}
-                </Button>
-
-                <Button
-                  onClick={() =>
-                    handleSendMessage(
-                      info.whatsappNumber,
-                      `Olá ${partnerName}, gostaria de solicitar a avaliação do meu terreno.`
-                    )
-                  }
-                  variant="secondary"
-                >
-                  Solicitar Avaliação do Terreno
-                </Button>
-              </nav>
-            </Card>
-          );
-        })}
+        {filteredData.map((user) => (
+          <PartnerCard
+            key={user.id}
+            {...user}
+            article={article}
+            singular={singular}
+          />
+        ))}
 
         <div className="flex justify-between gap-4 mt-8 mb-12">
           <div className="flex items-center gap-4">
