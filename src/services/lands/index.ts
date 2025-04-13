@@ -14,3 +14,12 @@ export const fetchLands = async (size?: number) => {
     throw new Error(error as string);
   }
 };
+
+export const fetchLand = async (id?: string) => {
+  try {
+    const { data } = await landsService.get<ILand>(`/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};

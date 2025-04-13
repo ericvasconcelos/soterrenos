@@ -1,11 +1,14 @@
+import { useParams } from 'react-router';
+
 import { Divider, Icon, Text } from '@/components';
 
-import { data } from '../data';
+import { useFetchLand } from '../hooks';
 import { generateInfos } from './generateInfos';
 
 export const Infos = () => {
-  const { infos } = data;
-  const dataInfos = generateInfos(infos);
+  const { id } = useParams();
+  const { data } = useFetchLand(id);
+  const dataInfos = generateInfos(data);
 
   return (
     <>

@@ -14,7 +14,7 @@ import {
 } from '@/components';
 import { SEO } from '@/layouts/Seo';
 import { IUser } from '@/types';
-import { filterPhoneMask, generateArray } from '@/utils';
+import { filterPhoneMask, generateArray, getPartnerName } from '@/utils';
 
 import { useUsersByType } from './hooks';
 import { IPartner } from './types';
@@ -41,11 +41,6 @@ const Partners = ({ type, variants }: IPartner) => {
     window.open(
       `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}`
     );
-  };
-
-  const getPartnerName = (user: IUser) => {
-    if (user.type === 'agency') return user?.tradeName || '';
-    return `${user.personalFirstName} ${user.personalLastName}`;
   };
 
   const filteredData = useMemo(
@@ -151,14 +146,14 @@ const Partners = ({ type, variants }: IPartner) => {
                     <Text size="sm" className="flex items-center gap-1">
                       <Icon name="phone" size={20} />
                       {filterPhoneMask(
-                        info.phoneNumber.slice(0, showPhoneNumber ? 11 : 5)
+                        info.phoneNumber.slice(0, showPhoneNumber ? 14 : 5)
                       )}
                       {!showPhoneNumber && (
                         <button
                           className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
                           onClick={() => setShowPhoneNumber(true)}
                         >
-                          Ver email
+                          Ver telefone
                         </button>
                       )}
                     </Text>
@@ -171,7 +166,7 @@ const Partners = ({ type, variants }: IPartner) => {
                           className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
                           onClick={() => setShowEmail(true)}
                         >
-                          Ver telefone
+                          Ver email
                         </button>
                       )}
                     </Text>
@@ -191,12 +186,14 @@ const Partners = ({ type, variants }: IPartner) => {
                     </Text>
                   </div>
                 </div>
-                <Text size="sm" color="gray-700">
-                  Atendimento:{' '}
-                  {info?.servedCities
-                    ?.map(({ city, state }) => `${city} - ${state}`)
-                    .join(', ')}
-                </Text>
+                {info?.servedCities && info?.servedCities.length > 0 && (
+                  <Text size="sm" color="gray-700">
+                    Atendimento:{' '}
+                    {info?.servedCities
+                      ?.map(({ city, state }) => `${city} - ${state}`)
+                      .join(', ')}
+                  </Text>
+                )}
               </div>
 
               <nav className="flex flex-col gap-4">

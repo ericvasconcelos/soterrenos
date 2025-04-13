@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Icon } from '@/components';
 
@@ -10,6 +10,14 @@ export const ImageGallery = ({
   close,
 }: IImageGallery) => {
   const [currentIndex, setCurrentIndex] = useState<number>(initialIndex);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'scroll';
+    };
+  }, []);
 
   const prevImage = () => {
     if (currentIndex !== null) {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import {
   Button,
@@ -9,14 +9,23 @@ import {
   Text,
   Textarea,
 } from '@/components';
-import { filterFullNameMask, filterPhoneMask } from '@/utils';
+import { filterFullNameMask, filterPhoneMask, getPartnerName } from '@/utils';
 
 import { data } from '../data';
+import { ISellersContactForm } from './types';
 import { IContactForm, useContactForm } from './useContactForm';
 
-export const SellersContactForm = () => {
-  const { name, phoneNumber, whatsappNumber, email, creci, image } =
-    data.seller;
+export const SellersContactForm = ({
+  type,
+  personalFirstName,
+  personalLastName,
+  tradeName,
+  phoneNumber,
+  whatsappNumber,
+  email,
+  creci,
+  profileImage,
+}: ISellersContactForm) => {
   const {
     control,
     handleSubmit,
@@ -25,12 +34,14 @@ export const SellersContactForm = () => {
   const [showPhoneNumber, setShowPhoneNumber] = useState<boolean>(false);
   const [showEmail, setShowEmail] = useState<boolean>(false);
 
-  const onSubmit = (formData: IContactForm) => {
-    const { name, phoneNumber, email, message } = formData;
-    window.open(
-      `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}%0ANome: ${name}%0AEmail: ${email}%0ATelefone: ${phoneNumber}`
-    );
-  };
+  const onSubmit = useCallback(
+    (formData: IContactForm) => {
+      window.open(
+        `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${formData.message}%0ANome: ${formData.name}%0AEmail: ${formData.email}%0ATelefone: ${formData.phoneNumber}`
+      );
+    },
+    [whatsappNumber]
+  );
 
   const handleShowPhoneNumber = () => {
     setShowPhoneNumber(true);
@@ -40,27 +51,34 @@ export const SellersContactForm = () => {
     setShowEmail(true);
   };
 
+  const partnerName = getPartnerName({
+    type,
+    personalFirstName,
+    personalLastName,
+    tradeName,
+  });
+
   return (
     <Card className="sticky top-6" hasShadow>
       <div className="flex md:flex-col lg:flex-row gap-2 mb-6">
-        {image.src && (
+        {profileImage?.src && (
           <img
-            src={image.src}
-            width={image.width}
-            height={image.height}
-            alt={image.alt ?? name}
-            className="w-[106px] h-[106px] object-cover rounded-md"
+            src={profileImage.src}
+            width={profileImage.width}
+            height={profileImage.height}
+            alt={profileImage.alt ?? partnerName}
+            className="w-[106px] h-[106px] object-cover rounded-full"
           />
         )}
 
         <div>
           <Text weight="medium" className="mb-1.5">
-            Vendido por {name}
+            {partnerName}
           </Text>
 
           <Text size="sm" className="flex items-center gap-1 mb-1.5">
             <Icon name="phone" size={20} />
-            {filterPhoneMask(phoneNumber.slice(0, showPhoneNumber ? 11 : 5))}
+            {filterPhoneMask(phoneNumber.slice(0, showPhoneNumber ? 15 : 5))}
             {!showPhoneNumber && (
               <button
                 className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"

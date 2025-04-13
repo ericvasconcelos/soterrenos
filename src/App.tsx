@@ -25,7 +25,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Page />}>
             <Route index element={<Home />} />
-            <Route path="/anuncios/:title" element={<Advertisements />} />
+            <Route path="/anuncios/:id/:slug" element={<Advertisements />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="/minha-conta/meus-dados" element={<MyData />} />

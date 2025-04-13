@@ -1,4 +1,4 @@
-export const priceFormatter = (price: number, digits: number = 2): string => {
+export const priceFormatter = (price?: number, digits: number = 2): string => {
   const value = price?.toLocaleString('pt-BR', {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,

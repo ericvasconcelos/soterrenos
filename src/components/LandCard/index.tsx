@@ -11,7 +11,7 @@ import { ILandCard } from './types';
 export const LandCard = ({
   type = 'infos',
   id,
-  url,
+  slug,
   images,
   price,
   landSize,
@@ -20,9 +20,10 @@ export const LandCard = ({
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(() => {
-    const link = type === 'edit' ? `/criar-anuncio/${id}` : `/anuncios/${url}`;
+    const link =
+      type === 'edit' ? `/criar-anuncio/${id}` : `/anuncios/${id}/${slug}`;
     navigate(link);
-  }, [id, navigate, type, url]);
+  }, [id, navigate, type, slug]);
 
   return (
     <Card

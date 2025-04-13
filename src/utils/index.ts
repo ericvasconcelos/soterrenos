@@ -6,6 +6,7 @@ export * from './formatAndSort';
 export * from './formatSearchURL';
 export * from './generateArray';
 export * from './generateStates';
+export * from './getPartnerName';
 export * from './getTotalArea';
 export * from './price';
 export * from './validations';

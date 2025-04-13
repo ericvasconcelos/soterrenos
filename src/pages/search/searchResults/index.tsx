@@ -64,13 +64,13 @@ export const SearchResults = () => {
           '@type': 'ItemList',
           itemListElement:
             !loading &&
-            lands?.map(({ title, url }, index) => ({
+            lands?.map(({ title, slug }, index) => ({
               '@type': 'ListItem',
               position: index + 1,
               item: {
                 '@type': 'RealEstateListing',
                 name: title,
-                url: `${location.pathname}/${url}`,
+                url: `${location.pathname}/${slug}`,
               },
             })),
         }}
