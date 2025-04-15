@@ -4,7 +4,8 @@ import { ApiService } from '@/services';
 
 import { AuthContext } from './AuthContext';
 import { isValidToken } from './helpers';
-import { IAuthProviderProps } from './types';
+import { useLogin } from './hooks';
+import { IAuthProviderProps, ILogin } from './types';
 
 const loggedPaths = ['/entrar', '/cadastrar'];
 
@@ -13,6 +14,7 @@ const authService = new ApiService('/auth');
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const { mutateAsync: loginRequest } = useLogin();
 
   const initAuth = useCallback(() => {
     const storedToken = localStorage.getItem('accessToken');
@@ -30,19 +32,23 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     initAuth();
   }, [initAuth]);
 
-  const login = useCallback(async (email: string, password: string) => {
-    const { data } = await authService.post<{ accessToken: string }>('/login', {
-      email,
-      password,
-    });
+  const login = useCallback(
+    async (payload: ILogin) => {
+      const data = await loginRequest(payload);
 
-    const { accessToken } = data;
-    if (!accessToken) throw new Error('Login failed');
-    if (!isValidToken(accessToken)) throw new Error('Invalid token');
-    localStorage.setItem('accessToken', accessToken);
-    setToken(accessToken);
-    window.history.back();
-  }, []);
+      if (!data?.accessToken || !data?.refreshToken) {
+        throw new Error('O Login falhou');
+      }
+
+      const { accessToken, refreshToken } = data;
+      if (!isValidToken(accessToken)) throw new Error('Token Inválido');
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+      setToken(accessToken);
+      window.history.back();
+    },
+    [loginRequest]
+  );
 
   const refreshToken = async () => {
     try {
@@ -60,6 +66,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   const logout = () => {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
     setToken(null);
   };
 

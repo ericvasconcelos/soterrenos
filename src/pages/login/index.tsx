@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 
 import { useAuth } from '@/auth';
@@ -23,16 +23,8 @@ const Login: React.FC = () => {
   } = useLoginForm();
 
   const { login, loading } = useAuth();
-  const [error, setError] = useState('');
 
-  const onSubmit = async ({ email, password }: ILogin) => {
-    try {
-      await login(email, password);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err) {
-      setError('Credenciais inválidas');
-    }
-  };
+  const onSubmit = async (data: ILogin) => await login(data);
 
   return (
     <>
@@ -77,12 +69,6 @@ const Login: React.FC = () => {
             <Button isFull size="large" disabled={!isValid} isLoading={loading}>
               Acessar
             </Button>
-
-            {error && (
-              <Text size="sm" align="center" color="danger-900">
-                {error}
-              </Text>
-            )}
 
             <Text size="sm" align="center">
               É novo aqui? Acesse a{' '}
