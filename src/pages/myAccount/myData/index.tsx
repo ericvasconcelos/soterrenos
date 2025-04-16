@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import {
   Avatar,
@@ -7,6 +7,7 @@ import {
   FieldController,
   Input,
   Select,
+  Skeleton,
   Text,
 } from '@/components';
 import { states } from '@/data';
@@ -22,6 +23,7 @@ import {
 } from '@/utils';
 
 import { CropImageModal } from './CropImageModal';
+import { useUpdateProfile } from './hooks';
 import { IUpdateUserForm } from './schema';
 import { useUpdateUserForm } from './useUpdateUserForm';
 
@@ -31,52 +33,32 @@ const MyData: React.FC = () => {
     handleSubmit,
     watch,
     reset,
-    setValue,
-    formState: { isValid, isSubmitting },
+    formState: { isValid },
   } = useUpdateUserForm();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const newImage = watch('newImage');
   const profileImage = watch('profileImage');
 
-  const { data } = useUser();
+  const defaultImage = {
+    src: '/placeholder/user-icon-placeholder.jpg',
+    width: 512,
+    height: 512,
+  };
+
+  const { mutateAsync: updateProfile, isPending } = useUpdateProfile();
+  const { data, isLoading } = useUser();
 
   useEffect(() => {
     reset(data);
   }, [reset, data]);
 
-  const handleSaveImage = useCallback(
-    (croppedImage: FileList) => {
-      setValue('newImage', croppedImage);
+  const onSubmit = useCallback(
+    async (formData: IUpdateUserForm) => {
+      await updateProfile(formData);
     },
-    [setValue]
+    [updateProfile]
   );
-
-  const currentImage = useMemo(() => {
-    const croppedImage = newImage as FileList;
-
-    if (croppedImage && croppedImage?.[0]) {
-      const urlImage = URL.createObjectURL(croppedImage[0]);
-      return {
-        src: urlImage,
-      };
-    }
-
-    if (profileImage?.src) {
-      return profileImage;
-    }
-
-    return {
-      src: 'https://placehold.co/300x300',
-      width: 300,
-      height: 300,
-    };
-  }, [newImage, profileImage]);
-
-  const onSubmit = (formData: IUpdateUserForm) => {
-    console.log(formData);
-  };
 
   return (
     <>
@@ -101,7 +83,11 @@ const MyData: React.FC = () => {
             className="group relative mb-4 cursor-pointer overflow-hidden rounded-full"
             onClick={() => setIsModalOpen(true)}
           >
-            {currentImage && <Avatar size="2xl" image={currentImage} />}
+            {isLoading ? (
+              <Skeleton width={112} height={112} borderRadius={100} />
+            ) : (
+              <Avatar size="2xl" image={profileImage ?? defaultImage} />
+            )}
 
             <span className="hidden group-hover:flex absolute inset-0 items-center justify-center font-medium text-white bg-gray-950/75 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
               Atualizar Imagem
@@ -235,7 +221,7 @@ const MyData: React.FC = () => {
             />
 
             <div className="flex justify-end sm:col-span-2 mt-4">
-              <Button size="large" disabled={!isValid} isLoading={isSubmitting}>
+              <Button size="large" disabled={!isValid} isLoading={isPending}>
                 Atualizar
               </Button>
             </div>
@@ -247,7 +233,6 @@ const MyData: React.FC = () => {
         <CropImageModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onSave={handleSaveImage}
         />
       )}
     </>

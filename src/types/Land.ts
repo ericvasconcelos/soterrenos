@@ -57,4 +57,14 @@ export interface ILand {
   bank: boolean;
   createdAt: string;
   updatedAt: string;
+  seller?: Pick<
+    IUser,
+    | 'personalFirstName'
+    | 'personalLastName'
+    | 'phoneNumber'
+    | 'whatsappNumber'
+    | 'email'
+    | 'creci'
+    | 'profileImage'
+  >;
 }

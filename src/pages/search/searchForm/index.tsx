@@ -339,7 +339,7 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={RadioFields}
-                name="soilType"
+                name="soil"
                 title="Tipo de solo"
                 options={[
                   { value: 'clay', label: 'Argiloso' },

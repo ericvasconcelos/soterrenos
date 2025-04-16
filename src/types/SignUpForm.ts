@@ -1,6 +1,7 @@
 import { IUserType } from '@/types';
 
 export interface ISignUpForm {
+  id?: string;
   type: IUserType;
   email: string;
   phoneNumber: string;

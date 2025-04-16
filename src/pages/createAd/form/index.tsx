@@ -19,15 +19,17 @@ import {
   commonAreasOptions,
   publicTransportationOptions,
   slopeOptions,
-  soilTypeOptions,
+  soilOptions,
   states,
   sunPositionOptions,
   zoningOptions,
 } from '@/data';
-import { uploadImages } from '@/services/uploadImages';
-import { filterMoneyMask, filterPhoneMask, sanitizePrice } from '@/utils';
+import { uploadImages } from '@/services/file';
+import { filterMoneyMask, sanitizePrice } from '@/utils';
 
-import { ICreateFormData } from './schema';
+import { useCreateLand } from '../hooks';
+import { SellerInfos } from '../sellerInfos';
+import { ICreateFormData, ICreateLandPayload } from './schema';
 import { useCreateForm } from './useCreateForm';
 
 export const CreateAdForm = () => {
@@ -41,6 +43,8 @@ export const CreateAdForm = () => {
     watch,
     formState: { errors, isValid, isSubmitting },
   } = useCreateForm();
+
+  const { mutateAsync: createLand } = useCreateLand();
 
   const imageList = watch('images');
   const hasCondominium = !!watch('address.condominium');
@@ -101,21 +105,34 @@ export const CreateAdForm = () => {
     [imageList, setValue]
   );
 
-  const onSubmit = useCallback((formData: ICreateFormData) => {
-    const landData = {
-      ...formData,
-      id: uuidv4(),
-      lastUpdate: new Date().toLocaleDateString(),
-      price: sanitizePrice(formData.price),
-      ...(formData?.propertyTax && {
-        propertyTax: sanitizePrice(formData?.propertyTax),
-      }),
-      ...(formData?.condominiumTax && {
-        condominiumTax: sanitizePrice(formData?.condominiumTax),
-      }),
-    };
-    console.log(landData);
-  }, []);
+  const onSubmit = useCallback(
+    async (formData: ICreateFormData) => {
+      const { price, propertyTax, condominiumTax, ...rest } = formData;
+
+      const landData: ICreateLandPayload = {
+        ...rest,
+        price: sanitizePrice(price),
+        ...(propertyTax && {
+          propertyTax: sanitizePrice(propertyTax),
+        }),
+        ...(condominiumTax && {
+          condominiumTax: sanitizePrice(condominiumTax),
+        }),
+        images: [
+          {
+            src: 'http://www.anuncios/images/4355127664.jpg',
+            width: 500,
+            height: 559,
+            alt: 'Alt da imagem',
+          },
+        ],
+      };
+      console.log(landData);
+
+      await createLand(landData);
+    },
+    [createLand]
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -194,19 +211,8 @@ export const CreateAdForm = () => {
 
       <Card>
         <Text tag="h2" size="xl" weight="bold" className="mb-4">
-          Video e Imagens
+          Imagens
         </Text>
-
-        <FieldController
-          component={Input}
-          control={control}
-          type="url"
-          id="videoUrl"
-          name="videoUrl"
-          label="Vídeo do Youtube"
-          placeholder="https://www.youtube.com/watch?v=h01Lz6qu1VI"
-          className="mb-8"
-        />
 
         <label
           htmlFor="upload-images"
@@ -424,15 +430,15 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            name="infos.whatHas.soilType"
+            name="soil"
             title="Tipo de Solo"
-            options={soilTypeOptions}
+            options={soilOptions}
           />
 
           <FieldController
             component={RadioFields}
             control={control}
-            name="infos.whatHas.slope"
+            name="slope"
             title="Inclinação"
             options={slopeOptions}
           />
@@ -440,7 +446,7 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            name="infos.whatHas.zoning"
+            name="zoning"
             title="Zoneamento"
             options={zoningOptions}
           />
@@ -448,7 +454,7 @@ export const CreateAdForm = () => {
           <FieldController
             component={RadioFields}
             control={control}
-            name="infos.whatHas.sunPosition"
+            name="sunPosition"
             title="Posição do Sol"
             options={sunPositionOptions}
           />
@@ -458,57 +464,73 @@ export const CreateAdForm = () => {
           <FieldController
             component={Checkbox}
             control={control}
-            id="infos.whatHas.hasWater"
-            name="infos.whatHas.hasWater"
+            id="hasWater"
+            name="hasWater"
             content="Água encanada"
           />
 
           <FieldController
             component={Checkbox}
             control={control}
-            id="infos.whatHas.hasArtesianWell"
-            name="infos.whatHas.hasArtesianWell"
+            id="hasArtesianWell"
+            name="hasArtesianWell"
             content="Poço artesiano"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.whatHas.hasSewageSystem"
-            name="infos.whatHas.hasSewageSystem"
+            id="hasSewageSystem"
+            name="hasSewageSystem"
             content="Rede de esgoto"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.whatHas.hasEletricity"
-            name="infos.whatHas.hasEletricity"
+            id="hasEletricity"
+            name="hasEletricity"
             content="Energia elétrica"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.whatHas.isFenced"
-            name="infos.whatHas.isFenced"
+            id="isFenced"
+            name="isFenced"
             content="Murado"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.whatHas.isLandLeveled"
-            name="infos.whatHas.isLandLeveled"
+            id="isLandLeveled"
+            name="isLandLeveled"
             content="Terraplanagem Feita"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.whatHas.isLotClear"
-            name="infos.whatHas.isLotClear"
+            id="isLotClear"
+            name="isLotClear"
             content="Terreno limpo"
+          />
+
+          <FieldController
+            control={control}
+            component={Checkbox}
+            id="hasInternet"
+            name="hasInternet"
+            content="Internet"
+          />
+
+          <FieldController
+            control={control}
+            component={Checkbox}
+            id="hasGas"
+            name="hasGas"
+            content="Gás encamado"
             className="mb-4"
           />
         </div>
@@ -524,56 +546,56 @@ export const CreateAdForm = () => {
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.established"
-              name="infos.condominiumStatus.established"
+              id="established"
+              name="established"
               content="Condomínio Formado"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.paved"
-              name="infos.condominiumStatus.paved"
+              id="paved"
+              name="paved"
               content="Rua Asfaltada"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.streetLighting"
-              name="infos.condominiumStatus.streetLighting"
+              id="streetLighting"
+              name="streetLighting"
               content="Iluminação na rua"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.sanitationBasic"
-              name="infos.condominiumStatus.sanitationBasic"
+              id="sanitationBasic"
+              name="sanitationBasic"
               content="Saneamento Básico"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.sidewalks"
-              name="infos.condominiumStatus.sidewalks"
+              id="sidewalks"
+              name="sidewalks"
               content="Calçadas"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.gatedEntrance"
-              name="infos.condominiumStatus.gatedEntrance"
+              id="gatedEntrance"
+              name="gatedEntrance"
               content="Portaria"
             />
 
             <FieldController
               control={control}
               component={Checkbox}
-              id="infos.condominiumStatus.security"
-              name="infos.condominiumStatus.security"
+              id="security"
+              name="security"
               content="Segurança 24h"
             />
           </div>
@@ -586,7 +608,7 @@ export const CreateAdForm = () => {
             {commonAreasOptions.map((option) => (
               <Controller
                 key={option.value}
-                name="infos.condominiumStatus.commonAreas"
+                name="commonAreas"
                 control={control}
                 render={({ field }) => (
                   <Checkbox
@@ -623,56 +645,56 @@ export const CreateAdForm = () => {
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.restaurant"
-            name="infos.nearby.restaurant"
+            id="restaurant"
+            name="restaurant"
             content="Restaurante"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.school"
-            name="infos.nearby.school"
+            id="school"
+            name="school"
             content="Escola"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.hospital"
-            name="infos.nearby.hospital"
+            id="hospital"
+            name="hospital"
             content="Hospital / Posto de Saúde"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.supermarket"
-            name="infos.nearby.supermarket"
+            id="supermarket"
+            name="supermarket"
             content="Supermercado"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.drugstore"
-            name="infos.nearby.drugstore"
+            id="drugstore"
+            name="drugstore"
             content="Farmácia"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.gasStation"
-            name="infos.nearby.gasStation"
+            id="gasStation"
+            name="gasStation"
             content="Posto de Gasolina"
           />
 
           <FieldController
             control={control}
             component={Checkbox}
-            id="infos.nearby.bank"
-            name="infos.nearby.bank"
+            id="bank"
+            name="bank"
             content="Banco"
           />
         </div>
@@ -685,7 +707,7 @@ export const CreateAdForm = () => {
           {publicTransportationOptions.map((option) => (
             <Controller
               key={option.value}
-              name="infos.nearby.publicTransportation"
+              name="publicTransportation"
               control={control}
               render={({ field }) => (
                 <Checkbox
@@ -712,69 +734,7 @@ export const CreateAdForm = () => {
         </div>
       </Card>
 
-      <Card>
-        <Text tag="h2" size="xl" weight="bold" className="mb-4">
-          Informações do Vendedor
-        </Text>
-
-        <FieldController
-          component={Checkbox}
-          control={control}
-          id="seller.reuseUserInfos"
-          name="seller.reuseUserInfos"
-          content="Usar informações do usuário"
-          className="mb-4"
-        />
-
-        <div className="grid grid-cols-3 gap-4">
-          <FieldController
-            component={Input}
-            control={control}
-            id="seller.whatsappNumber"
-            name="seller.whatsappNumber"
-            label="Whatsapp"
-            placeholder="(61) 99999-9999"
-            filterValue={filterPhoneMask}
-          />
-
-          <FieldController
-            component={Input}
-            control={control}
-            id="seller.phoneNumber"
-            name="seller.phoneNumber"
-            label="Telefone de contato"
-            placeholder="(61) 9999-9999"
-            filterValue={filterPhoneMask}
-          />
-
-          <FieldController
-            component={Input}
-            control={control}
-            type="email"
-            id="seller.email"
-            name="seller.email"
-            label="Email"
-            placeholder="seuemail@gmail.com"
-          />
-
-          <FieldController
-            component={Input}
-            control={control}
-            id="seller.creci"
-            name="seller.creci"
-            label="CRECI"
-          />
-
-          <FieldController
-            component={Select}
-            control={control}
-            id="seller.creciState"
-            name="seller.creciState"
-            label="Estado do CRECI"
-            options={states}
-          />
-        </div>
-      </Card>
+      <SellerInfos />
 
       <div className="flex justify-end mb-20">
         <Button

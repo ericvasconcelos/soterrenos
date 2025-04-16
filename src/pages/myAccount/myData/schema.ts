@@ -1,26 +1,15 @@
-import { InferType, mixed, number, object, ref, string } from 'yup';
+import { InferType, number, object, string } from 'yup';
 
 import { IUserType } from '@/types';
 import { validateCNPJ, validateCPF } from '@/utils';
 import { errors } from '@/utils/form';
 
 export const updateUserSchema = object().shape({
+  id: string().required(errors.required),
   type: string<IUserType>()
     .oneOf(['agency', 'owner', 'salesperson'])
     .required(errors.required),
   // Common fields
-  newImage: mixed()
-    .required('Foto de perfil é obrigatória')
-    .test('file-size', 'A imagem deve ter no máximo 2MB', (value) => {
-      if (!value || !Array.isArray(value)) return false;
-      return value[0].size <= 2 * 1024 * 1024;
-    })
-    .test('file-type', 'Apenas imagens são permitidas', (value) => {
-      if (!value || !Array.isArray(value)) return false;
-      return ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'].includes(
-        value[0].type
-      );
-    }),
   profileImage: object().shape({
     src: string().required(),
     width: number(),
@@ -36,19 +25,6 @@ export const updateUserSchema = object().shape({
     .required(errors.required)
     .email('O e-mail deve seguir o formato: exemplo@email.com')
     .max(400, errors.max(400)),
-  password: string()
-    .required(errors.required)
-    .min(8, errors.password.min)
-    .max(40, errors.password.max)
-    .matches(/[A-Z]/, errors.password.uppercase)
-    .matches(/[0-9]/, errors.password.number)
-    .matches(
-      /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/,
-      errors.password.specialChar
-    ),
-  confirmPassword: string()
-    .oneOf([ref('password')], errors.password.equal)
-    .required(errors.required),
   // Fields for "owner" and "salesperson"
   personalFirstName: string().when('type', {
     is: (val: string) => ['owner', 'salesperson'].includes(val),

@@ -125,7 +125,7 @@ const Partners = ({ type, variants }: IPartner) => {
             </Button>
 
             <Text className="mx-4">
-              Página {page} de {lastPage || '-'}
+              Página {page} de {lastPage || '1'}
             </Text>
 
             <Button

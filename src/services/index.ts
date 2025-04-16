@@ -2,9 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { API_URL } from '../envs';
 
-interface IRequest {
-  [key: string]: unknown;
-}
+export type IRequest = object | FormData;
 
 class ApiClient {
   private readonly _api: AxiosInstance;

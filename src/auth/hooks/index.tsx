@@ -3,11 +3,9 @@ import { toast } from 'react-toastify';
 
 import { login } from '@/services/auth';
 
-import { ILogin } from '../types';
-
 export const useLogin = () =>
   useMutation({
-    mutationFn: (payload: ILogin) => login(payload),
+    mutationFn: login,
     onSuccess: () => {
       toast.success('Login realizado com sucesso!');
     },

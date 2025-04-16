@@ -3,13 +3,22 @@ import { Link, useNavigate } from 'react-router';
 import { useAuth } from '@/auth';
 import { Avatar, Button, Container, Icon } from '@/components';
 import { Dropdown } from '@/components/Dropdown';
+import { useUser } from '@/hooks/useUser';
 
 import { useMenuItems } from './useMenuItems';
 
 export const Header = () => {
   const menuItems = useMenuItems();
   const { isAuthenticated } = useAuth();
+  const { data } = useUser();
   const navigate = useNavigate();
+
+  const defaultImage = {
+    src: '/placeholder/user-icon-placeholder.jpg',
+    width: 512,
+    height: 512,
+    alt: 'Usuário',
+  };
 
   return (
     <header className="py-5 border-b-1 border-b-gray-300">
@@ -35,24 +44,10 @@ export const Header = () => {
                 <Icon name="menu-bar" size={26} strokeWidth={1.5} />
               </span>
 
-              {isAuthenticated ? (
-                <Avatar
-                  image={{
-                    src: '/eric.jpg',
-                    width: 400,
-                    height: 400,
-                    alt: 'Eric Vasconcelos',
-                  }}
-                />
+              {isAuthenticated && data?.profileImage?.src ? (
+                <Avatar image={data.profileImage} />
               ) : (
-                <Avatar
-                  image={{
-                    src: '/placeholder/user-icon-placeholder.jpg',
-                    width: 512,
-                    height: 512,
-                    alt: 'Usuário',
-                  }}
-                />
+                <Avatar image={defaultImage} />
               )}
             </button>
           </Dropdown>

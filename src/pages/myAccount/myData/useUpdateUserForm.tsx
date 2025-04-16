@@ -9,7 +9,6 @@ export const useUpdateUserForm = () =>
     mode: 'onBlur',
     reValidateMode: 'onChange',
     defaultValues: {
-      type: 'owner',
       personalFirstName: '',
       personalLastName: '',
       personalId: '',
@@ -18,8 +17,6 @@ export const useUpdateUserForm = () =>
       companyId: '',
       creci: '',
       creciState: '',
-      password: '',
-      confirmPassword: '',
       email: '',
       phoneNumber: '',
       whatsappNumber: '',

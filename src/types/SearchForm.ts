@@ -15,7 +15,7 @@ export interface ISearchForm {
   isFenced?: boolean;
   isLandLeveled?: boolean;
   isLotClear?: boolean;
-  soilType?: string;
+  soil?: string;
   slope?: string;
   zoning?: string;
   sunPosition?: string;
