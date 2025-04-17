@@ -18,7 +18,7 @@ import {
   generateStates,
 } from '@/utils';
 
-import { useSearchForm } from './hooks/useSearchForm';
+import { useSearchForm } from '../hooks/useSearchForm';
 
 const states = generateStates();
 

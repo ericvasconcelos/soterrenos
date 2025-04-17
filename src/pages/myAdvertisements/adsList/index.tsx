@@ -1,14 +1,15 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LandCard, Skeleton, Spinner, Text } from '@/components';
-import { activeList, inactiveList } from '@/data';
+import { useUser } from '@/hooks/useUser';
 import { ILand } from '@/types';
 import { generateArray, wait } from '@/utils';
 
+import { useLandsByUser } from '../hooks';
 import { IAdsList } from './types';
 
 export const AdsList: FC<IAdsList> = ({ type }) => {
-  const initialAds = type === 'active' ? activeList : inactiveList;
+  const isActive = type === 'active';
   const [initialLoading, setInitialLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(true);
   const [error, setError] = useState('');
@@ -16,21 +17,19 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef<IntersectionObserver>(null);
-  const itemsPerPage = 8;
   const skeletons = generateArray(8);
 
-  const handleLoadAds = useCallback(async () => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const newAds = initialAds.advertisements.slice(startIndex, endIndex);
+  const { data: user } = useUser();
+  const { data, lastPage } = useLandsByUser(user?.id, currentPage, 8, isActive);
 
+  const handleLoadAds = useCallback(async () => {
     try {
       if (currentPage === 1) setInitialLoading(true);
       else setLoadingMore(true);
 
-      await wait(2000);
-      setVisibleAds((prev) => [...new Set([...prev, ...newAds])]);
-      setHasMore(endIndex < initialAds.total);
+      await wait(1000);
+      setVisibleAds((prev) => [...new Set([...prev, ...data])]);
+      setHasMore(currentPage < lastPage);
     } catch (err) {
       setError('Ocorrou algum erro ao carregar as informações');
       return err;
@@ -38,7 +37,7 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
       setInitialLoading(false);
       setLoadingMore(false);
     }
-  }, [currentPage, initialAds]);
+  }, [currentPage, lastPage, data]);
 
   useEffect(() => {
     handleLoadAds();
@@ -62,7 +61,7 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
       {!initialLoading &&
-        visibleAds.map((ad, index) => {
+        visibleAds?.map((ad, index) => {
           if (visibleAds.length === index + 1) {
             return (
               <div ref={lastElementRef} key={ad.id}>

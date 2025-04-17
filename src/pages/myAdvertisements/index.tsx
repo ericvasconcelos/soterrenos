@@ -1,7 +1,6 @@
 import { NavLink, Outlet, useNavigate } from 'react-router';
 
 import { Button, Container, Text } from '@/components';
-import { activeList, inactiveList } from '@/data';
 
 export default function MyAdvertisements() {
   const navigate = useNavigate();
@@ -9,11 +8,11 @@ export default function MyAdvertisements() {
   const tabs = [
     {
       to: 'ativos',
-      label: `Ativos (${activeList.total})`,
+      label: `Ativos`,
     },
     {
       to: 'inativos',
-      label: `Inativos (${inactiveList.total})`,
+      label: `Inativos`,
     },
   ];
 

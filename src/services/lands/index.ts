@@ -5,6 +5,7 @@ import {
 import { ILand } from '@/types';
 
 import { ApiService } from '../index';
+import { ILands } from './types';
 
 const landsService = new ApiService('/lands');
 
@@ -43,6 +44,24 @@ export const updateLand = async (
 ) => {
   try {
     const { data } = await landsService.patch(`/${id}`, payload);
+    return data;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
+export const fetchLandsByUser = async (
+  id?: string,
+  page?: number,
+  size?: number,
+  active?: boolean
+) => {
+  const currPage = page ?? 1;
+  const currSize = size ?? 1;
+  const url = `/user/${id}?page=${currPage}&size=${currSize}&active=${active}`;
+
+  try {
+    const { data } = await landsService.get<ILands>(url);
     return data;
   } catch (error) {
     throw new Error(error as string);
