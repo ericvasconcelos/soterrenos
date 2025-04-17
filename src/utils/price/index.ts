@@ -13,9 +13,3 @@ export const sanitizePrice = (price: string): number => {
   const numericValue = parseFloat(cleanedValue) / 100;
   return numericValue;
 };
-
-export const sanitizePriceForSearch = (price: string): string => {
-  const cleanPrefix = price?.replace(/[R$ ]/g, '');
-  const cleanedValue = cleanPrefix.replace(/[.]/g, '').replace(/[,]/g, '.');
-  return cleanedValue;
-};

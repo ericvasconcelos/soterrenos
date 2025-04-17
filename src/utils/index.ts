@@ -5,7 +5,7 @@ export * from './formatAddress';
 export * from './formatAndSort';
 export * from './formatSearchURL';
 export * from './generateArray';
-export * from './generateStates';
+export * from './generateStateOptions';
 export * from './getPartnerName';
 export * from './getTotalArea';
 export * from './price';

@@ -67,3 +67,12 @@ export const fetchLandsByUser = async (
     throw new Error(error as string);
   }
 };
+
+export const searchLands = async (url: string) => {
+  try {
+    const { data } = await landsService.get<ILands>(url);
+    return data;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};

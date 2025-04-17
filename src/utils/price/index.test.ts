@@ -1,4 +1,4 @@
-import { priceFormatter, sanitizePrice, sanitizePriceForSearch } from './index';
+import { priceFormatter, sanitizePrice } from './index';
 
 describe('Price Helpers', () => {
   describe('priceFormatter', () => {
@@ -10,12 +10,6 @@ describe('Price Helpers', () => {
   describe('sanitizePrice', () => {
     it('should convert formatted string to number', () => {
       expect(sanitizePrice('R$ 1.500,99')).toBe(1500.99);
-    });
-  });
-
-  describe('sanitizePriceForSearch', () => {
-    it('should prepare price for API requests', () => {
-      expect(sanitizePriceForSearch('R$ 1.500,99')).toBe('1500.99');
     });
   });
 });

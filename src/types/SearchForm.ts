@@ -1,13 +1,12 @@
 export interface ISearchForm {
   state: string;
   city: string;
-  neighborhood: string;
   minPrice?: string;
   maxPrice?: string;
   minArea?: string;
   maxArea?: string;
   fgts?: boolean;
-  financing?: boolean;
+  financingAvailable?: boolean;
   hasWater?: boolean;
   hasArtesianWell?: boolean;
   hasSewageSystem?: boolean;

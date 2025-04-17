@@ -46,8 +46,6 @@ export default function Advertisements() {
 
   const description = `Compre Terreno em ${data?.address.neighborhood}, ${data?.address.city} - ${data?.address.state}. Área de ${totalArea.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
 
-  console.log(data?.user);
-
   return (
     <>
       <SEO

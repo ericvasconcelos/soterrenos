@@ -127,7 +127,6 @@ export const CreateAdForm = () => {
           },
         ],
       };
-      console.log(landData);
 
       await createLand(landData);
     },

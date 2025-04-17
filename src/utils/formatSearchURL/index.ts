@@ -1,17 +1,22 @@
-import { normalizeText } from '../normalizeText';
+import { filterOnlyNumbersMask } from '../filters';
 
 export const formatSearchURL = (
   state: string,
   city: string,
-  neighborhood: string,
   filters: Record<string, string | boolean>
 ) => {
-  const basePath = `/vendas/${normalizeText(state)}/${normalizeText(city)}/${normalizeText(neighborhood)}`;
+  const basePath = `/vendas/${state}/${city}`;
 
   const params = new URLSearchParams();
   Object.entries(filters).forEach(([key, value]) => {
     if (value !== '' && value !== false && value !== undefined) {
       params.append(key, value.toString());
+      return;
+    }
+
+    if ((key === 'minPrice' || key === 'maxPrice') && !!value) {
+      params.append(key, filterOnlyNumbersMask(value));
+      return;
     }
   });
 

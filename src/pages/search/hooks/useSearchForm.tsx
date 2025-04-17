@@ -8,7 +8,7 @@ import { ISearchForm } from '@/types';
 const validationSchema = object().shape({
   ...searchBaseSchema,
   fgts: boolean().optional(),
-  financing: boolean().optional(),
+  financingAvailable: boolean().optional(),
   hasWater: boolean().optional(),
   hasArtesianWell: boolean().optional(),
   hasSewageSystem: boolean().optional(),
@@ -35,23 +35,23 @@ const validationSchema = object().shape({
   playground: boolean().optional(),
 });
 
-export const useSearchForm = () => {
+export const useSearchForm = (defaultValues?: Partial<ISearchForm>) => {
   const resolver = yupResolver(validationSchema) as Resolver<ISearchForm>;
 
   return useForm<ISearchForm>({
     resolver,
     mode: 'onBlur',
     reValidateMode: 'onChange',
+    shouldUnregister: true,
     defaultValues: {
       state: '',
       city: '',
-      neighborhood: '',
       minPrice: '',
       maxPrice: '',
       minArea: '',
       maxArea: '',
       fgts: false,
-      financing: false,
+      financingAvailable: false,
       hasWater: false,
       hasArtesianWell: false,
       hasSewageSystem: false,
@@ -76,6 +76,7 @@ export const useSearchForm = () => {
       swimming_pool: false,
       sauna: false,
       playground: false,
+      ...defaultValues,
     },
   });
 };

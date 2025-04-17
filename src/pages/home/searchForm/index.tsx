@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 
 import {
@@ -9,23 +9,15 @@ import {
   Input,
   Select,
 } from '@/components';
-import { ISearchForm, ISelectOption } from '@/types';
-import {
-  filterMoneyMask,
-  findAndSortCities,
-  findAndSortNeighborhoods,
-  formatSearchURL,
-  generateStates,
-} from '@/utils';
+import { useStates } from '@/hooks/useStates';
+import { ISearchForm } from '@/types';
+import { filterMoneyMask, findAndSortCities, formatSearchURL } from '@/utils';
 
 import { useSearchForm } from '../hooks/useSearchForm';
 
-const states = generateStates();
-
 export const SearchForm = () => {
   const navigate = useNavigate();
-  const [cities, setCities] = useState<ISelectOption[]>([]);
-  const [neighborhoods, setNeighborhoods] = useState<ISelectOption[]>([]);
+  const { states, statesLoading } = useStates();
 
   const {
     control,
@@ -36,12 +28,11 @@ export const SearchForm = () => {
   } = useSearchForm();
 
   const selectedState = watch('state');
-  const selectedCity = watch('city');
 
   const onSubmit = useCallback(
     (formData: ISearchForm) => {
-      const { state, city, neighborhood, ...filters } = formData;
-      const url = formatSearchURL(state, city, neighborhood, filters);
+      const { state, city, ...filters } = formData;
+      const url = formatSearchURL(state, city, filters);
       navigate(url);
     },
     [navigate]
@@ -50,25 +41,12 @@ export const SearchForm = () => {
   useEffect(() => {
     if (!selectedState) return;
     resetField('city');
-    const cityList = findAndSortCities(states, selectedState);
-    setCities(cityList);
   }, [selectedState, resetField]);
-
-  useEffect(() => {
-    if (!selectedCity) return;
-    resetField('neighborhood');
-    const neighborhoodList = findAndSortNeighborhoods(
-      states,
-      selectedState,
-      selectedCity
-    );
-    setNeighborhoods(neighborhoodList);
-  }, [selectedCity, resetField, selectedState]);
 
   return (
     <Card className="mt-[88px] shadow-md max-w-3xl">
       <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4">
           <FieldController
             control={control}
             component={Select}
@@ -77,6 +55,7 @@ export const SearchForm = () => {
             label="Estado"
             placeholder="Selecione um estado"
             options={states}
+            disabled={statesLoading}
           />
 
           <FieldController
@@ -86,19 +65,8 @@ export const SearchForm = () => {
             name="city"
             label="Cidade"
             placeholder="Selecione uma cidade"
-            options={cities}
-            disabled={!selectedState}
-          />
-
-          <FieldController
-            control={control}
-            component={Select}
-            id="neighborhood"
-            name="neighborhood"
-            label="Bairro"
-            placeholder="Selecione um bairro"
-            options={neighborhoods}
-            disabled={!watch('city')}
+            options={findAndSortCities(states, selectedState)}
+            disabled={!selectedState || statesLoading}
           />
         </div>
 
@@ -160,8 +128,8 @@ export const SearchForm = () => {
           <FieldController
             control={control}
             component={Checkbox}
-            id="financing"
-            name="financing"
+            id="financingAvailable"
+            name="financingAvailable"
             content="Compra com financiamento"
           />
 

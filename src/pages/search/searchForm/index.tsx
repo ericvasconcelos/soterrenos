@@ -13,36 +13,49 @@ import {
   Select,
   Text,
 } from '@/components';
-import { ISearchForm, ISelectOption } from '@/types';
-import {
-  filterMoneyMask,
-  findAndSortCities,
-  findAndSortNeighborhoods,
-  formatSearchURL,
-  generateStates,
-  sanitizePriceForSearch,
-} from '@/utils';
+import { useStates } from '@/hooks/useStates';
+import { ISearchForm } from '@/types';
+import { filterMoneyMask, findAndSortCities, formatSearchURL } from '@/utils';
 
-import { advancedParams, commonAreas, paramConfigs } from './helpers';
-import { useSearchForm } from './hooks/useSearchForm';
-
-const states = generateStates();
+import { advancedParams, commonAreas, paramConfigs } from '../helpers';
+import { useSearchForm } from '../hooks/useSearchForm';
 
 export const SearchForm = () => {
   const navigate = useNavigate();
-  const { state, city, neighborhood } = useParams();
+  const { state, city } = useParams();
   const [searchParams] = useSearchParams();
-  const [cities, setCities] = useState<ISelectOption[]>([]);
-  const [neighborhoods, setNeighborhoods] = useState<ISelectOption[]>([]);
   const [openFilters, setOpenFilters] = useState(false);
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(() =>
     advancedParams.some((param) => searchParams.has(param))
   );
+  const { states, statesLoading } = useStates();
 
   const numberOfFiltersApplied: number = useMemo(() => {
     const paramCount = Object.keys(Object.fromEntries(searchParams)).length;
     return paramCount;
   }, [searchParams]);
+
+  const defaultValues = useMemo(() => {
+    const defaultValues: Record<string, unknown> = {};
+
+    paramConfigs.forEach(({ name, transform }) => {
+      const value = searchParams.get(name);
+      defaultValues[name] = transform ? transform(value) : value || '';
+    });
+
+    const commonAreasParam = searchParams.get('commonAreas');
+    if (commonAreasParam) {
+      const commonAreaFields = commonAreasParam.split(',');
+      commonAreaFields.forEach((name) => {
+        defaultValues[name] = true;
+      });
+    }
+
+    defaultValues['state'] = state || '';
+    defaultValues['city'] = city || '';
+
+    return defaultValues;
+  }, [city, searchParams, state]);
 
   const {
     control,
@@ -51,39 +64,13 @@ export const SearchForm = () => {
     resetField,
     setValue,
     formState: { isValid },
-  } = useSearchForm();
+  } = useSearchForm(defaultValues);
 
   const selectedState = watch('state');
-  const selectedCity = watch('city');
-
-  useEffect(() => {
-    paramConfigs.forEach(({ name, transform }) => {
-      const value = searchParams.get(name);
-      setValue(name, transform ? transform(value) : value || '');
-    });
-
-    const commonAreasParam = searchParams.get('commonAreas');
-    if (commonAreasParam) {
-      const commonAreaFields = commonAreasParam.split(
-        ','
-      ) as (keyof ISearchForm)[];
-
-      commonAreaFields.forEach((name) => {
-        setValue(name, true);
-      });
-    }
-
-    setValue('state', state || '');
-    setTimeout(() => {
-      setValue('city', city || '');
-      setValue('neighborhood', neighborhood || '');
-    }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const onSubmit = useCallback(
     (formData: ISearchForm) => {
-      const { state, city, neighborhood, ...filters } = formData;
+      const { state, city, ...filters } = formData;
 
       const filteredCommonAreas = commonAreas
         .filter(({ name }) => {
@@ -95,14 +82,8 @@ export const SearchForm = () => {
         .map(({ name }) => name)
         .join(',');
 
-      const url = formatSearchURL(state, city, neighborhood, {
+      const url = formatSearchURL(state, city, {
         ...filters,
-        ...(filters.minPrice && {
-          minPrice: sanitizePriceForSearch(filters.minPrice),
-        }),
-        ...(filters.maxPrice && {
-          maxPrice: sanitizePriceForSearch(filters.maxPrice),
-        }),
         commonAreas: filteredCommonAreas,
       });
       navigate(url);
@@ -114,20 +95,7 @@ export const SearchForm = () => {
   useEffect(() => {
     if (!selectedState) return;
     resetField('city');
-    const cityList = findAndSortCities(states, selectedState);
-    setCities(cityList);
   }, [selectedState, resetField]);
-
-  useEffect(() => {
-    if (!selectedCity) return;
-    resetField('neighborhood');
-    const neighborhoodList = findAndSortNeighborhoods(
-      states,
-      selectedState,
-      selectedCity
-    );
-    setNeighborhoods(neighborhoodList);
-  }, [selectedCity, resetField, selectedState]);
 
   const handleClearFilters = useCallback(() => {
     paramConfigs.forEach(({ name, type }) => {
@@ -181,6 +149,7 @@ export const SearchForm = () => {
               label="Estado"
               placeholder="Selecione um estado"
               options={states}
+              disabled={statesLoading}
             />
 
             <FieldController
@@ -190,19 +159,8 @@ export const SearchForm = () => {
               name="city"
               label="Cidade"
               placeholder="Selecione uma cidade"
-              options={cities}
-              disabled={!selectedState}
-            />
-
-            <FieldController
-              control={control}
-              component={Select}
-              id="neighborhood"
-              name="neighborhood"
-              label="Bairro"
-              placeholder="Selecione um bairro"
-              options={neighborhoods}
-              disabled={!selectedCity}
+              options={findAndSortCities(states, selectedState)}
+              disabled={!selectedState || statesLoading}
             />
           </div>
 
@@ -260,8 +218,8 @@ export const SearchForm = () => {
           <FieldController
             control={control}
             component={Checkbox}
-            id="financing"
-            name="financing"
+            id="financingAvailable"
+            name="financingAvailable"
             content="Compra com financiamento"
             className="mb-4"
           />

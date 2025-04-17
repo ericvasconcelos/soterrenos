@@ -41,10 +41,7 @@ export default function App() {
               />
             </Route>
 
-            <Route
-              path="/vendas/:state/:city/:neighborhood"
-              element={<Search />}
-            />
+            <Route path="/vendas/:state/:city" element={<Search />} />
 
             <Route path="/entrar" element={<Login />} />
             <Route path="/cadastrar" element={<SignUp />} />

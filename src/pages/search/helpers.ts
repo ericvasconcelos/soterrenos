@@ -1,6 +1,6 @@
-import { filterMoneyMask } from '@/utils';
+import { filterOnlyNumbersMask } from '@/utils';
 
-import { ICommonArea, SearchParamConfig } from './types';
+import { ICommonArea, SearchParamConfig } from './searchForm/types';
 
 export const advancedParams = [
   'hasWater',
@@ -51,17 +51,21 @@ export const paramConfigs: SearchParamConfig[] = [
   {
     name: 'minPrice',
     type: 'string',
-    transform: (v) => filterMoneyMask(v || ''),
+    transform: (v) => filterOnlyNumbersMask(v || ''),
   },
   {
     name: 'maxPrice',
     type: 'string',
-    transform: (v) => filterMoneyMask(v || ''),
+    transform: (v) => filterOnlyNumbersMask(v || ''),
   },
   { name: 'minArea', type: 'string' },
   { name: 'maxArea', type: 'string' },
   { name: 'fgts', type: 'boolean', transform: (v) => v === 'true' },
-  { name: 'financing', type: 'boolean', transform: (v) => v === 'true' },
+  {
+    name: 'financingAvailable',
+    type: 'boolean',
+    transform: (v) => v === 'true',
+  },
   { name: 'hasWater', type: 'boolean', transform: (v) => v === 'true' },
   { name: 'hasArtesianWell', type: 'boolean', transform: (v) => v === 'true' },
   { name: 'hasSewageSystem', type: 'boolean', transform: (v) => v === 'true' },

@@ -14,18 +14,17 @@ export const useSearchForm = () => {
 
   return useForm<ISearchForm>({
     resolver,
-    mode: 'onBlur',
+    mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
       state: '',
       city: '',
-      neighborhood: '',
       minPrice: '',
       maxPrice: '',
       minArea: '',
       maxArea: '',
       fgts: false,
-      financing: false,
+      financingAvailable: false,
     },
   });
 };
