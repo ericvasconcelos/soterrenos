@@ -4,4 +4,5 @@ export interface IImageGallery {
   images: IImage[];
   initialIndex: number;
   close: () => void;
+  videoUrl?: string;
 }
