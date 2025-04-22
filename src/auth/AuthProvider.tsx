@@ -1,4 +1,7 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 import { ApiService } from '@/services';
 
@@ -12,6 +15,8 @@ const loggedPaths = ['/entrar', '/cadastrar'];
 const authService = new ApiService('/auth');
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const { mutateAsync: loginRequest } = useLogin();
@@ -22,11 +27,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       setToken(storedToken);
 
       if (loggedPaths.includes(window.location.pathname)) {
-        window.location.href = '/';
+        navigate('/');
       }
     }
     setLoading(false);
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     initAuth();
@@ -45,9 +50,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
       setToken(accessToken);
-      window.history.back();
+      navigate('/meus-anuncios/ativos');
     },
-    [loginRequest]
+    [loginRequest, navigate]
   );
 
   const refreshToken = async () => {
@@ -68,6 +73,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
     setToken(null);
+    queryClient.invalidateQueries({ queryKey: ['user-me'] });
+    queryClient.invalidateQueries({ queryKey: ['landsByUSer'] });
+    toast.success('Usuário deslogado com sucesso!');
   };
 
   return (
