@@ -11,7 +11,6 @@ import {
 } from '@/components';
 import { filterFullNameMask, filterPhoneMask, getPartnerName } from '@/utils';
 
-import { data } from '../data';
 import { ISellersContactForm } from './types';
 import { IContactForm, useContactForm } from './useContactForm';
 
@@ -125,7 +124,6 @@ export const SellersContactForm = ({
           name="email"
           label="Email"
           placeholder="seuemail@gmail.com"
-          disabled={!data.active}
         />
 
         <div className="grid lg:grid-cols-2 gap-4">
@@ -137,7 +135,6 @@ export const SellersContactForm = ({
             label="Nome"
             placeholder="Nome Sobrenome"
             filterValue={filterFullNameMask}
-            disabled={!data.active}
           />
 
           <FieldController
@@ -148,7 +145,6 @@ export const SellersContactForm = ({
             label="Celular"
             placeholder="(61) 99999-9999"
             filterValue={filterPhoneMask}
-            disabled={!data.active}
           />
         </div>
 
@@ -159,15 +155,9 @@ export const SellersContactForm = ({
           name="message"
           label="Mensagem"
           placeholder="Deixe sua mensagem para o vendedor"
-          disabled={!data.active}
         />
 
-        <Button
-          isFull
-          size="large"
-          icon="whatsapp"
-          disabled={!isValid || !data.active}
-        >
+        <Button isFull size="large" icon="whatsapp" disabled={!isValid}>
           Enviar mensagem
         </Button>
       </form>

@@ -1,6 +1,5 @@
 import { ICreateLandPayload } from '@/pages/createAd/form/schema';
 import { ILand } from '@/types';
-import { wait } from '@/utils';
 
 import { ApiService } from '../index';
 import { ILands } from './types';
@@ -19,8 +18,6 @@ export const fetchLands = async (size?: number) => {
 };
 
 export const fetchLand = async (id?: string) => {
-  await wait(1000);
-
   try {
     const { data } = await landsService.get<ILand>(`/${id}`);
     return data;

@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { LandCard, Skeleton, Spinner, Text } from '@/components';
 import { useUser } from '@/hooks/useUser';
 import { ILand } from '@/types';
-import { generateArray, wait } from '@/utils';
+import { generateArray } from '@/utils';
 
 import { useLandsByUser } from '../hooks';
 import { IAdsList } from './types';
@@ -26,8 +26,6 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
     try {
       if (currentPage === 1) setInitialLoading(true);
       else setLoadingMore(true);
-
-      await wait(1000);
       setVisibleAds((prev) => [...new Set([...prev, ...data])]);
       setHasMore(currentPage < lastPage);
     } catch (err) {

@@ -1,4 +1,3 @@
-// LandCard.stories.tsx
 import { Meta, StoryObj } from '@storybook/react';
 import { ComponentProps } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router';
@@ -16,7 +15,7 @@ export default meta;
 
 // Mock data
 const mockLandData: ILandCard = {
-  url: 'terreno-exemplo-123',
+  slug: 'terreno-exemplo-123',
   id: '12345',
   images: [
     {
