@@ -21,3 +21,4 @@ export { Switch } from './Switch';
 export { Text } from './Text';
 export { Textarea } from './Textarea';
 export { Tooltip } from './Tooltip';
+export { VideoPlayer } from './VideoPlayer';
