@@ -1,7 +1,7 @@
 import { IconNames } from '@/components/Icon/types';
-import { IInfos } from '@/types';
+import { ILand } from '@/types';
 
-import { DataInfos, IInfoItem, IInfoSection } from './types';
+import { DataInfos, IInfoSection } from './types';
 
 const slopeIcon: Record<string, IconNames> = {
   downhill: 'arrow-down-right',
@@ -9,7 +9,9 @@ const slopeIcon: Record<string, IconNames> = {
   flat: 'minus',
 };
 
-export const generateInfos = (infos: IInfos): IInfoSection[] => {
+export const generateInfos = (land?: ILand): IInfoSection[] => {
+  if (!land) return [];
+
   const dataInfos: DataInfos = {
     whatHas: {
       hasWater: {
@@ -48,13 +50,13 @@ export const generateInfos = (infos: IInfos): IInfoSection[] => {
         icon: { name: 'broom', size: 30, strokeWidth: 1 },
         label: 'Lote Limpo',
       },
-      soilType: {
+      soil: {
         icon: { name: 'soil', size: 27, strokeWidth: 0 },
         label: 'Tipo de solo',
       },
       slope: {
         icon: {
-          name: slopeIcon[infos.whatHas.slope as string],
+          name: slopeIcon[land.slope as string],
           size: 28,
           strokeWidth: 1,
         },
@@ -69,6 +71,7 @@ export const generateInfos = (infos: IInfos): IInfoSection[] => {
         label: 'Posição do Sol',
       },
     },
+
     condominiumStatus: {
       established: {
         icon: { name: 'village', size: 32, strokeWidth: 6 },
@@ -103,6 +106,7 @@ export const generateInfos = (infos: IInfos): IInfoSection[] => {
         label: 'Áreas comuns',
       },
     },
+
     nearby: {
       restaurant: {
         icon: { name: 'dish', size: 26, strokeWidth: 12 },
@@ -145,42 +149,29 @@ export const generateInfos = (infos: IInfos): IInfoSection[] => {
     nearby: 'O que existe nas proximidades',
   };
 
-  const result: IInfoSection[] = [];
+  return Object.entries(dataInfos).map(([sectionKey, sectionItems]) => {
+    const items = Object.entries(sectionItems)
+      .filter(([key]) => {
+        const value = land[key as keyof ILand];
+        return Array.isArray(value) ? value.length > 0 : !!value;
+      })
+      .map(([key, item]) => {
+        const value = land[key as keyof ILand];
 
-  Object.entries(dataInfos).map(([key, value]) => {
-    if (infos[key]) {
-      const newInfos: IInfoItem[] = [];
-
-      Object.entries(value).forEach(([subKey, subValue]) => {
-        if (typeof infos[key][subKey] === 'boolean') {
-          newInfos.push(subValue);
-          return;
+        let label = item.label;
+        if (typeof value === 'string') {
+          label += `: ${value}`;
+        } else if (Array.isArray(value)) {
+          label += `: ${value.join(', ')}`;
         }
 
-        if (typeof infos[key][subKey] === 'string') {
-          newInfos.push({
-            ...subValue,
-            label: `${subValue.label}: ${infos[key][subKey]}`,
-          });
-          return;
-        }
-
-        if (Array.isArray(infos[key][subKey])) {
-          newInfos.push({
-            ...subValue,
-            label: `${subValue.label}: ${infos[key][subKey].join(', ')}`,
-          });
-          return;
-        }
+        return { ...item, label };
       });
 
-      result.push({
-        key,
-        title: titles[key],
-        items: newInfos,
-      });
-    }
+    return {
+      key: sectionKey,
+      title: titles[sectionKey],
+      items,
+    };
   });
-
-  return result;
 };

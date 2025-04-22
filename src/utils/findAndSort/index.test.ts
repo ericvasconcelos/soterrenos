@@ -1,5 +1,5 @@
-import { IState } from '../generateStates/types';
-import { findAndSortCities, findAndSortNeighborhoods } from './index';
+import { IState } from '../generateStateOptions/types';
+import { findAndSortCities } from './index';
 
 const mockStates: IState[] = [
   {
@@ -9,10 +9,6 @@ const mockStates: IState[] = [
       {
         value: 'sao_paulo',
         label: 'São Paulo',
-        neighborhoods: [
-          { value: 'pinheiros', label: 'Pinheiros' },
-          { value: 'moema', label: 'Moema' },
-        ],
       },
     ],
   },
@@ -27,21 +23,6 @@ describe('Location Helpers', () => {
 
     it('should return empty array for invalid state', () => {
       const result = findAndSortCities(mockStates, 'RJ');
-      expect(result).toEqual([]);
-    });
-  });
-
-  describe('findAndSortNeighborhoods', () => {
-    it('should return sorted neighborhoods for selected city', () => {
-      const result = findAndSortNeighborhoods(mockStates, 'SP', 'sao_paulo');
-      expect(result).toEqual([
-        { value: 'moema', label: 'Moema' },
-        { value: 'pinheiros', label: 'Pinheiros' },
-      ]);
-    });
-
-    it('should return empty array for invalid city', () => {
-      const result = findAndSortNeighborhoods(mockStates, 'SP', 'invalid');
       expect(result).toEqual([]);
     });
   });

@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useCallback, useMemo } from 'react';
+import { useNavigate } from 'react-router';
 
 import { Card, Text } from '@/components';
 import { formatAddress, getTotalArea, priceFormatter } from '@/utils';
@@ -7,17 +8,33 @@ import { ILandCard } from './types';
 
 export const LandCard: FC<ILandCard> = ({ item }) => {
   const totalArea = getTotalArea(item.landSize);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = useCallback(() => {
+    navigate(`/anuncios/${item?.id}/${item?.slug}`);
+  }, [navigate, item?.id, item?.slug]);
+
+  const featuredImage = useMemo(() => {
+    const featured = item?.images.find((image) => image.featured);
+    if (featured) return featured;
+    return item?.images?.[0];
+  }, [item?.images]);
+
   return (
     <Card
       padding="none"
       hasShadow
-      className="grid lg:grid-cols-[240px_auto] xl:grid-cols-[280px_auto] 2xl:grid-cols-[300px_auto]"
+      className="grid lg:grid-cols-[240px_auto] xl:grid-cols-[280px_auto] 2xl:grid-cols-[300px_auto] cursor-pointer outline-black"
+      role="button"
+      tabIndex={0}
+      onClick={handleNavigate}
     >
       <img
-        src={item.images[0].src}
-        width={item.images[0].width}
-        height={item.images[0].height}
-        alt={item.images[0].alt}
+        src={featuredImage?.src}
+        width={featuredImage?.width}
+        height={featuredImage?.height}
+        alt={featuredImage?.alt}
         className="w-full h-full object-cover"
       />
 

@@ -21,8 +21,8 @@ import {
   filterSimpleNameMask,
 } from '@/utils';
 
-import { useSignUp } from '../hooks/useSignUp';
-import { useSignUpForm } from './useSignUpForm';
+import { useSignUp } from '../hooks';
+import { useSignUpForm } from '../hooks/useSignUpForm';
 
 export const SignUpForm: React.FC = () => {
   const { mutateAsync: signUp } = useSignUp();

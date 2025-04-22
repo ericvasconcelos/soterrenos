@@ -81,12 +81,13 @@ export const data: ILand = {
     Ligue a qualquer momento e agende uma visita com um de nossos corretores.
   `,
   seller: {
-    name: 'Eric Vasconcelos',
+    personalFirstName: 'Eric',
+    personalLastName: 'Eric',
     phoneNumber: '2124537062',
     whatsappNumber: '6183595467',
     email: 'ericvascon@gmail.com',
     creci: '12668',
-    image: {
+    profileImage: {
       src: '/eric.jpg',
       width: 400,
       height: 400,
@@ -103,7 +104,7 @@ export const data: ILand = {
       isFenced: true,
       isLandLeveled: true,
       isLotClear: true,
-      soilType: 'clay', // 'sandy' or 'rocky',
+      soil: 'clay', // 'sandy' or 'rocky',
       slope: 'downhill', // downhill (Below Street Level) or uphill (Above Street Level) or flat
       zoning: 'residential', // 'Commercial' or 'Industrial'
       sunPosition: 'east-facing', // sunrise (east-facing) or sunset (west-facing)

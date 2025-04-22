@@ -1,95 +1,96 @@
-import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useLocation, useParams, useSearchParams } from 'react-router';
 
-import { Skeleton, Text } from '@/components';
-import { landList } from '@/data';
+import { Button, Skeleton, Text } from '@/components';
 import { SEO } from '@/layouts/Seo';
-import { ILand, ISearchForm } from '@/types';
-import { generateArray, wait } from '@/utils';
+import { generateArray } from '@/utils';
 
-import { paramConfigs } from '../searchForm/helpers';
+import { useSearchLands } from '../hooks/useSearchLands';
 import { LandCard } from './landCard';
 
 export const SearchResults = () => {
-  const location = useLocation();
-  const { state, city, neighborhood } = useParams();
-  const [searchParams] = useSearchParams();
-  const [lands, setLands] = useState<ILand[]>(landList);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
   const skeletons = generateArray(6);
+  const location = useLocation();
+  const { state, city } = useParams();
+  const [error] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = parseInt(searchParams.get('page') || '1') ?? '1';
 
-  const fetchLands = useCallback(async () => {
-    setLoading(true);
-    await wait(2000);
+  const url = useMemo(
+    () => `${location.pathname.replace('/vendas', '')}${location.search}`,
+    [location.pathname, location.search]
+  );
 
-    try {
-      const filters: Partial<Record<keyof ISearchForm, string | boolean>> = {
-        state: state || '',
-        city: city || '',
-        neighborhood: neighborhood || '',
-      };
+  const { lands, lastPage, prevPage, nextPage, isLoading } =
+    useSearchLands(url);
 
-      paramConfigs.forEach(({ name, transform }) => {
-        const value = searchParams.get(name);
-        filters[name] = transform ? transform(value) : value || '';
-      });
+  const handlePageChange = (newPage: number) => {
+    const params: Record<string, string> = {
+      page: String(newPage),
+      size: '20',
+    };
 
-      const { data } = await axios.get<ILand[]>('/api/lands', {
-        params: filters,
-      });
-
-      if (Array.isArray(data)) setLands(data);
-      // throw new Error('Problema no servidor');
-    } catch (error) {
-      setError(`Erro na busca: ${error}`);
-    } finally {
-      setLoading(false);
-    }
-  }, [state, city, neighborhood, searchParams]);
-
-  useEffect(() => {
-    fetchLands();
-  }, [fetchLands]);
+    setSearchParams(params);
+  };
 
   return (
     <>
       <SEO
-        title={`Terrenos à Venda em ${neighborhood}, ${city} - ${state}`}
-        description={`Encontre terrenos à venda em ${neighborhood}, ${city}. Filtre por preço, área e localização. Dados atualizados diariamente para garantir precisão!`}
+        title={`Terrenos à Venda em ${city} - ${state}`}
+        description={`Encontre terrenos à venda em ${city}. Filtre por preço, área e localização. Dados atualizados diariamente para garantir precisão!`}
         schemaMarkup={{
           '@context': 'https://schema.org',
           '@type': 'ItemList',
           itemListElement:
-            !loading &&
-            lands?.map(({ title, url }, index) => ({
+            !isLoading &&
+            lands?.map(({ title, slug }, index) => ({
               '@type': 'ListItem',
               position: index + 1,
               item: {
                 '@type': 'RealEstateListing',
                 name: title,
-                url: `${location.pathname}/${url}`,
+                url: `${location.pathname}/${slug}`,
               },
             })),
         }}
       />
 
       <div className="grid grid-cols-1 gap-4">
-        {!loading && error && (
+        {!isLoading && error && (
           <Text size="2xl" color="danger-900" weight="medium" align="center">
             {error}
           </Text>
         )}
 
-        {!loading &&
+        {!isLoading &&
           lands.map((item) => <LandCard key={item.id} item={item} />)}
 
-        {loading &&
+        {isLoading &&
           skeletons.map((item) => (
             <Skeleton key={item} width="100%" height={231} borderRadius={12} />
           ))}
+
+        <div className="flex justify-center items-center gap-4 mt-8 mb-12">
+          <Button
+            onClick={() => handlePageChange(prevPage)}
+            disabled={!prevPage}
+            variant="tertiary"
+          >
+            Anterior
+          </Button>
+
+          <Text className="mx-4">
+            Página {page} de {lastPage || '1'}
+          </Text>
+
+          <Button
+            onClick={() => handlePageChange(nextPage)}
+            disabled={page >= nextPage}
+            variant="tertiary"
+          >
+            Próximo
+          </Button>
+        </div>
       </div>
     </>
   );

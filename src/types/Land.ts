@@ -1,5 +1,6 @@
 import { IAddress } from './Address';
 import { IImage } from './Image';
+import { IUser } from './User';
 
 export interface ILandSize {
   front: number;
@@ -8,23 +9,15 @@ export interface ILandSize {
   back: number;
 }
 
-export interface ISeller {
-  name: string;
-  phoneNumber: string;
-  whatsappNumber: string;
-  email: string;
-  creci: string;
-  image: IImage;
-}
-
-export type IInfos = Record<
-  string,
-  Record<string, boolean | string | string[]>
->;
+export type ISoilType = 'clay' | 'sandy' | 'rocky';
+export type ISlopeType = 'flat' | 'downhill' | 'uphill';
+export type IZoningType = 'residential' | 'commercial' | 'industrial';
+export type ISunPositionType = 'east-facing' | 'west-facing';
 
 export interface ILand {
-  url?: string;
   id: string;
+  slug: string;
+  user: IUser;
   active: boolean;
   lastUpdate: string;
   title: string;
@@ -33,11 +26,50 @@ export interface ILand {
   address: IAddress;
   landSize: ILandSize;
   price: number;
-  condominiumTax: number;
-  propertyTax: number;
+  condominiumTax?: number;
+  propertyTax?: number;
   financingAvailable: boolean;
   fgts: boolean;
   description: string;
-  seller: ISeller;
-  infos: IInfos;
+  hasWater: boolean;
+  hasArtesianWell: boolean;
+  hasSewageSystem: boolean;
+  hasEletricity: boolean;
+  hasGas: boolean;
+  hasInternet: boolean;
+  isFenced: boolean;
+  isLandLeveled: boolean;
+  isLotClear: boolean;
+  soil: ISoilType;
+  slope: ISlopeType;
+  zoning: IZoningType;
+  sunPosition: ISunPositionType;
+  established: boolean;
+  paved: boolean;
+  streetLighting: boolean;
+  sanitationBasic: boolean;
+  sidewalks: boolean;
+  gatedEntrance: boolean;
+  security: boolean;
+  commonAreas: string[];
+  publicTransportation: string[];
+  restaurant: boolean;
+  school: boolean;
+  hospital: boolean;
+  supermarket: boolean;
+  drugstore: boolean;
+  gasStation: boolean;
+  bank: boolean;
+  createdAt: string;
+  updatedAt: string;
+  seller?: Pick<
+    IUser,
+    | 'personalFirstName'
+    | 'personalLastName'
+    | 'phoneNumber'
+    | 'whatsappNumber'
+    | 'email'
+    | 'creci'
+    | 'profileImage'
+  >;
 }

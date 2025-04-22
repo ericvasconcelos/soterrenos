@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { AuthProvider } from './auth/AuthProvider';
+import { ScrollController } from './components/ScrollController';
 import { Page } from './layouts/Page';
 import Advertisements from './pages/advertisements';
 import CreateAdvertisement from './pages/createAd';
@@ -20,12 +20,12 @@ import { ProtectedRoute } from './RrotectedRoute';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ScrollController>
         <Routes>
           <Route path="/" element={<Page />}>
             <Route index element={<Home />} />
-            <Route path="/anuncios/:title" element={<Advertisements />} />
+            <Route path="/anuncios/:id/:slug" element={<Advertisements />} />
 
             <Route element={<ProtectedRoute />}>
               <Route path="/minha-conta/meus-dados" element={<MyData />} />
@@ -36,15 +36,12 @@ export default function App() {
               </Route>
 
               <Route
-                path="criar-anuncio/:id"
+                path="/cadastro-anuncio/:id"
                 element={<CreateAdvertisement />}
               />
             </Route>
 
-            <Route
-              path="/vendas/:state/:city/:neighborhood"
-              element={<Search />}
-            />
+            <Route path="/vendas/:state/:city" element={<Search />} />
 
             <Route path="/entrar" element={<Login />} />
             <Route path="/cadastrar" element={<SignUp />} />
@@ -59,7 +56,7 @@ export default function App() {
             <Route path="/imobiliarias" element={<Agencies />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </ScrollController>
+    </BrowserRouter>
   );
 }

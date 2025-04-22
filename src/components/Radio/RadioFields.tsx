@@ -24,7 +24,7 @@ export const RadioFields = forwardRef<HTMLInputElement, IRadioField>(
     const handleChange = useCallback(
       (event: ChangeEvent<HTMLInputElement>) => {
         if (onChange) {
-          onChange(event.target.value);
+          onChange(event.currentTarget.value);
         }
       },
       [onChange]

@@ -1,4 +1,6 @@
+import dayjs from 'dayjs';
 import { lazy, Suspense, useState } from 'react';
+import { useParams } from 'react-router';
 
 import {
   Button,
@@ -13,7 +15,7 @@ import {
 import { SEO } from '@/layouts/Seo';
 import { getTotalArea, priceFormatter } from '@/utils';
 
-import { data } from './data';
+import { useFetchLand } from '../../hooks/useLand';
 import { Location } from './location';
 import { ModalShare } from './modalShare';
 
@@ -32,46 +34,47 @@ const Similars = lazy(() =>
 );
 
 export default function Advertisements() {
+  const { id } = useParams();
+  const { data } = useFetchLand(id);
   const [isSaved, setIsSaved] = useState<boolean>(false);
   const [isModalShareOpen, setIsModalShareOpen] = useState<boolean>(false);
 
   const [currentIndex, setCurrentIndex] = useState<number | null>(null);
   const openModal = (index: number) => setCurrentIndex(index);
   const closeModal = () => setCurrentIndex(null);
-  const { landSize, active } = data;
-  const totalArea = getTotalArea(landSize);
+  const totalArea = getTotalArea(data?.landSize);
 
-  const description = `Compre Terreno em ${data.address.neighborhood}, ${data.address.city} - ${data.address.state}. Área de ${totalArea.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
+  const description = `Compre Terreno em ${data?.address.neighborhood}, ${data?.address.city} - ${data?.address.state}. Área de ${totalArea.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
 
   return (
     <>
       <SEO
-        title={`Terreno à venda de ${totalArea.text} em ${data.address.neighborhood}, ${data.address.city} -  ${data.address.state}`}
+        title={`Terreno à venda de ${totalArea.text} em ${data?.address.neighborhood}, ${data?.address.city} -  ${data?.address.state}`}
         description={description}
         schemaMarkup={{
           '@context': 'https://schema.org',
           '@type': 'RealEstateListing',
-          name: '${data.title}',
-          description: '${description}',
+          name: `${data?.title}`,
+          description: `${description}`,
           url: '[URL dinâmica do anúncio]',
           listingStatus: 'ForSale',
           address: {
             '@type': 'PostalAddress',
-            addressLocality: '${data.address.city}',
-            addressRegion: '${data.address.state}',
-            addressNeighborhood: '${data.address.neighborhood}',
+            addressLocality: `${data?.address.city}`,
+            addressRegion: `${data?.address.state}`,
+            addressNeighborhood: `${data?.address.neighborhood}`,
           },
-          price: '${priceFormatter(data.price)}',
+          price: `${priceFormatter(data?.price)}`,
           priceCurrency: 'BRL',
-          size: '${totalArea.text}',
-          image: '${data.images[0].src}',
+          size: `${totalArea.text}`,
+          image: `${data?.images[0].src}`,
         }}
       />
 
       <Container>
         <div className="flex items-center justify-between gap-4 my-5">
           <Text tag="h1" size="2xl" weight="medium">
-            {data.title}
+            {data?.title}
           </Text>
 
           <div className="flex items-center justify-end">
@@ -102,7 +105,7 @@ export default function Advertisements() {
         </div>
 
         <div className="relative">
-          {!active && (
+          {data && !data?.active && (
             <div className="absolute top-5 right-0 px-5 py-2 text-white font-bold text-lg bg-red-700 rounded-l-xl">
               Anúncio Inativo
             </div>
@@ -116,15 +119,15 @@ export default function Advertisements() {
               onClick={() => openModal(0)}
             >
               <img
-                src={data.images[0].src}
-                width={data.images[0].width}
-                height={data.images[0].height}
-                alt={`${data.title} - Imagem Principal`}
+                src={data?.images[0].src}
+                width={data?.images[0].width}
+                height={data?.images[0].height}
+                alt={`${data?.title} - Imagem Principal`}
                 className="w-full h-full object-cover rounded-md"
               />
             </div>
 
-            {data.images.slice(1, 5).map((image, index) => (
+            {data?.images.slice(1, 5).map((image, index) => (
               <div
                 key={index}
                 className="hidden lg:flex items-center justify-center cursor-pointer"
@@ -136,7 +139,7 @@ export default function Advertisements() {
                   src={image.src}
                   width={image.width}
                   height={image.height}
-                  alt={`${data.title} - Imagem ${index + 1}`}
+                  alt={`${data?.title} - Imagem ${index + 1}`}
                   className="w-full h-full object-cover rounded-md"
                 />
               </div>
@@ -146,7 +149,7 @@ export default function Advertisements() {
 
         <div className="grid grid-cols-1 md:grid-cols-[auto_280px] lg:grid-cols-[auto_360px] xl:grid-cols-[auto_420px] gap-4 lg:gap-6 xl:gap-8">
           <div>
-            <Location />
+            {data?.address && <Location address={data?.address} />}
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="xl:flex xl:items-end gap-2">
@@ -159,16 +162,16 @@ export default function Advertisements() {
                   weight="bold"
                   className="tracking-tight"
                 >
-                  {priceFormatter(data.price)}
+                  {priceFormatter(data?.price)}
                 </Text>
               </div>
 
               <Tooltip
                 align="start"
-                content={`Frente: ${landSize.front}m
-                  Lado esquerdo: ${landSize.left}m
-                  Lado direito: ${landSize.right}m
-                  Fundos: ${landSize.back}m
+                content={`Frente: ${data?.landSize?.front}m
+                  Lado esquerdo: ${data?.landSize?.left}m
+                  Lado direito: ${data?.landSize?.right}m
+                  Fundos: ${data?.landSize?.back}m
                 `}
                 aria-label="Medidas do terreno"
               >
@@ -203,7 +206,7 @@ export default function Advertisements() {
                   weight="bold"
                   className="tracking-tight"
                 >
-                  {priceFormatter(data.price / totalArea.value)}
+                  {priceFormatter((data?.price || 0) / totalArea.value)}
                 </Text>
               </div>
 
@@ -217,7 +220,10 @@ export default function Advertisements() {
                   weight="bold"
                   className="tracking-tight"
                 >
-                  {priceFormatter(data.propertyTax)}
+                  {typeof data?.propertyTax === 'number' &&
+                  data?.propertyTax > 0
+                    ? priceFormatter(data?.propertyTax)
+                    : 'Não possui'}
                 </Text>
               </div>
 
@@ -231,7 +237,10 @@ export default function Advertisements() {
                   weight="bold"
                   className="tracking-tight"
                 >
-                  {priceFormatter(data.condominiumTax)}
+                  {typeof data?.condominiumTax === 'number' &&
+                  data?.condominiumTax > 0
+                    ? priceFormatter(data?.condominiumTax)
+                    : 'Não possui'}
                 </Text>
               </div>
             </div>
@@ -242,22 +251,23 @@ export default function Advertisements() {
               <Text size="sm">
                 Aceita financiamento:
                 <br className="block xl:hidden" />{' '}
-                {data.financingAvailable ? 'Sim' : 'Não'}
+                {data?.financingAvailable ? 'Sim' : 'Não'}
               </Text>
 
               <Text size="sm">
                 Aceita FGTS:
-                <br className="block xl:hidden" /> {data.fgts ? 'Sim' : 'Não'}
+                <br className="block xl:hidden" /> {data?.fgts ? 'Sim' : 'Não'}
               </Text>
 
               <Text size="sm">
                 Código do anúncio:
-                <br className="block xl:hidden" /> {data.id}
+                <br className="block xl:hidden" /> {data?.id.slice(0, 8)}
               </Text>
 
               <Text size="sm">
                 Última Atualização:
-                <br className="block xl:hidden" /> {data.lastUpdate}
+                <br className="block xl:hidden" />{' '}
+                {dayjs(data?.updatedAt).format('DD/MM/YYYY')}
               </Text>
             </div>
 
@@ -268,7 +278,7 @@ export default function Advertisements() {
                 Descrição
               </Text>
 
-              <p className="whitespace-pre-line">{data.description}</p>
+              <p className="whitespace-pre-line">{data?.description}</p>
             </div>
 
             <Suspense>
@@ -278,7 +288,7 @@ export default function Advertisements() {
 
           <div className="mt-8 md:mt-0">
             <Suspense fallback={<Skeleton name="card" borderRadius={12} />}>
-              <SellersContactForm />
+              {data?.user && <SellersContactForm {...data?.user} />}
             </Suspense>
           </div>
         </div>
@@ -289,11 +299,12 @@ export default function Advertisements() {
       </Container>
 
       <Suspense>
-        {currentIndex !== null && (
+        {currentIndex !== null && data?.images && (
           <ImageGallery
-            images={data.images}
+            images={data?.images}
             initialIndex={currentIndex}
             close={closeModal}
+            videoUrl={data?.videoUrl}
           />
         )}
       </Suspense>

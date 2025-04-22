@@ -5,7 +5,6 @@ import { sanitizePrice } from '@/utils';
 export const searchBaseSchema = {
   state: string().required('Selecione um estado'),
   city: string().required('Selecione uma cidade'),
-  neighborhood: string().required('Selecione um bairro'),
   minPrice: string()
     .optional()
     .test({

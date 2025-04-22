@@ -1,49 +1,38 @@
-import 'leaflet/dist/leaflet.css';
-
-import axios from 'axios';
-import { LatLngExpression } from 'leaflet'; // Importar o tipo correto para coordenadas
-import { useEffect, useState } from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import {
+  AdvancedMarker,
+  APIProvider,
+  Map,
+  Pin,
+} from '@vis.gl/react-google-maps';
+import { useCallback, useState } from 'react';
 
 import { Icon, Modal, Text, Tooltip } from '@/components';
-import { OPEN_STREET_API_URL } from '@/envs';
+import { GOOGLE_MAPS_API_KEY } from '@/envs';
 import { formatAddress } from '@/utils';
 
-import { data } from '../data';
+import { ILocation } from './types';
 
-export const Location = () => {
-  const [location, setLocation] = useState<LatLngExpression | null>(null);
+export const Location = ({ address }: ILocation) => {
   const [isModalLocationOpen, setIsModalLocationOpen] =
     useState<boolean>(false);
-  const { zipCode } = data.address;
-  const address = formatAddress(data.address);
+  const { lat, lng } = address;
+  const formattedAddress = formatAddress(address);
 
-  useEffect(() => {
-    const fetchCoordinates = async () => {
-      const { data } = await axios.get(
-        `${OPEN_STREET_API_URL}/search.php?postalcode=${zipCode}&polygon_geojson=1&format=jsonv2`
-      );
-
-      if (data.length > 0) {
-        const { lat, lon } = data[0];
-        setLocation([parseFloat(lat), parseFloat(lon)]); // Usar array para LatLngExpression
-      } else {
-        console.error('Endereço não encontrado!');
-      }
-    };
-
-    fetchCoordinates();
-  }, [zipCode]);
+  const handleOpenLocationModal = useCallback(() => {
+    if (lat && lng) {
+      setIsModalLocationOpen(true);
+    }
+  }, [lat, lng]);
 
   return (
     <>
       <Text tag="div" size="lg" className="mb-8 flex items-start">
-        {address}
+        {formattedAddress}
         <div
           role="button"
           tabIndex={0}
           className="inline-block ml-2 -mt-1 h-7 cursor-pointer"
-          onClick={() => setIsModalLocationOpen(true)}
+          onClick={handleOpenLocationModal}
           aria-label="Localização do Terreno"
         >
           <Tooltip
@@ -64,34 +53,41 @@ export const Location = () => {
         </div>
       </Text>
 
-      <Modal
-        isOpen={isModalLocationOpen}
-        onClose={() => setIsModalLocationOpen(false)}
-      >
-        <Text size="lg" weight="medium" className="mb-4">
-          {address}
-        </Text>
+      {lat && lng && (
+        <Modal
+          isOpen={isModalLocationOpen}
+          onClose={() => setIsModalLocationOpen(false)}
+        >
+          <Text size="lg" weight="medium" className="mb-4">
+            {formattedAddress}
+          </Text>
 
-        <div style={{ height: '400px', width: '100%' }}>
-          {location ? (
-            <MapContainer
-              center={location}
-              zoom={15}
-              style={{ height: '100%', width: '100%' }}
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              <Marker position={location}>
-                <Popup>{zipCode}</Popup>
-              </Marker>
-            </MapContainer>
-          ) : (
-            <p>Carregando mapa...</p>
-          )}
-        </div>
-      </Modal>
+          <div style={{ height: '400px', width: '100%' }}>
+            {location ? (
+              <APIProvider apiKey={GOOGLE_MAPS_API_KEY} region="BR">
+                <Map
+                  mapId="58bda79ff82ab6f4"
+                  style={{ width: '100%', height: '100%' }}
+                  defaultCenter={{ lat, lng }}
+                  zoom={15}
+                  gestureHandling={'greedy'}
+                  disableDefaultUI={true}
+                >
+                  <AdvancedMarker position={{ lat, lng }}>
+                    <Pin
+                      background="#8b83c5"
+                      glyphColor="#513e9f"
+                      borderColor="#513e9f"
+                    />
+                  </AdvancedMarker>
+                </Map>
+              </APIProvider>
+            ) : (
+              <p>Carregando mapa...</p>
+            )}
+          </div>
+        </Modal>
+      )}
     </>
   );
 };

@@ -1,23 +1,24 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
 import {
-  Avatar,
   Button,
-  Card,
   Container,
-  Icon,
   Input,
+  MatchNotFound,
+  Skeleton,
   Text,
 } from '@/components';
 import { SEO } from '@/layouts/Seo';
-import { IBasePartner } from '@/types';
-import { filterPhoneMask } from '@/utils';
+import { IUser } from '@/types';
+import { generateArray, getPartnerName } from '@/utils';
 
-import { isAgency, isSalesperson } from './helper';
+import { useUsersByType } from './hooks';
+import { PartnerCard } from './partnerCard';
 import { IPartner } from './types';
 
-const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
+const Partners = ({ type, variants }: IPartner) => {
+  const fakeList = generateArray(4);
   const { singular, plural, article } = variants;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1') || 1;
@@ -25,48 +26,28 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
   const urlSearchText = searchParams.get('searchText') || '';
 
   const [searchText, setSearchText] = useState(urlSearchText);
-  const [showPhoneNumber, setShowPhoneNumber] = useState(false);
-  const [showEmail, setShowEmail] = useState(false);
 
-  const handleSendMessage = (whatsappNumber: string, message: string) => {
-    window.open(
-      `https://api.whatsapp.com/send/?phone=55${whatsappNumber}&text=${message}`
-    );
-  };
-
-  const getPartnerName = useCallback((info: T) => {
-    if (isSalesperson(info)) return `${info.firstName} ${info.lastName}`;
-    if (isAgency(info)) return info.tradeName;
-    return '';
-  }, []);
+  const { data, isLoading, lastPage, prevPage, nextPage } = useUsersByType(
+    type,
+    page,
+    size
+  );
 
   const filteredData = useMemo(
     () =>
-      data.filter((item) => {
+      data.filter((user: IUser) => {
         const searchLower = searchText.toLowerCase();
         return (
-          getPartnerName(item).toLowerCase().includes(searchLower) ||
-          item.servedCities.some(
+          getPartnerName(user).toLowerCase().includes(searchLower) ||
+          user?.servedCities?.some(
             (city) =>
-              city.city.toLowerCase().includes(searchLower) ||
-              city.state.toLowerCase().includes(searchLower)
+              city?.city?.toLowerCase().includes(searchLower) ||
+              city?.state?.toLowerCase().includes(searchLower)
           )
         );
       }),
-    [data, getPartnerName, searchText]
+    [data, searchText]
   );
-
-  const { paginatedList, totalPages } = useMemo(() => {
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-    const list = filteredData.slice(startIndex, endIndex);
-    const pages = Math.ceil(filteredData.length / size);
-
-    return {
-      paginatedList: list,
-      totalPages: pages,
-    };
-  }, [filteredData, page, size]);
 
   const handlePageChange = (newPage: number) => {
     const params: Record<string, string> = {
@@ -79,8 +60,6 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
     }
 
     setSearchParams(params);
-    setShowPhoneNumber(false);
-    setShowEmail(false);
   };
 
   const handleSearchChange = (value: string) => {
@@ -127,118 +106,43 @@ const Partners = <T extends IBasePartner>({ data, variants }: IPartner<T>) => {
           />
         </div>
 
-        {paginatedList.map((info) => {
-          const partnerName = getPartnerName(info);
-          return (
-            <Card
-              hasShadow
-              className="grid md:grid-cols-[auto_280px] gap-4 mb-4"
-            >
-              <div>
-                <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                  {info?.image?.src && <Avatar image={info.image} size="2xl" />}
+        {isLoading &&
+          filteredData?.length === 0 &&
+          fakeList.map((item) => (
+            <Skeleton key={item} name="card" height={233} className="mb-4" />
+          ))}
 
-                  <div className="flex flex-col items-start gap-1">
-                    <Text tag="h2" size="xl" weight="bold">
-                      {partnerName}
-                    </Text>
+        {!isLoading &&
+          filteredData?.map((user) => (
+            <PartnerCard
+              key={user.id}
+              {...user}
+              article={article}
+              singular={singular}
+            />
+          ))}
 
-                    <Text size="sm" className="flex items-center gap-1">
-                      <Icon name="phone" size={20} />
-                      {filterPhoneMask(
-                        info.phoneNumber.slice(0, showPhoneNumber ? 11 : 5)
-                      )}
-                      {!showPhoneNumber && (
-                        <button
-                          className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
-                          onClick={() => setShowPhoneNumber(true)}
-                        >
-                          Ver email
-                        </button>
-                      )}
-                    </Text>
-
-                    <Text size="sm" className="flex items-center gap-1">
-                      <Icon name="mail" size={20} />
-                      {info.email.slice(0, showEmail ? 999 : 7)}
-                      {!showEmail && (
-                        <button
-                          className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
-                          onClick={() => setShowEmail(true)}
-                        >
-                          Ver telefone
-                        </button>
-                      )}
-                    </Text>
-
-                    {info.creci && <Text size="sm">CRECI: {info.creci}</Text>}
-
-                    <Text size="sm">
-                      Terrenos vendidos: <b>{info.purchaseNotice}</b>
-                    </Text>
-
-                    <Text
-                      size="xs"
-                      className="inline-block bg-gray-200 rounded-sm px-3 py-1"
-                    >
-                      Parceiro desde {info.since}
-                    </Text>
-                  </div>
-                </div>
-                <Text size="sm" color="gray-700">
-                  Atendimento:{' '}
-                  {info.servedCities
-                    .map(({ city, state }) => `${city} - ${state}`)
-                    .join(', ')}
-                </Text>
-              </div>
-
-              <nav className="flex flex-col gap-4">
-                <Button
-                  onClick={() =>
-                    handleSendMessage(
-                      info.whatsappNumber,
-                      `Olá ${partnerName}, gostaria de saber algumas informações importantes sobre o seu trabalho.`
-                    )
-                  }
-                  variant="primary"
-                >
-                  Falar com {article} {singular}
-                </Button>
-
-                <Button
-                  onClick={() =>
-                    handleSendMessage(
-                      info.whatsappNumber,
-                      `Olá ${partnerName}, gostaria de solicitar a avaliação do meu terreno.`
-                    )
-                  }
-                  variant="secondary"
-                >
-                  Solicitar Avaliação do Terreno
-                </Button>
-              </nav>
-            </Card>
-          );
-        })}
+        {!isLoading && filteredData?.length === 0 && (
+          <MatchNotFound title="Nenhum resultado encontrado" />
+        )}
 
         <div className="flex justify-between gap-4 mt-8 mb-12">
           <div className="flex items-center gap-4">
             <Button
-              onClick={() => handlePageChange(page - 1)}
-              disabled={page === 1}
+              onClick={() => handlePageChange(prevPage)}
+              disabled={!prevPage}
               variant="tertiary"
             >
               Anterior
             </Button>
 
             <Text className="mx-4">
-              Página {page} de {totalPages}
+              Página {page} de {lastPage || '1'}
             </Text>
 
             <Button
-              onClick={() => handlePageChange(page + 1)}
-              disabled={page >= totalPages}
+              onClick={() => handlePageChange(nextPage)}
+              disabled={page >= nextPage}
               variant="tertiary"
             >
               Próximo

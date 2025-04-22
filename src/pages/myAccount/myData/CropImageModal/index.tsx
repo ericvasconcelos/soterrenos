@@ -5,14 +5,11 @@ import Cropper from 'react-easy-crop';
 import { Button, Modal } from '@/components';
 
 import { FileUpload } from '../FileUpload';
+import { useUploadProfileImage } from '../hooks';
 import { ICropImageModal } from './types';
 import { getCroppedImg } from './utils';
 
-export const CropImageModal = ({
-  onSave,
-  isOpen,
-  onClose,
-}: ICropImageModal) => {
+export const CropImageModal = ({ isOpen, onClose }: ICropImageModal) => {
   const [image, setImage] = useState<FileList>();
   const [crop, setCrop] = useState<Point>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -21,6 +18,8 @@ export const CropImageModal = ({
     () => (image?.[0] ? URL.createObjectURL(image[0]) : ''),
     [image]
   );
+
+  const { mutateAsync: uploadImage, status } = useUploadProfileImage();
 
   const onCropComplete = useCallback((_: Area, croppedAreaPixels: Area) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -37,14 +36,14 @@ export const CropImageModal = ({
       });
       const dataTransfer = new DataTransfer();
       dataTransfer.items.add(croppedFile);
-      const fileList = dataTransfer.files;
+      const file = dataTransfer.files[0];
 
-      onSave(fileList);
+      await uploadImage(file);
       onClose();
     } catch (error) {
       console.error('Error cropping image:', error);
     }
-  }, [previewUrl, croppedAreaPixels, image, onSave, onClose]);
+  }, [previewUrl, croppedAreaPixels, image, uploadImage, onClose]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -53,8 +52,12 @@ export const CropImageModal = ({
       </div>
 
       {image?.[0] && (
-        <div className="relative w-full h-[400px]">
+        <div className="relative w-[320px] h-[320px] m-auto">
           <Cropper
+            cropSize={{
+              width: 320,
+              height: 320,
+            }}
             image={previewUrl}
             crop={crop}
             zoom={zoom}
@@ -67,7 +70,12 @@ export const CropImageModal = ({
       )}
 
       <div className="flex justify-end mt-8">
-        <Button type="button" onClick={handleSaveImage} disabled={!previewUrl}>
+        <Button
+          type="button"
+          onClick={handleSaveImage}
+          disabled={!previewUrl}
+          isLoading={status === 'pending'}
+        >
           Salvar Imagem
         </Button>
       </div>

@@ -7,4 +7,6 @@ export interface IAddress {
   city: string;
   state: string;
   condominium?: string;
+  lat?: number;
+  lng?: number;
 }

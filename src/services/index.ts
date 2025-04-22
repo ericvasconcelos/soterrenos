@@ -2,9 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { API_URL } from '../envs';
 
-interface IRequest {
-  [key: string]: unknown;
-}
+export type IRequest = object | FormData;
 
 class ApiClient {
   private readonly _api: AxiosInstance;
@@ -70,6 +68,13 @@ class ApiClient {
   ): Promise<AxiosResponse<T>> {
     return this._api.patch<T>(url, data, config);
   }
+
+  public async delete<T>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> {
+    return this._api.delete<T>(url, config);
+  }
 }
 
 export class ApiService {
@@ -109,5 +114,12 @@ export class ApiService {
     config?: AxiosRequestConfig
   ): Promise<AxiosResponse<T>> {
     return this._apiClient.patch<T>(path, data, config);
+  }
+
+  public async delete<T>(
+    path: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<T>> {
+    return this._apiClient.delete<T>(path, config);
   }
 }

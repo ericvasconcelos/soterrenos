@@ -1,11 +1,8 @@
-import { salespersonList } from '@/data';
-import { ISalesperson } from '@/types';
-
 import Partners from '../index';
 
 const SalesPerson = () => (
-  <Partners<ISalesperson>
-    data={salespersonList}
+  <Partners
+    type="salesperson"
     variants={{
       singular: 'corretor',
       plural: 'corretores',

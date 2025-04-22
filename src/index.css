@@ -2,13 +2,6 @@
 @import 'tailwindcss/preflight' layer(base);
 
 @theme {
-  --color-primary-50: #f3e5f5;
-  --color-primary-100: #e7e6ff;
-  --color-primary-200: #a9a6d8;
-  --color-primary-300: #8b83c5;
-  --color-primary-500: #6e60b2;
-  --color-primary-700: #513e9f;
-
   --color-danger-50: #ffebee;
   --color-danger-100: #ffcdd2;
   --color-danger-200: #ef9a9a;
@@ -33,6 +26,15 @@
   --color-gray-900: #212121;
   --color-light: #fcfcfc;
 
+  --color-primary-50: #f3e5f5;
+  --color-primary-100: #e7e6ff;
+  --color-primary-200: #a9a6d8;
+  --color-primary-300: #8b83c5;
+  --color-primary-500: #6e60b2;
+  --color-primary-700: #513e9f;
+
+  --color-secondary-700: #8c9f3e;
+
   --font-primary: 'Noto Sans JP', 'serif';
 
   --breakpoint-sm: 30rem;
@@ -48,6 +50,13 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Toast */
+  --toastify-color-success: #388e3c;
+  --toastify-color-warning: var(--color-warning-900);
+  --toastify-color-error: var(--color-danger-900);
+  --toastify-font-family: var(--font-primary);
+  --toastify-text-color-light: var(--color-gray-800);
 }
 
 @media (prefers-color-scheme: light) {
@@ -103,4 +112,48 @@ body {
 
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fade-in-up {
+  0% {
+    display: none;
+  }
+
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.fade-in-up {
+  animation-name: fade-in-up;
+  animation-duration: 0.9s;
+  animation-fill-mode: both;
+  animation-delay: 1s;
+}
+
+@keyframes fade-out-up {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, -50%, 0);
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+.fade-out-up {
+  animation-name: fade-out-up;
+  animation-duration: 0.8s;
+  animation-fill-mode: both;
 }

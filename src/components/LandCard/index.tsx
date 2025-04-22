@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { getTotalArea, priceFormatter } from '@/utils';
@@ -11,7 +11,7 @@ import { ILandCard } from './types';
 export const LandCard = ({
   type = 'infos',
   id,
-  url,
+  slug,
   images,
   price,
   landSize,
@@ -20,9 +20,16 @@ export const LandCard = ({
   const navigate = useNavigate();
 
   const handleNavigate = useCallback(() => {
-    const link = type === 'edit' ? `/criar-anuncio/${id}` : `/anuncios/${url}`;
+    const link =
+      type === 'edit' ? `/cadastro-anuncio/${id}` : `/anuncios/${id}/${slug}`;
     navigate(link);
-  }, [id, navigate, type, url]);
+  }, [id, navigate, type, slug]);
+
+  const featuredImage = useMemo(() => {
+    const featured = images.find((image) => image.featured);
+    if (featured) return featured;
+    return images?.[0];
+  }, [images]);
 
   return (
     <Card
@@ -35,10 +42,10 @@ export const LandCard = ({
     >
       <div className="h-[200px]">
         <img
-          src={images[0].src}
-          width={images[0].width}
-          height={images[0].height}
-          alt={images[0].alt || `Imagem do anúncio ${id}`}
+          src={featuredImage?.src}
+          width={featuredImage?.width}
+          height={featuredImage?.height}
+          alt={featuredImage?.alt || `Imagem do anúncio ${id}`}
           className="block w-full h-full object-cover"
         />
       </div>

@@ -25,4 +25,9 @@ dist-ssr
 
 
 # keys
-gcp-service-account.json
+gcp-service-account.jso.n
+
+.env
+.env.development
+.env.production
+

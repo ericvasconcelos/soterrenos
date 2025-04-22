@@ -3,16 +3,25 @@ import { Link, useNavigate } from 'react-router';
 import { useAuth } from '@/auth';
 import { Avatar, Button, Container, Icon } from '@/components';
 import { Dropdown } from '@/components/Dropdown';
+import { useUser } from '@/hooks/useUser';
 
 import { useMenuItems } from './useMenuItems';
 
 export const Header = () => {
   const menuItems = useMenuItems();
   const { isAuthenticated } = useAuth();
+  const { data } = useUser();
   const navigate = useNavigate();
 
+  const defaultImage = {
+    src: '/placeholder/user-icon-placeholder.jpg',
+    width: 512,
+    height: 512,
+    alt: 'Usuário',
+  };
+
   return (
-    <header className="py-5 border-b-1 border-b-gray-300">
+    <header className="py-5 bg-white border-b-1 border-b-gray-300">
       <Container className="flex items-center justify-between gap-4">
         <Link to="/" className="block h-auto outline-black">
           <img
@@ -25,7 +34,10 @@ export const Header = () => {
         </Link>
 
         <menu className="flex items-center justify-end gap-4">
-          <Button size="small" onClick={() => navigate('/criar-anuncio/novo')}>
+          <Button
+            size="small"
+            onClick={() => navigate('/cadastro-anuncio/novo')}
+          >
             Anuncie seu terreno grátis
           </Button>
 
@@ -35,24 +47,10 @@ export const Header = () => {
                 <Icon name="menu-bar" size={26} strokeWidth={1.5} />
               </span>
 
-              {isAuthenticated ? (
-                <Avatar
-                  image={{
-                    src: '/eric.jpg',
-                    width: 400,
-                    height: 400,
-                    alt: 'Eric Vasconcelos',
-                  }}
-                />
+              {isAuthenticated && data?.profileImage?.src ? (
+                <Avatar image={data.profileImage} />
               ) : (
-                <Avatar
-                  image={{
-                    src: '/placeholder/user-icon-placeholder.jpg',
-                    width: 512,
-                    height: 512,
-                    alt: 'Usuário',
-                  }}
-                />
+                <Avatar image={defaultImage} />
               )}
             </button>
           </Dropdown>

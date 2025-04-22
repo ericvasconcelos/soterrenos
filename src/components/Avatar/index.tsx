@@ -46,7 +46,7 @@ export const Avatar: FC<IAvatar> = ({
       >
         {image ? (
           <img
-            src={image.src}
+            src={`${image.src}?v=${Date.now()}`}
             width={image.width}
             height={image.height}
             alt={image.alt ?? `Avatar image of ${completeName}`}

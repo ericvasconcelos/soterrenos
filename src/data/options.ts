@@ -1,4 +1,4 @@
-export const soilTypeOptions = [
+export const soilOptions = [
   { value: 'clay', label: 'Argiloso' },
   { value: 'sandy', label: 'Arenoso' },
   { value: 'rocky', label: 'Rochoso' },

@@ -17,7 +17,7 @@ const schemaLogin = object().shape({
 export const useLoginForm = () =>
   useForm<ILogin>({
     resolver: yupResolver(schemaLogin) as Resolver<ILogin>,
-    mode: 'onBlur',
+    mode: 'onSubmit',
     reValidateMode: 'onChange',
     defaultValues: {
       email: '',

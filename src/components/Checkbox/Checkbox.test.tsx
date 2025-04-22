@@ -98,7 +98,7 @@ describe('Checkbox Component', () => {
 
     expect(formField).toHaveClass('custom-class');
     expect(checkbox).toHaveClass(
-      'peer appearance-none w-4 h-4 border border-gray-400 rounded-sm',
+      'peer appearance-none w-[17px] h-[17px] border border-gray-400 rounded-sm',
       'focus:ring-primary-500 focus:ring-2 ring-offset-white ring-offset-2'
     );
   });
