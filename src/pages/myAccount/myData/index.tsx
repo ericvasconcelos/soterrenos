@@ -74,7 +74,7 @@ const MyData: React.FC = () => {
       />
 
       <Container>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-12 mb-20">
+        <form onSubmit={handleSubmit(onSubmit)} className="pt-12 mb-20">
           <Text tag="h1" size="2xl" weight="bold" className="mb-8">
             Meus dados
           </Text>

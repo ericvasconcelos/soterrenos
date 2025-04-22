@@ -19,7 +19,7 @@ export default function MyAdvertisements() {
   return (
     <>
       <Container className="mb-12">
-        <div className="flex justify-between items-center mt-12 mb-8">
+        <div className="flex justify-between items-center pt-12 mb-8">
           <Text tag="h1" size="2xl" weight="bold">
             Meus Anúncios
           </Text>

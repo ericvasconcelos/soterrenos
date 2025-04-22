@@ -1,11 +1,16 @@
 import { Icon, Modal, Text } from '@/components';
 import { getTotalArea, priceFormatter } from '@/utils';
 
-import { data } from '../data';
 import { IModalShare } from './types';
 
-export const ModalShare = ({ isOpen, close }: IModalShare) => {
-  const totalArea = getTotalArea(data.landSize);
+export const ModalShare = ({
+  isOpen,
+  close,
+  landSize,
+  price,
+  address,
+}: IModalShare) => {
+  const totalArea = getTotalArea(landSize);
   const currentUrl = window.location.href;
 
   const handleCopyLink = async () => {
@@ -77,11 +82,11 @@ export const ModalShare = ({ isOpen, close }: IModalShare) => {
 
         <div>
           <Text color="primary-700" size="lg" weight="bold" className="mb-2">
-            R$ {priceFormatter(data.price)}
+            R$ {priceFormatter(price)}
           </Text>
 
           <Text color="gray-700" size="sm">
-            {totalArea.text} - {data.address.neighborhood}, {data.address.city}
+            {totalArea.text} - {address.neighborhood}, {address.city}
           </Text>
         </div>
       </div>
