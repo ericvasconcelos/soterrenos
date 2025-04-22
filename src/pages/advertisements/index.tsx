@@ -44,12 +44,12 @@ export default function Advertisements() {
   const closeModal = () => setCurrentIndex(null);
   const totalArea = getTotalArea(data?.landSize);
 
-  const description = `Compre Terreno em ${data?.address.neighborhood}, ${data?.address.city} - ${data?.address.state}. Área de ${totalArea.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
+  const description = `Compre Terreno em ${data?.address?.neighborhood}, ${data?.address?.city} - ${data?.address?.state}. Área de ${totalArea?.text}, [Características Relevantes]. Informações verificadas e atualizadas. Faça um contato direto com o vendedor`;
 
   return (
     <>
       <SEO
-        title={`Terreno à venda de ${totalArea.text} em ${data?.address.neighborhood}, ${data?.address.city} -  ${data?.address.state}`}
+        title={`Terreno à venda de ${totalArea?.text} em ${data?.address?.neighborhood}, ${data?.address?.city} -  ${data?.address?.state}`}
         description={description}
         schemaMarkup={{
           '@context': 'https://schema.org',
@@ -60,21 +60,21 @@ export default function Advertisements() {
           listingStatus: 'ForSale',
           address: {
             '@type': 'PostalAddress',
-            addressLocality: `${data?.address.city}`,
-            addressRegion: `${data?.address.state}`,
-            addressNeighborhood: `${data?.address.neighborhood}`,
+            addressLocality: `${data?.address?.city}`,
+            addressRegion: `${data?.address?.state}`,
+            addressNeighborhood: `${data?.address?.neighborhood}`,
           },
           price: `${priceFormatter(data?.price)}`,
           priceCurrency: 'BRL',
-          size: `${totalArea.text}`,
-          image: `${data?.images[0].src}`,
+          size: `${totalArea?.text}`,
+          image: `${data?.images?.[0]?.src}`,
         }}
       />
 
       <Container>
         {isLoading && !data && <AdSkeleton />}
 
-        {!isLoading && data && (
+        {!isLoading && !!data && (
           <>
             <div className="flex items-center justify-between gap-4 my-5">
               <Text tag="h1" size="2xl" weight="medium">

@@ -39,8 +39,8 @@ const Login: React.FC = () => {
         }}
       />
 
-      <Container>
-        <Card hasShadow className="max-w-lg mx-auto my-14">
+      <Container className="pt-14">
+        <Card hasShadow className="max-w-lg mx-auto mb-14">
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
             <Text tag="h1" size="3xl" weight="bold">
               Acessar

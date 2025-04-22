@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { OPEN_STREET_API_URL } from '@/envs';
 import { fetchZipCode } from '@/services/zipCode';
 
-export const useLocation = () => {
+export const useGetLocation = () => {
   const [city, setCity] = useState<string>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>();
