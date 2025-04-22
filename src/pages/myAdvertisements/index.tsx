@@ -26,7 +26,7 @@ export default function MyAdvertisements() {
 
           <Button
             variant="primary"
-            onClick={() => navigate('/criar-anuncio/novo')}
+            onClick={() => navigate('/cadastro-anuncio/novo')}
           >
             Novo Anúncio
           </Button>

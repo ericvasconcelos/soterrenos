@@ -1,8 +1,6 @@
-import {
-  ICreateFormData,
-  ICreateLandPayload,
-} from '@/pages/createAd/form/schema';
+import { ICreateLandPayload } from '@/pages/createAd/form/schema';
 import { ILand } from '@/types';
+import { wait } from '@/utils';
 
 import { ApiService } from '../index';
 import { ILands } from './types';
@@ -21,6 +19,8 @@ export const fetchLands = async (size?: number) => {
 };
 
 export const fetchLand = async (id?: string) => {
+  await wait(1000);
+
   try {
     const { data } = await landsService.get<ILand>(`/${id}`);
     return data;
@@ -39,11 +39,12 @@ export const createLand = async (payload: ICreateLandPayload) => {
 };
 
 export const updateLand = async (
-  id: string,
-  payload: Partial<ICreateFormData>
-) => {
+  payload: Partial<ICreateLandPayload>
+): Promise<ILand> => {
+  const { id, ...rest } = payload;
+
   try {
-    const { data } = await landsService.patch(`/${id}`, payload);
+    const { data } = await landsService.patch<ILand>(`/${id}`, rest);
     return data;
   } catch (error) {
     throw new Error(error as string);

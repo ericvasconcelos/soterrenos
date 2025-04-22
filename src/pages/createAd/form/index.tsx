@@ -1,11 +1,20 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import {
+  AdvancedMarker,
+  APIProvider,
+  Map,
+  Pin,
+} from '@vis.gl/react-google-maps';
+import axios from 'axios';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { Controller } from 'react-hook-form';
-import { v4 as uuidv4 } from 'uuid';
+import { useParams } from 'react-router';
+import { toast } from 'react-toastify';
 
 import {
   Button,
   Card,
   Checkbox,
+  Divider,
   FieldController,
   Icon,
   Input,
@@ -14,6 +23,7 @@ import {
   Switch,
   Text,
   Textarea,
+  VideoPlayer,
 } from '@/components';
 import {
   commonAreasOptions,
@@ -24,29 +34,51 @@ import {
   sunPositionOptions,
   zoningOptions,
 } from '@/data';
-import { uploadImages } from '@/services/file';
-import { filterMoneyMask, sanitizePrice } from '@/utils';
+import { GOOGLE_MAPS_API_KEY } from '@/envs';
+import { deleteFile, uploadFile } from '@/services/file';
+import { ILand } from '@/types';
+import { filterMoneyMask, filterZipCode, sanitizePrice } from '@/utils';
 
-import { useCreateLand } from '../hooks';
+import { useCreateLand, useUpdateLand } from '../hooks';
 import { SellerInfos } from '../sellerInfos';
+import {
+  extractFileName,
+  getImagesSplited,
+  initialCondominiumInfos,
+  normalizeLand,
+} from './helpers';
 import { ICreateFormData, ICreateLandPayload } from './schema';
 import { useCreateForm } from './useCreateForm';
 
-export const CreateAdForm = () => {
-  const [uploadProgress] = useState<Record<string, number>>({});
-  const [, setUploadErrors] = useState<Record<string, string>>({});
+interface ICreatedAdForm {
+  defaultValues?: ILand;
+}
+
+export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
+  const { id } = useParams();
+  const [imageError, setImageError] = useState('');
+  const [geolocation, setGeolocation] = useState<number[] | null>(null);
 
   const {
     control,
     handleSubmit,
     setValue,
+    reset,
     watch,
     formState: { errors, isValid, isSubmitting },
   } = useCreateForm();
 
-  const { mutateAsync: createLand } = useCreateLand();
+  useEffect(() => {
+    const initialValues = normalizeLand(defaultValues);
+    reset(initialValues);
+  }, [defaultValues, reset]);
 
+  const { mutateAsync: createLand } = useCreateLand();
+  const { mutateAsync: updateLand } = useUpdateLand();
+
+  const zipCode = watch('address.zipCode');
   const imageList = watch('images');
+  const videoUrl = watch('videoUrl');
   const hasCondominium = !!watch('address.condominium');
 
   const handleImageUpload = useCallback(
@@ -54,83 +86,153 @@ export const CreateAdForm = () => {
       const { files } = event.target;
       if (!files || !files.length) return;
 
-      await uploadImages(files[0]);
-
       const newImages = [...(imageList || [])];
 
       for (const file of Array.from(files)) {
-        if (file.size > 200 * 1024) {
-          setUploadErrors((prev) => ({
-            ...prev,
-            [file.name]: 'Tamanho máximo de 200KB excedido',
-          }));
+        if (file.size > 1 * (1024 * 1024)) {
+          setImageError('Tamanho máximo de 200KB excedido');
           continue;
         }
 
-        const fileId = uuidv4();
-        const fileName = `images/${fileId}-${file.name}`;
-
         newImages.push({
-          id: fileId,
           src: URL.createObjectURL(file),
+          file: file,
           featured: false,
-          type: file.type,
-          size: file.size,
-          uploadStatus: 'uploading',
-          fileName, // Armazenamos o nome do arquivo para referência
         });
 
-        setValue('images', newImages);
+        setValue('images', newImages, {
+          shouldValidate: true,
+        });
       }
     },
     [imageList, setValue]
   );
 
   const handleSetFeatured = useCallback(
-    (imageId: string) => {
+    (imageSrc: string) => {
       const updatedImages = imageList?.map((img) => ({
         ...img,
-        featured: img.id === imageId,
+        featured: img.src === imageSrc,
       }));
-      setValue('images', updatedImages);
+
+      setValue('images', updatedImages, {
+        shouldValidate: true,
+      });
     },
     [imageList, setValue]
   );
 
   const handleRemoveImage = useCallback(
-    (imgId: string) => {
-      const updatedImages = imageList?.filter(({ id }) => id !== imgId);
-      setValue('images', updatedImages);
+    (imageSrc: string) => {
+      const updatedImages = imageList?.filter(({ src }) => src !== imageSrc);
+      setValue('images', updatedImages, {
+        shouldValidate: true,
+      });
     },
     [imageList, setValue]
   );
 
+  const fetchCoordinates = useCallback(async (zipCodeAddress: string) => {
+    setGeolocation(null);
+
+    try {
+      const { data } = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?address=${zipCodeAddress}&key=${GOOGLE_MAPS_API_KEY}`
+      );
+
+      if (data.status === 'OK' && data.results.length > 0) {
+        const { lat, lng } = data.results[0].geometry.location;
+        setGeolocation([parseFloat(lat), parseFloat(lng)]);
+      } else {
+        toast.error(
+          'Não encontramos as coordenadas do CEP para mostrar o mapa'
+        );
+        return;
+      }
+    } catch (error) {
+      console.log('error', error);
+      toast.error(`Erro ao buscar coordenadas: ${error}`);
+      return;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (zipCode?.length === 9) {
+      fetchCoordinates(zipCode);
+    }
+  }, [zipCode, fetchCoordinates]);
+
   const onSubmit = useCallback(
     async (formData: ICreateFormData) => {
-      const { price, propertyTax, condominiumTax, ...rest } = formData;
+      const { price, propertyTax, condominiumTax, images, ...rest } = formData;
+      const initial = defaultValues?.images ?? [];
+      const current = images ?? [];
+
+      const { toUpload, toDelete, unchanged } = getImagesSplited(
+        initial,
+        current
+      );
+
+      const uploadedImages = await Promise.all(
+        toUpload.map(async (image) => {
+          try {
+            return await uploadFile(image.file!);
+          } catch (error) {
+            toast.error(error as string);
+            return null;
+          }
+        })
+      );
+
+      await Promise.all(
+        toDelete.map(async (image) => {
+          try {
+            const fileName = extractFileName(image.src);
+            return await deleteFile(fileName);
+          } catch (error) {
+            toast.error(error as string);
+            return null;
+          }
+        })
+      );
+
+      const finalImages = [
+        ...unchanged,
+        ...uploadedImages.map((img) => ({
+          src: img?.src || '',
+          alt: extractFileName(img?.fileName || ''),
+          width: img?.width,
+          height: img?.height,
+          featured:
+            current.find((i) => i.file?.name === img?.fileName)?.featured ||
+            false,
+        })),
+      ];
 
       const landData: ICreateLandPayload = {
         ...rest,
+        images: finalImages,
+        address: {
+          ...rest.address,
+          lat: geolocation?.[0],
+          lng: geolocation?.[1],
+        },
         price: sanitizePrice(price),
-        ...(propertyTax && {
-          propertyTax: sanitizePrice(propertyTax),
-        }),
+        ...(propertyTax && { propertyTax: sanitizePrice(propertyTax) }),
         ...(condominiumTax && {
           condominiumTax: sanitizePrice(condominiumTax),
         }),
-        images: [
-          {
-            src: 'http://www.anuncios/images/4355127664.jpg',
-            width: 500,
-            height: 559,
-            alt: 'Alt da imagem',
-          },
-        ],
+        // if doesn't have a condominium
+        ...(!rest.address.condominium && { ...initialCondominiumInfos }),
       };
 
-      await createLand(landData);
+      if (id === 'novo') {
+        await createLand(landData);
+      } else {
+        await updateLand(landData);
+      }
     },
-    [createLand]
+    [defaultValues?.images, geolocation, id, createLand, updateLand]
   );
 
   return (
@@ -168,7 +270,7 @@ export const CreateAdForm = () => {
             rows={8}
           />
 
-          <div className="grid grid-cols-[1fr_1fr_2fr] gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1fr_1fr_2fr] gap-4">
             <FieldController
               component={Input}
               control={control}
@@ -187,7 +289,7 @@ export const CreateAdForm = () => {
               filterValue={filterMoneyMask}
             />
 
-            <div className="grid grid-cols-2 gap-4 pt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
               <FieldController
                 component={Checkbox}
                 control={control}
@@ -210,8 +312,28 @@ export const CreateAdForm = () => {
 
       <Card>
         <Text tag="h2" size="xl" weight="bold" className="mb-4">
-          Imagens
+          Video e Imagens
         </Text>
+
+        <div>
+          <FieldController
+            component={Input}
+            control={control}
+            id="videoUrl"
+            name="videoUrl"
+            type="url"
+            label="Link do vídeo do YouTube"
+            className="mb-4"
+          />
+
+          {videoUrl && (
+            <div className="max-w-[500px]">
+              <VideoPlayer url={videoUrl} />
+            </div>
+          )}
+        </div>
+
+        <Divider />
 
         <label
           htmlFor="upload-images"
@@ -240,23 +362,31 @@ export const CreateAdForm = () => {
             Buscar arquivos
           </Button>
         </label>
-
         <Text size="sm" color="gray-600" className="mt-2">
           ** Limite máximo do tamanho de imagens de 200kb
         </Text>
-
-        <div className="grid grid-cols-4 gap-4 mt-4">
+        {imageError && (
+          <Text color="danger-700" className="mt-2">
+            {imageError}
+          </Text>
+        )}
+        {errors.images && (
+          <Text color="danger-700" className="mt-2">
+            {errors.images.message}
+          </Text>
+        )}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {imageList?.map((image, index) => (
-            <div key={image.id} className="relative">
+            <div key={image.src} className="relative">
               <img
                 src={image.src}
                 alt={`Preview ${index}`}
-                className="h-40 w-full object-cover rounded"
+                className="h-48 w-full object-cover rounded"
               />
 
               <button
                 type="button"
-                onClick={() => handleRemoveImage(image.id)}
+                onClick={() => handleRemoveImage(image.src)}
                 className="absolute top-2 right-2 bg-primary-100 rounded-full p-1 cursor-pointer"
               >
                 <Icon name="x-mark" color="primary" />
@@ -267,43 +397,28 @@ export const CreateAdForm = () => {
                   id="featured"
                   content="Principal"
                   checked={image.featured}
-                  onChange={() => handleSetFeatured(image.id)}
+                  value={image.featured}
+                  onChange={() => handleSetFeatured(image.src)}
                 />
               </div>
-
-              {image.uploadStatus === 'uploading' && (
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <div className="w-full bg-gray-200 rounded-full h-2.5 mx-4">
-                    <div
-                      className="bg-blue-600 h-2.5 rounded-full"
-                      style={{ width: `${uploadProgress[image.id] || 0}%` }}
-                    ></div>
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>
-
-        {errors.images && (
-          <Text color="danger-700" className="mt-2">
-            {errors.images.message}
-          </Text>
-        )}
       </Card>
 
-      <Card hasShadow>
+      <Card>
         <Text tag="h2" size="xl" weight="bold" className="mb-4">
           Endereço completo
         </Text>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <FieldController
             component={Input}
             control={control}
             id="address.zipCode"
             name="address.zipCode"
             label="CEP"
+            filterValue={filterZipCode}
           />
 
           <FieldController
@@ -374,6 +489,31 @@ export const CreateAdForm = () => {
             />
           )}
         </div>
+
+        {geolocation && (
+          <div className="w-full h-[400px] rounded-xl overflow-hidden mt-6">
+            <APIProvider apiKey={GOOGLE_MAPS_API_KEY} region="BR">
+              <Map
+                mapId="58bda79ff82ab6f4"
+                style={{ width: '100%', height: '100%' }}
+                defaultCenter={{ lat: geolocation[0], lng: geolocation[1] }}
+                zoom={15}
+                gestureHandling={'greedy'}
+                disableDefaultUI={true}
+              >
+                <AdvancedMarker
+                  position={{ lat: geolocation[0], lng: geolocation[1] }}
+                >
+                  <Pin
+                    background="#8b83c5"
+                    glyphColor="#513e9f"
+                    borderColor="#513e9f"
+                  />
+                </AdvancedMarker>
+              </Map>
+            </APIProvider>
+          </div>
+        )}
       </Card>
 
       <Card>
@@ -425,7 +565,7 @@ export const CreateAdForm = () => {
           Características do Terreno
         </Text>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid sm:grid-cols-2 gap-4">
           <FieldController
             component={RadioFields}
             control={control}
@@ -609,26 +749,30 @@ export const CreateAdForm = () => {
                 key={option.value}
                 name="commonAreas"
                 control={control}
-                render={({ field }) => (
-                  <Checkbox
-                    content={option.label}
-                    checked={field?.value?.includes(option.value)}
-                    onChange={(e) => {
-                      let newValue: string[] = [];
+                render={({ field }) => {
+                  const checked = field?.value?.includes(option.value);
+                  return (
+                    <Checkbox
+                      content={option.label}
+                      value={checked}
+                      checked={checked}
+                      onChange={(e) => {
+                        let newValue: string[] = [];
 
-                      if (e.target.checked) {
-                        const currentValue = (field?.value ?? '') as string;
-                        newValue = [...currentValue, option.value];
-                      } else {
-                        newValue = (field?.value as string[]).filter(
-                          (v: string) => v !== option?.value
-                        );
-                      }
+                        if (e.target.checked) {
+                          const currentValue = (field?.value ?? '') as string;
+                          newValue = [...currentValue, option.value];
+                        } else {
+                          newValue = (field?.value as string[]).filter(
+                            (v: string) => v !== option?.value
+                          );
+                        }
 
-                      field.onChange(newValue);
-                    }}
-                  />
-                )}
+                        field.onChange(newValue);
+                      }}
+                    />
+                  );
+                }}
               />
             ))}
           </div>
@@ -711,6 +855,7 @@ export const CreateAdForm = () => {
               render={({ field }) => (
                 <Checkbox
                   content={option.label}
+                  value={field?.value?.includes(option.value)}
                   checked={field?.value?.includes(option.value)}
                   onChange={(e) => {
                     let newValue: string[] = [];

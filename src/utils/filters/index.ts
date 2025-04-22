@@ -69,3 +69,9 @@ export const filterMoneyMask = (value: string) => {
   if (!isNaN(sanitizedPrice)) return priceFormatter(sanitizedPrice);
   return '';
 };
+
+export const filterZipCode = (value: string) => {
+  const newValue = value.replace(/\D/g, '').substring(0, 9);
+
+  return newValue.replace(/(\d{5})(\d{3})/, '$1-$2');
+};

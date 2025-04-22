@@ -52,8 +52,12 @@ export const CropImageModal = ({ isOpen, onClose }: ICropImageModal) => {
       </div>
 
       {image?.[0] && (
-        <div className="relative w-full h-[400px]">
+        <div className="relative w-[320px] h-[320px] m-auto">
           <Cropper
+            cropSize={{
+              width: 320,
+              height: 320,
+            }}
             image={previewUrl}
             crop={crop}
             zoom={zoom}

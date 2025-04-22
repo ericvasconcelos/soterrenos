@@ -80,6 +80,7 @@ const MyData: React.FC = () => {
           </Text>
 
           <button
+            type="button"
             className="group relative mb-4 cursor-pointer overflow-hidden rounded-full"
             onClick={() => setIsModalOpen(true)}
           >

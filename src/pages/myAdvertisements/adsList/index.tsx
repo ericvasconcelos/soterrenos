@@ -91,7 +91,7 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
       )}
 
       {!hasMore && (
-        <div className="col-span-full text-center py-4 text-gray-500 mt-8">
+        <div className="grid h-[40vh] col-span-full items-center text-center py-4 text-gray-500 mt-8">
           Não há mais anúncios para carregar
         </div>
       )}

@@ -1,36 +1,27 @@
-import { array, boolean, InferType, number, object, string } from 'yup';
+import { array, boolean, InferType, mixed, number, object, string } from 'yup';
 
 import { IImage } from '@/types';
 import { errors, sanitizePrice } from '@/utils';
 
 export const createAdSchema = object().shape({
+  id: string(),
   title: string()
     .min(20, errors.min(20))
     .max(300, errors.max(300))
     .required(errors.required),
   active: boolean().required(),
+  videoUrl: string().nullable(),
   images: array()
     .of(
       object().shape({
-        id: string().required(),
         src: string().required(),
-        type: string().required(),
-        size: number().required(),
-        fileName: string(),
         featured: boolean(),
-        uploadStatus: string().oneOf(['completed', 'uploading', 'failed']),
+        file: mixed(),
       })
     )
-    .test(
-      'all-uploads-completed',
-      'Todos os uploads devem estar completos',
-      (images) =>
-        !images || images.every((img) => img.uploadStatus === 'completed')
-    )
-    .optional(),
-  // .min(5, 'Adicione no mínimo 5 imagens')
-  // .min(10, 'Adicione até 10 imagens')
-  // .required(errors.required),
+    .min(5, 'Adicione no mínimo 5 imagens')
+    .max(8, 'Adicione até 8 imagens')
+    .required(errors.required),
   address: object()
     .shape({
       zipCode: string().required(errors.required),
@@ -41,6 +32,8 @@ export const createAdSchema = object().shape({
       city: string().required(errors.required),
       state: string().required(errors.required),
       condominium: string(),
+      lat: number(),
+      lng: number(),
     })
     .required(errors.required),
   landSize: object()
