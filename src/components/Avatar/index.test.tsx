@@ -13,6 +13,8 @@ describe('Avatar Component', () => {
   });
 
   it('should render an image when image prop is provided', () => {
+    Date.now = jest.fn(() => 1487076708000);
+
     const image = {
       src: 'https://example.com/avatar.png',
       width: 40,
@@ -24,7 +26,7 @@ describe('Avatar Component', () => {
     const avatarElement = screen.getByRole('figure');
     const img = avatarElement.querySelector('img');
     expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', image.src);
+    expect(img).toHaveAttribute('src', image.src + `?v=${Date.now()}`);
     expect(img).toHaveAttribute('width', image.width.toString());
     expect(img).toHaveAttribute('height', image.height.toString());
     expect(img).toHaveAttribute('alt', image.alt);
