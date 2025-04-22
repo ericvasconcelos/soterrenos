@@ -9,7 +9,7 @@ export const Nearby = () => {
   return (
     <>
       <Text size="2xl" weight="bold" className="mb-8">
-        Terrenos na sua cidade
+        Terrenos próximos a você
       </Text>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
