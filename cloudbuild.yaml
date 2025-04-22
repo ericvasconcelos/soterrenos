@@ -3,7 +3,7 @@ steps:
     args:
       - 'build'
       - '--tag'
-      - 'gcr.io/$PROJECT_ID/my-vite-app:$COMMIT_SHA'
+      - 'gcr.io/soterrenos/soterrenos:$COMMIT_SHA'
       - '--build-arg'
       - 'VITE_API_URL=$_VITE_API_URL'
       - '--build-arg'
@@ -16,4 +16,4 @@ steps:
     id: 'Build Docker Image'
 
 images:
-  - 'gcr.io/$PROJECT_ID/my-vite-app:$COMMIT_SHA'
+  - 'gcr.io/soterrenos/soterrenos:$COMMIT_SHA'
