@@ -39,7 +39,7 @@ export const SellerInfos = () => {
           </Text>
 
           <Text size="sm" className="flex items-center gap-1 mb-1.5">
-            <Icon name="phone" size={20} />
+            <Icon name="phone" size={20} strokeWidth={1.5} />
             Telefone: {filterPhoneMask(data?.phoneNumber || '')}
           </Text>
 
@@ -49,14 +49,16 @@ export const SellerInfos = () => {
           </Text>
 
           <Text size="sm" className="flex items-center gap-1 mb-1.5">
-            <Icon name="mail" size={20} />
+            <Icon name="mail" size={20} strokeWidth={1.5} />
             Email: {data?.email}
           </Text>
 
-          <Text size="sm" className="flex items-center gap-1">
-            <Icon name="identification" size={20} />
-            CRECI: {data?.creci}
-          </Text>
+          {data?.creci && (
+            <Text size="sm" className="flex items-center gap-1">
+              <Icon name="identification" size={20} />
+              CRECI: {data?.creci} - {data?.creciState}
+            </Text>
+          )}
         </div>
       </div>
     </Card>
