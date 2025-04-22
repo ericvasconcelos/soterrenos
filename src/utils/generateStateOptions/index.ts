@@ -3,12 +3,13 @@ import { ILocations } from '@/services/locations/types';
 import { IState } from './types';
 
 export const generateStateOptions = (locations?: ILocations[]): IState[] => {
-  if (!locations) return [];
+  if (!locations || !Array.isArray(locations) || locations?.length > 0)
+    return [];
 
-  return locations.map(({ state, cities }) => ({
+  return locations?.map(({ state, cities }) => ({
     value: state,
     label: state,
-    cities: cities.map((city) => ({
+    cities: cities?.map((city) => ({
       value: city,
       label: city,
     })),

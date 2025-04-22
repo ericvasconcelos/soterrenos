@@ -11,7 +11,7 @@ export default function CreateAdvertisement() {
 
   return (
     <Container>
-      <div className="flex items-center justify-between gap-4 mt-12 mb-8">
+      <div className="flex items-center justify-between gap-4 pt-12 mb-8">
         <Text tag="h1" size="2xl" weight="bold">
           {id === 'novo' ? 'Criando um novo anúncio' : 'Editando anúncio'}
         </Text>
