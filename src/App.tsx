@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
-import { AuthProvider } from './auth/AuthProvider';
+import { ScrollController } from './components/ScrollController';
 import { Page } from './layouts/Page';
 import Advertisements from './pages/advertisements';
 import CreateAdvertisement from './pages/createAd';
@@ -20,8 +20,8 @@ import { ProtectedRoute } from './RrotectedRoute';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <ScrollController>
         <Routes>
           <Route path="/" element={<Page />}>
             <Route index element={<Home />} />
@@ -36,7 +36,7 @@ export default function App() {
               </Route>
 
               <Route
-                path="criar-anuncio/:id"
+                path="/cadastro-anuncio/:id"
                 element={<CreateAdvertisement />}
               />
             </Route>
@@ -56,7 +56,7 @@ export default function App() {
             <Route path="/imobiliarias" element={<Agencies />} />
           </Route>
         </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+      </ScrollController>
+    </BrowserRouter>
   );
 }
