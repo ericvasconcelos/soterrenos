@@ -9,7 +9,7 @@ Allow: /termos-e-condicoes-politica-de-privacidade
 Allow: /cadastrar
 Allow: /entrar
 Allow: /minha-conta
-Allow: /criar-anuncio
+Allow: /cadastro-anuncio
 
 Disallow: /meus-anuncios/
 Disallow: /*/privado/
