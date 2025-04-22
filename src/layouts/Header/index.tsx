@@ -21,7 +21,7 @@ export const Header = () => {
   };
 
   return (
-    <header className="py-5 border-b-1 border-b-gray-300">
+    <header className="py-5 bg-white border-b-1 border-b-gray-300">
       <Container className="flex items-center justify-between gap-4">
         <Link to="/" className="block h-auto outline-black">
           <img
@@ -34,7 +34,10 @@ export const Header = () => {
         </Link>
 
         <menu className="flex items-center justify-end gap-4">
-          <Button size="small" onClick={() => navigate('/criar-anuncio/novo')}>
+          <Button
+            size="small"
+            onClick={() => navigate('/cadastro-anuncio/novo')}
+          >
             Anuncie seu terreno grátis
           </Button>
 
