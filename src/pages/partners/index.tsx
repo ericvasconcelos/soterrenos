@@ -1,7 +1,14 @@
 import { useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import { Button, Container, Input, Skeleton, Text } from '@/components';
+import {
+  Button,
+  Container,
+  Input,
+  MatchNotFound,
+  Skeleton,
+  Text,
+} from '@/components';
 import { SEO } from '@/layouts/Seo';
 import { IUser } from '@/types';
 import { generateArray, getPartnerName } from '@/utils';
@@ -11,7 +18,7 @@ import { PartnerCard } from './partnerCard';
 import { IPartner } from './types';
 
 const Partners = ({ type, variants }: IPartner) => {
-  const fakeList = generateArray(8);
+  const fakeList = generateArray(4);
   const { singular, plural, article } = variants;
   const [searchParams, setSearchParams] = useSearchParams();
   const page = parseInt(searchParams.get('page') || '1') || 1;
@@ -100,19 +107,24 @@ const Partners = ({ type, variants }: IPartner) => {
         </div>
 
         {isLoading &&
-          filteredData.length === 0 &&
+          filteredData?.length === 0 &&
           fakeList.map((item) => (
             <Skeleton key={item} name="card" height={233} className="mb-4" />
           ))}
 
-        {filteredData.map((user) => (
-          <PartnerCard
-            key={user.id}
-            {...user}
-            article={article}
-            singular={singular}
-          />
-        ))}
+        {!isLoading &&
+          filteredData?.map((user) => (
+            <PartnerCard
+              key={user.id}
+              {...user}
+              article={article}
+              singular={singular}
+            />
+          ))}
+
+        {!isLoading && filteredData?.length === 0 && (
+          <MatchNotFound title="Nenhum resultado encontrado" />
+        )}
 
         <div className="flex justify-between gap-4 mt-8 mb-12">
           <div className="flex items-center gap-4">

@@ -1,4 +1,4 @@
-import { LandCard, Skeleton, Text } from '@/components';
+import { LandCard, MatchNotFound, Skeleton, Text } from '@/components';
 import { useLandList } from '@/hooks/useLandList';
 import { generateArray } from '@/utils';
 
@@ -22,6 +22,10 @@ export const Nearby = () => {
           data?.length > 0 &&
           data.map((item) => <LandCard key={item.id} {...item} />)}
       </div>
+
+      {!isLoading && !data && (
+        <MatchNotFound title="Infelizmente não encontramos terrenos perto de você" />
+      )}
     </>
   );
 };
