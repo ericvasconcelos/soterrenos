@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '--tag'
+      - 'gcr.io/$PROJECT_ID/my-vite-app:$COMMIT_SHA'
+      - '--build-arg'
+      - 'VITE_API_URL=$_VITE_API_URL'
+      - '--build-arg'
+      - 'VITE_VIA_CEP_API_URL=$_VITE_VIA_CEP_API_URL'
+      - '--build-arg'
+      - 'VITE_OPEN_STREET_API_URL=$_VITE_OPEN_STREET_API_URL'
+      - '--build-arg'
+      - 'VITE_GOOGLE_MAPS_API_KEY=$_VITE_GOOGLE_MAPS_API_KEY'
+      - '.'
+    id: 'Build Docker Image'
+
+images:
+  - 'gcr.io/$PROJECT_ID/my-vite-app:$COMMIT_SHA'
