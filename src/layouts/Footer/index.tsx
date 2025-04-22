@@ -73,7 +73,7 @@ export const Footer = () => (
             </a>
 
             <a
-              href="https://www.youtube.com/@SoTerrenos"
+              href="https://www.youtube.com/@SoTerrenosAnuncios"
               target="_blank"
               className="outline-black"
               aria-label="Youtube"
