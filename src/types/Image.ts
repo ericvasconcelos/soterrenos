@@ -4,4 +4,6 @@ export interface IImage {
   width?: number;
   height?: number;
   alt?: string;
+  file?: File;
+  featured?: boolean;
 }

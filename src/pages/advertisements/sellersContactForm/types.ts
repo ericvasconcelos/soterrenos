@@ -10,5 +10,6 @@ export type ISellersContactForm = Pick<
   | 'whatsappNumber'
   | 'email'
   | 'creci'
+  | 'creciState'
   | 'profileImage'
 >;

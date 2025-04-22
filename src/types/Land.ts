@@ -9,6 +9,11 @@ export interface ILandSize {
   back: number;
 }
 
+export type ISoilType = 'clay' | 'sandy' | 'rocky';
+export type ISlopeType = 'flat' | 'downhill' | 'uphill';
+export type IZoningType = 'residential' | 'commercial' | 'industrial';
+export type ISunPositionType = 'east-facing' | 'west-facing';
+
 export interface ILand {
   id: string;
   slug: string;
@@ -35,10 +40,10 @@ export interface ILand {
   isFenced: boolean;
   isLandLeveled: boolean;
   isLotClear: boolean;
-  soil: string;
-  slope: string;
-  zoning: string;
-  sunPosition: string;
+  soil: ISoilType;
+  slope: ISlopeType;
+  zoning: IZoningType;
+  sunPosition: ISunPositionType;
   established: boolean;
   paved: boolean;
   streetLighting: boolean;

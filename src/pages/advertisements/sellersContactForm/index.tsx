@@ -24,6 +24,7 @@ export const SellersContactForm = ({
   whatsappNumber,
   email,
   creci,
+  creciState,
   profileImage,
 }: ISellersContactForm) => {
   const {
@@ -77,35 +78,37 @@ export const SellersContactForm = ({
           </Text>
 
           <Text size="sm" className="flex items-center gap-1 mb-1.5">
-            <Icon name="phone" size={20} />
+            <Icon name="phone" size={20} strokeWidth={1.5} />
             {filterPhoneMask(phoneNumber.slice(0, showPhoneNumber ? 15 : 5))}
             {!showPhoneNumber && (
               <button
                 className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
                 onClick={handleShowPhoneNumber}
               >
-                Ver email
+                Ver telefone
               </button>
             )}
           </Text>
 
           <Text size="sm" className="flex items-center gap-1 mb-1.5">
-            <Icon name="mail" size={20} />
+            <Icon name="mail" size={20} strokeWidth={1.5} />
             {email.slice(0, showEmail ? 999 : 7)}
             {!showEmail && (
               <button
                 className="text-primary-700 font-medium transition-opacity hover:opacity-80 cursor-pointer"
                 onClick={handleShowEmail}
               >
-                Ver telefone
+                Ver email
               </button>
             )}
           </Text>
 
-          <Text size="sm" className="flex items-center gap-1">
-            <Icon name="identification" size={20} />
-            CRECI: {creci}
-          </Text>
+          {creci && (
+            <Text size="sm" className="flex items-center gap-1">
+              <Icon name="identification" size={20} strokeWidth={1.5} />
+              CRECI: {creci} - {creciState}
+            </Text>
+          )}
         </div>
       </div>
 

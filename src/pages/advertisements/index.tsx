@@ -15,7 +15,7 @@ import {
 import { SEO } from '@/layouts/Seo';
 import { getTotalArea, priceFormatter } from '@/utils';
 
-import { useFetchLand } from './hooks';
+import { useFetchLand } from '../../hooks/useLand';
 import { Location } from './location';
 import { ModalShare } from './modalShare';
 
@@ -105,7 +105,7 @@ export default function Advertisements() {
         </div>
 
         <div className="relative">
-          {!data?.active && (
+          {data && !data?.active && (
             <div className="absolute top-5 right-0 px-5 py-2 text-white font-bold text-lg bg-red-700 rounded-l-xl">
               Anúncio Inativo
             </div>
@@ -149,7 +149,7 @@ export default function Advertisements() {
 
         <div className="grid grid-cols-1 md:grid-cols-[auto_280px] lg:grid-cols-[auto_360px] xl:grid-cols-[auto_420px] gap-4 lg:gap-6 xl:gap-8">
           <div>
-            <Location />
+            {data?.address && <Location address={data?.address} />}
 
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="xl:flex xl:items-end gap-2">
@@ -304,6 +304,7 @@ export default function Advertisements() {
             images={data?.images}
             initialIndex={currentIndex}
             close={closeModal}
+            videoUrl={data?.videoUrl}
           />
         )}
       </Suspense>

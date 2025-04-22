@@ -1,8 +1,8 @@
 import { useParams } from 'react-router';
 
 import { Divider, Icon, Text } from '@/components';
+import { useFetchLand } from '@/hooks/useLand';
 
-import { useFetchLand } from '../hooks';
 import { generateInfos } from './generateInfos';
 
 export const Infos = () => {
