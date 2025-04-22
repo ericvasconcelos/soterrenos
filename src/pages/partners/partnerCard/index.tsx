@@ -19,6 +19,7 @@ export const PartnerCard = ({
   whatsappNumber,
   email,
   creci,
+  creciState,
   activeLandsCount,
   createdAt,
 }: IPartnerCard) => {
@@ -54,7 +55,7 @@ export const PartnerCard = ({
             </Text>
 
             <Text size="sm" className="flex items-center gap-1">
-              <Icon name="phone" size={20} />
+              <Icon name="phone" size={20} strokeWidth={1.5} />
               {filterPhoneMask(phoneNumber.slice(0, showPhoneNumber ? 14 : 5))}
               {!showPhoneNumber && (
                 <button
@@ -67,7 +68,7 @@ export const PartnerCard = ({
             </Text>
 
             <Text size="sm" className="flex items-center gap-1">
-              <Icon name="mail" size={20} />
+              <Icon name="mail" size={20} strokeWidth={1.5} />
               {email.slice(0, showEmail ? 999 : 7)}
               {!showEmail && (
                 <button
@@ -79,7 +80,10 @@ export const PartnerCard = ({
               )}
             </Text>
 
-            {creci && <Text size="sm">CRECI: {creci}</Text>}
+            <Text size="sm" className="flex items-center gap-1">
+              <Icon name="identification" size={20} strokeWidth={1.5} />
+              CRECI: {creci} - {creciState}
+            </Text>
 
             <Text size="sm">
               Terrenos à venda: <b>{activeLandsCount}</b>
@@ -93,14 +97,6 @@ export const PartnerCard = ({
             </Text>
           </div>
         </div>
-        {/* {servedCities && servedCities.length > 0 && (
-          <Text size="sm" color="gray-700">
-            Atendimento:{' '}
-            {servedCities
-              ?.map(({ city, state }) => `${city} - ${state}`)
-              .join(', ')}
-          </Text>
-        )} */}
       </div>
 
       <nav className="flex flex-col gap-4">

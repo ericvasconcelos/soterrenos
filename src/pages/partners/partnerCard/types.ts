@@ -12,6 +12,7 @@ type IUserInfoPartial = Pick<
   | 'whatsappNumber'
   | 'email'
   | 'creci'
+  | 'creciState'
   | 'activeLandsCount'
   | 'createdAt'
 >;
