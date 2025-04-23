@@ -131,7 +131,7 @@ export default function Advertisements() {
                   />
                 </div>
 
-                {data?.images.slice(1, 5).map((image, index) => (
+                {data?.images.slice(1, 5)?.map((image, index) => (
                   <div
                     key={index}
                     className="hidden lg:flex items-center justify-center cursor-pointer"

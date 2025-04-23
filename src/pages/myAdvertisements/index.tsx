@@ -33,10 +33,10 @@ export default function MyAdvertisements() {
         </div>
 
         <div className="flex gap-4 border-b border-gray-200 mb-8">
-          {tabs.map((tab) => (
+          {tabs?.map(({ to, label }) => (
             <NavLink
-              key={tab.to}
-              to={tab.to}
+              key={to}
+              to={to}
               className={({ isActive }) =>
                 `px-4 py-2 rounded-t-sm font-medium outline-black ${
                   isActive
@@ -45,7 +45,7 @@ export default function MyAdvertisements() {
                 }`
               }
             >
-              {tab.label}
+              {label}
             </NavLink>
           ))}
         </div>

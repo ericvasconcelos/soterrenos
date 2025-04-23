@@ -73,13 +73,13 @@ export const SearchForm = () => {
       const { state, city, ...filters } = formData;
 
       const filteredCommonAreas = commonAreas
-        .filter(({ name }) => {
+        ?.filter(({ name }) => {
           const key = name as keyof typeof filters;
           const isSelected = !!filters[key];
           delete filters[key];
           return isSelected;
         })
-        .map(({ name }) => name)
+        ?.map(({ name }) => name)
         .join(',');
 
       const url = formatSearchURL(state, city, {
@@ -98,11 +98,11 @@ export const SearchForm = () => {
   }, [selectedState, resetField]);
 
   const handleClearFilters = useCallback(() => {
-    paramConfigs.forEach(({ name, type }) => {
+    paramConfigs?.forEach(({ name, type }) => {
       setValue(name, type === 'string' ? '' : false);
     });
 
-    commonAreas.forEach(({ name }) => {
+    commonAreas?.forEach(({ name }) => {
       setValue(name, false);
     });
   }, [setValue]);

@@ -149,16 +149,16 @@ export const generateInfos = (land?: ILand): IInfoSection[] => {
     nearby: 'O que existe nas proximidades',
   };
 
-  return Object.entries(dataInfos).map(([sectionKey, sectionItems]) => {
+  return Object.entries(dataInfos)?.map(([sectionKey, sectionItems]) => {
     const items = Object.entries(sectionItems)
-      .filter(([key]) => {
+      ?.filter(([key]) => {
         const value = land[key as keyof ILand];
-        return Array.isArray(value) ? value.length > 0 : !!value;
+        return Array.isArray(value) ? value?.length > 0 : !!value;
       })
-      .map(([key, item]) => {
+      ?.map(([key, item]) => {
         const value = land[key as keyof ILand];
 
-        let label = item.label;
+        let label = item?.label;
         if (typeof value === 'string') {
           label += `: ${value}`;
         } else if (Array.isArray(value)) {

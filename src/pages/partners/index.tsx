@@ -108,7 +108,7 @@ const Partners = ({ type, variants }: IPartner) => {
 
         {isLoading &&
           filteredData?.length === 0 &&
-          fakeList.map((item) => (
+          fakeList?.map((item) => (
             <Skeleton key={item} name="card" height={233} className="mb-4" />
           ))}
 

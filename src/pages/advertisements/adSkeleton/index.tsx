@@ -16,7 +16,7 @@ export const AdSkeleton = () => {
           <Skeleton width="100%" height="100%" borderRadius={8} />
         </div>
 
-        {items.map((item) => (
+        {items?.map((item) => (
           <div
             key={item}
             className="hidden lg:flex items-center justify-center"

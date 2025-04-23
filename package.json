@@ -17,7 +17,8 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "docker:build": "docker build -t soterrenos-front .",
-    "docker:run": "docker run -e PORT=8080 -p 8080:8080 soterrenos-front"
+    "docker:run": "docker run -e PORT=8080 -p 8080:8080 soterrenos-front",
+    "deploy": "npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
     "@hookform/resolvers": "^4.1.0",

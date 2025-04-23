@@ -34,7 +34,7 @@ export const Accordion: FC<IAccordion> = ({ infos }) => (
     className="w-full rounded-lg bg-white border border-gray-300"
     type="multiple"
   >
-    {infos.map(({ title, description }) => (
+    {infos?.map(({ title, description }) => (
       <Item
         className="overflow-hidden first:mt-0 first:rounded-t-lg last:rounded-b-lg not-first:border-t-1 border-t-gray-300"
         value={title}

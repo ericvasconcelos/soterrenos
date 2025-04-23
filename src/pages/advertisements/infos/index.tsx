@@ -12,7 +12,7 @@ export const Infos = () => {
 
   return (
     <>
-      {dataInfos.map(({ key, title, items }) => (
+      {dataInfos?.map(({ key, title, items }) => (
         <div key={key}>
           <Divider space="xl" />
 
@@ -21,15 +21,15 @@ export const Infos = () => {
           </Text>
 
           <ul className="grid grid-cols-2 xl:grid-cols-3 items-stretch justify-start gap-4">
-            {items.map(({ icon, label }) => (
+            {items?.map(({ icon, label }) => (
               <li
-                key={icon.name + label}
+                key={icon?.name + label}
                 className="grid grid-cols-[32px_auto] items-center gap-2"
               >
                 <Icon
-                  name={icon.name}
-                  size={icon.size}
-                  strokeWidth={icon.strokeWidth}
+                  name={icon?.name}
+                  size={icon?.size}
+                  strokeWidth={icon?.strokeWidth}
                 />
                 <Text>{label}</Text>
               </li>

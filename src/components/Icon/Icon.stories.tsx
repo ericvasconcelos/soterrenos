@@ -14,7 +14,7 @@ export const List: StoryFn = () => (
       padding: '1rem',
     }}
   >
-    {iconNames.map((name: IconNames) => (
+    {iconNames?.map((name: IconNames) => (
       <div
         key={name}
         style={{

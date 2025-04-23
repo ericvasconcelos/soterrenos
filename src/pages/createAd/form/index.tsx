@@ -174,9 +174,9 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
       );
 
       const uploadedImages = await Promise.all(
-        toUpload.map(async (image) => {
+        toUpload?.map(async ({ file }) => {
           try {
-            return await uploadFile(image.file!);
+            return await uploadFile(file!);
           } catch (error) {
             toast.error(error as string);
             return null;
@@ -185,9 +185,9 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
       );
 
       await Promise.all(
-        toDelete.map(async (image) => {
+        toDelete?.map(async ({ src }) => {
           try {
-            const fileName = extractFileName(image.src);
+            const fileName = extractFileName(src);
             return await deleteFile(fileName);
           } catch (error) {
             toast.error(error as string);
@@ -744,7 +744,7 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
           </Text>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {commonAreasOptions.map((option) => (
+            {commonAreasOptions?.map((option) => (
               <Controller
                 key={option.value}
                 name="commonAreas"
@@ -847,7 +847,7 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
         </Text>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {publicTransportationOptions.map((option) => (
+          {publicTransportationOptions?.map((option) => (
             <Controller
               key={option.value}
               name="publicTransportation"
