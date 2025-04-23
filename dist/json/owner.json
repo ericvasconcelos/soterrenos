@@ -1,0 +1,14 @@
+{
+  "type": "owner",
+  "email": "maria.silva@exemplo.com",
+  "phoneNumber": "(11) 98765-4321",
+  "whatsappNumber": "(11) 98765-4321",
+  "personalFirstName": "Maria",
+  "personalLastName": "Silva",
+  "personalId": "123.456.789-09",
+  "profileImage": {
+    "src": "https://placehold.co/300x300",
+    "width": 300,
+    "height": 300
+  }
+}
