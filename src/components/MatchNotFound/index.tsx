@@ -17,7 +17,7 @@ export const MatchNotFound = ({ title, subtitle }: IMatchNotFound) => (
     </Text>
 
     {subtitle && (
-      <Text weight="light" align="center" className="mt-2">
+      <Text align="center" className="mt-2">
         {subtitle}
       </Text>
     )}

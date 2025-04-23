@@ -1,4 +1,5 @@
 import { FC, useCallback, useMemo } from 'react';
+import LazyLoad from 'react-lazyload';
 import { useNavigate } from 'react-router';
 
 import { Card, Text } from '@/components';
@@ -30,13 +31,15 @@ export const LandCard: FC<ILandCard> = ({ item }) => {
       tabIndex={0}
       onClick={handleNavigate}
     >
-      <img
-        src={featuredImage?.src}
-        width={featuredImage?.width}
-        height={featuredImage?.height}
-        alt={featuredImage?.alt}
-        className="w-full h-full object-cover"
-      />
+      <LazyLoad height={225} once>
+        <img
+          src={featuredImage?.src}
+          width={featuredImage?.width}
+          height={featuredImage?.height}
+          alt={featuredImage?.alt}
+          className="w-full h-full object-cover"
+        />
+      </LazyLoad>
 
       <div className="p-4">
         <Text tag="h1" size="xl" weight="bold" className="mb-1">

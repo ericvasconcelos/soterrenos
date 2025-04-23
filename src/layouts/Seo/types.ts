@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ISEO {
   title: string;
   description: string;
@@ -6,4 +8,5 @@ export interface ISEO {
   canonical?: string;
   image?: string;
   schemaMarkup?: Record<string, unknown>;
+  children?: ReactNode;
 }

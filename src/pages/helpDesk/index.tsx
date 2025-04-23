@@ -26,7 +26,7 @@ const HelpDesk = () => (
 
     <Container>
       <div className="mb-20">
-        <Text tag="h1" size="2xl" weight="bold" className="mt-12 mb-8">
+        <Text tag="h1" size="2xl" weight="bold" className="pt-12 mb-8">
           Central de Ajuda
         </Text>
 

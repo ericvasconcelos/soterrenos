@@ -3,8 +3,16 @@ import { Helmet } from 'react-helmet-async';
 import { ISEO } from './types';
 
 export const SEO = (props: ISEO) => {
-  const { title, description, type, name, canonical, image, schemaMarkup } =
-    props;
+  const {
+    title,
+    description,
+    type,
+    name,
+    canonical,
+    image,
+    schemaMarkup,
+    children,
+  } = props;
 
   return (
     <Helmet>
@@ -31,6 +39,8 @@ export const SEO = (props: ISEO) => {
           {JSON.stringify(schemaMarkup)}
         </script>
       )}
+
+      {children}
     </Helmet>
   );
 };

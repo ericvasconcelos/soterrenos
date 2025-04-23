@@ -3,11 +3,14 @@ import { lazy, Suspense } from 'react';
 import { Container, Spinner } from '@/components';
 import { SEO } from '@/layouts/Seo';
 
-import { HowItWorks } from './howItWorks';
 import { SearchForm } from './searchForm';
 
 const Nearby = lazy(() =>
   import('./nearby').then((module) => ({ default: module.Nearby }))
+);
+
+const HowItWorks = lazy(() =>
+  import('./howItWorks').then((module) => ({ default: module.HowItWorks }))
 );
 
 const Home = () => (
@@ -36,7 +39,9 @@ const Home = () => (
           founder: 'Nome do Fundador (opcional)',
         },
       }}
-    />
+    >
+      <link rel="preload" href="/home/icons/searching-lands.svg" as="image" />
+    </SEO>
 
     <div className="relative w-full pt-12 bg-white bg-[url('/home/bg/hero-bg.svg')] bg-repeat bg-center">
       <Container>
@@ -44,7 +49,15 @@ const Home = () => (
       </Container>
     </div>
 
-    <HowItWorks />
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-[200px]">
+          <Spinner size="lg" />
+        </div>
+      }
+    >
+      <HowItWorks />
+    </Suspense>
 
     <Container className="mt-16 mb-16">
       <Suspense

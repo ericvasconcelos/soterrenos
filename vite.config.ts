@@ -23,6 +23,9 @@ export default defineConfig({
   base: '/',
   build: {
     manifest: true,
+    target: 'esnext',
+    cssCodeSplit: true,
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -30,13 +33,33 @@ export default defineConfig({
           vendor: [
             'axios',
             'classnames',
-            'yup',
+            'dayjs',
             'usehooks-ts',
             'react-hook-form',
+            'react-lazyload',
+            '@hookform/resolvers',
+            'yup',
+            'jwt-decode',
+          ],
+          vendor2: [
+            '@tanstack/react-query',
+            '@vis.gl/react-google-maps',
+            'react-easy-crop',
+            'react-player',
+            'react-toastify',
+          ],
+          components: [
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
           ],
         },
       },
     },
     chunkSizeWarningLimit: 500, // Ajuste o limite de tamanho do chunk para 500 KB
+  },
+  esbuild: {
+    legalComments: 'none',
   },
 });

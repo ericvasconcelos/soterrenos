@@ -25,7 +25,7 @@ export const List: StoryFn = () => (
         }}
       >
         <Icon name={name} size={32} />
-        <Text size="xs" weight="light" align="center" color="gray-900">
+        <Text size="xs" align="center" color="gray-900">
           {name}
         </Text>
       </div>

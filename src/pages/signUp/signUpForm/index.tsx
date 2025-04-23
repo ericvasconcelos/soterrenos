@@ -53,7 +53,6 @@ export const SignUpForm: React.FC = () => {
           <FieldController
             control={control}
             component={Select}
-            id="type"
             name="type"
             label="Tipo de usuário"
             options={userTypes}
@@ -142,7 +141,6 @@ export const SignUpForm: React.FC = () => {
               <FieldController
                 control={control}
                 component={Select}
-                id="creciState"
                 name="creciState"
                 label="Estado do CRECI"
                 options={states}

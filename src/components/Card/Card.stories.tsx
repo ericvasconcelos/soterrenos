@@ -22,7 +22,7 @@ export const Default: Story = {
         <Text size="lg" weight="bold" className="mb-4">
           Card Title
         </Text>
-        <Text weight="light">
+        <Text>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam culpa
           id recusandae blanditiis harum sapiente doloremque perferendis saepe
           neque? Pariatur, a quam. Provident nobis saepe aut minus laboriosam

@@ -1,14 +1,7 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import {
-  Button,
-  Container,
-  Input,
-  MatchNotFound,
-  Skeleton,
-  Text,
-} from '@/components';
+import { Button, Container, Input, Skeleton, Text } from '@/components';
 import { SEO } from '@/layouts/Seo';
 import { IUser } from '@/types';
 import { generateArray, getPartnerName } from '@/utils';
@@ -16,6 +9,12 @@ import { generateArray, getPartnerName } from '@/utils';
 import { useUsersByType } from './hooks';
 import { PartnerCard } from './partnerCard';
 import { IPartner } from './types';
+
+const MatchNotFound = lazy(() =>
+  import('@/components/MatchNotFound').then((module) => ({
+    default: module.MatchNotFound,
+  }))
+);
 
 const Partners = ({ type, variants }: IPartner) => {
   const fakeList = generateArray(4);
@@ -123,7 +122,9 @@ const Partners = ({ type, variants }: IPartner) => {
           ))}
 
         {!isLoading && filteredData?.length === 0 && (
-          <MatchNotFound title="Nenhum resultado encontrado" />
+          <Suspense>
+            <MatchNotFound title="Nenhum resultado encontrado" />
+          </Suspense>
         )}
 
         <div className="flex justify-between gap-4 mt-8 mb-12">

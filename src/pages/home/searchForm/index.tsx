@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+import LazyLoad from 'react-lazyload';
 import { useNavigate } from 'react-router';
 
 import {
@@ -14,7 +15,6 @@ import { ISearchForm } from '@/types';
 import { filterMoneyMask, findAndSortCities, formatSearchURL } from '@/utils';
 
 import { useSearchForm } from '../hooks/useSearchForm';
-import { TypingSimulation } from '../typingSimulation';
 
 export const SearchForm = () => {
   const navigate = useNavigate();
@@ -47,15 +47,18 @@ export const SearchForm = () => {
   return (
     <div className="grid xl:grid-cols-[8fr_7fr] gap-12 items-center">
       <div className="mb-16">
-        <TypingSimulation />
+        <h1 className="mb-8 text-2xl sm:text-3xl md:text-4xl font-semibold leading-tight">
+          Encontre o <span className="text-primary-700">terreno</span> dos seus
+          <br />
+          sonhos em poucos <span className="text-primary-700">minutos</span>
+        </h1>
 
         <Card className="shadow-md">
           <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid md:grid-cols-2 gap-4">
               <FieldController
                 control={control}
                 component={Select}
-                id="state"
                 name="state"
                 label="Estado"
                 placeholder="Selecione um estado"
@@ -66,7 +69,6 @@ export const SearchForm = () => {
               <FieldController
                 control={control}
                 component={Select}
-                id="city"
                 name="city"
                 label="Cidade"
                 placeholder="Selecione uma cidade"
@@ -75,7 +77,7 @@ export const SearchForm = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6">
               <div className="grid grid-cols-2 gap-2">
                 <FieldController
                   control={control}
@@ -121,7 +123,7 @@ export const SearchForm = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-8 mt-2">
+            <div className="flex flex-col md:flex-row md:items-center gap-8 mt-2">
               <FieldController
                 control={control}
                 component={Checkbox}
@@ -138,7 +140,7 @@ export const SearchForm = () => {
                 content="Compra com financiamento"
               />
 
-              <Button disabled={!isValid} className="ml-auto">
+              <Button disabled={!isValid} className="ml-auto w-full md:w-auto">
                 Buscar Terrenos
               </Button>
             </div>
@@ -146,15 +148,17 @@ export const SearchForm = () => {
         </Card>
       </div>
 
-      <div className="hidden xl:flex items-end justify-end h-full">
-        <img
-          src="/home/icons/searching-lands.svg"
-          width={232}
-          height={150}
-          alt="Buscar por terrenos"
-          className="block w-full h-auto max-w-[80%]"
-        />
-      </div>
+      <LazyLoad height={340} once>
+        <div className="hidden xl:flex items-end justify-end h-full">
+          <img
+            src="/home/icons/searching-lands.svg"
+            width={232}
+            height={150}
+            alt="Buscar por terrenos"
+            className="block w-full h-auto max-w-[80%]"
+          />
+        </div>
+      </LazyLoad>
     </div>
   );
 };
