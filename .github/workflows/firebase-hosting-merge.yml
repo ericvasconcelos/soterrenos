@@ -11,6 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Passo 2: Configurar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.12.2
+
+      # Passo 3: Instalar dependências e fazer o build
+      - name: Install dependencies
+        run: |
+          npm install
+          npm run build
+        env:
+          # Injeta as variáveis de ambiente aqui (substitua com seus secrets)
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_VIA_CEP_API_URL: ${{ secrets.VITE_VIA_CEP_API_URL }}
+          VITE_OPEN_STREET_API_URL: ${{ secrets.VITE_OPEN_STREET_API_URL }}
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
