@@ -35,12 +35,12 @@ const TermsAndConditions = () => {
           >
             Termos de uso e política de privacidade
           </Text>
-          {chapters.map((chapter, chapterIndex) => (
+          {chapters?.map(({ title, paragraphs }, chapterIndex) => (
             <div key={chapterIndex} className="mb-14">
               <Text tag="h2" size="lg" weight="bold" className="mb-6 uppercase">
-                {chapterIndex + 1}. {chapter.title}
+                {chapterIndex + 1}. {title}
               </Text>
-              {chapter.paragraphs.map((paragraph, paragraphIndex) => (
+              {paragraphs?.map((paragraph, paragraphIndex) => (
                 <Text key={paragraphIndex} className="mb-4">
                   {chapterIndex + 1}.{paragraphIndex + 1}. {paragraph}
                 </Text>

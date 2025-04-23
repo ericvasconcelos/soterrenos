@@ -60,15 +60,15 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
       {!initialLoading &&
         visibleAds?.map((ad, index) => {
-          if (visibleAds.length === index + 1) {
+          if (visibleAds?.length === index + 1) {
             return (
-              <div ref={lastElementRef} key={ad.id}>
+              <div ref={lastElementRef} key={ad?.id}>
                 <LandCard type="edit" {...ad} />
               </div>
             );
           }
 
-          return <LandCard type="edit" key={ad.id} {...ad} />;
+          return <LandCard type="edit" key={ad?.id} {...ad} />;
         })}
 
       {!initialLoading && !loadingMore && error && (
@@ -78,7 +78,7 @@ export const AdsList: FC<IAdsList> = ({ type }) => {
       )}
 
       {initialLoading &&
-        skeletons.map((item) => (
+        skeletons?.map((item) => (
           <Skeleton key={item} width="100%" height={320} borderRadius={12} />
         ))}
 

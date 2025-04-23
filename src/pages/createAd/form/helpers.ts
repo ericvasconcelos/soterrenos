@@ -68,25 +68,25 @@ export const normalizeLand = (land?: ILand): ICreateFormData => ({
 
 export const getImagesSplited = (initial: IImage[], current: IImage[]) => {
   const initialMap = new Map<string, IImage>(
-    initial.map((img) => [img.src, img])
+    initial?.map((img) => [img?.src, img])
   );
   const currentMap = new Map<string, IImage>(
-    current.map((img) => [img.src, img])
+    current?.map((img) => [img?.src, img])
   );
 
   const storagePrefix = 'https://storage.googleapis.com/';
   const blobPrefix = 'blob:';
 
   const toUpload = current.filter(
-    (img) => img.src.startsWith(blobPrefix) && !initialMap.has(img.src)
+    (img) => img?.src.startsWith(blobPrefix) && !initialMap.has(img?.src)
   );
 
   const toDelete = initial.filter(
-    (img) => img.src.startsWith(storagePrefix) && !currentMap.has(img.src)
+    (img) => img?.src.startsWith(storagePrefix) && !currentMap.has(img?.src)
   );
 
   const unchanged = current.filter(
-    (img) => initialMap.has(img.src) && !img.src.startsWith(blobPrefix)
+    (img) => initialMap.has(img?.src) && !img?.src.startsWith(blobPrefix)
   );
 
   return { toUpload, toDelete, unchanged };

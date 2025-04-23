@@ -63,10 +63,10 @@ export const SearchResults = () => {
         )}
 
         {!isLoading &&
-          lands.map((item) => <LandCard key={item.id} item={item} />)}
+          lands?.map((item) => <LandCard key={item.id} item={item} />)}
 
         {isLoading &&
-          skeletons.map((item) => (
+          skeletons?.map((item) => (
             <Skeleton key={item} width="100%" height={231} borderRadius={12} />
           ))}
 
