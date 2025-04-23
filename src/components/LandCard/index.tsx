@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from 'react';
+import LazyLoad from 'react-lazyload';
 import { useNavigate } from 'react-router';
 
 import { getTotalArea, priceFormatter } from '@/utils';
@@ -40,15 +41,17 @@ export const LandCard = ({
       tabIndex={0}
       onClick={handleNavigate}
     >
-      <div className="h-[200px]">
-        <img
-          src={featuredImage?.src}
-          width={featuredImage?.width}
-          height={featuredImage?.height}
-          alt={featuredImage?.alt || `Imagem do anúncio ${id}`}
-          className="block w-full h-full object-cover"
-        />
-      </div>
+      <LazyLoad height={200} offset={100} once>
+        <div className="h-[200px]">
+          <img
+            src={featuredImage?.src}
+            width={featuredImage?.width}
+            height={featuredImage?.height}
+            alt={featuredImage?.alt || `Imagem do anúncio ${id}`}
+            className="block w-full h-full object-cover"
+          />
+        </div>
+      </LazyLoad>
 
       <div className="p-4">
         <Text color="primary-700" size="2xl" weight="bold" className="mb-2">

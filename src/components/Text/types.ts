@@ -29,7 +29,7 @@ export interface IText extends HTMLAttributes<HTMLElement> {
   tag?: AsProp;
   children?: ReactNode;
   size?: ISizeText;
-  weight?: 'light' | 'normal' | 'medium' | 'bold';
+  weight?: 'normal' | 'medium' | 'bold';
   align?: 'left' | 'center' | 'right';
   color?:
     | 'primary-50'

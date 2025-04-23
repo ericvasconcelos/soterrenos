@@ -14,9 +14,9 @@ export const Header = () => {
   const navigate = useNavigate();
 
   const defaultImage = {
-    src: '/placeholder/user-icon-placeholder.jpg',
-    width: 512,
-    height: 512,
+    src: '/placeholder/user-60x60.webp',
+    width: 40,
+    height: 40,
     alt: 'Usuário',
   };
 
@@ -38,7 +38,8 @@ export const Header = () => {
             size="small"
             onClick={() => navigate('/cadastro-anuncio/novo')}
           >
-            Anuncie seu terreno grátis
+            Anuncie <i className="hidden md:block -mr-1 -ml-1">seu terreno</i>{' '}
+            grátis
           </Button>
 
           <Dropdown items={menuItems}>

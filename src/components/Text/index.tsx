@@ -26,7 +26,6 @@ export const Text: FC<IText> = ({
       'text-4xl': size === '4xl',
       'text-5xl': size === '5xl',
       'text-6xl': size === '6xl',
-      'font-light': weight === 'light',
       'font-normal': weight === 'normal',
       'font-medium': weight === 'medium',
       'font-bold': weight === 'bold',

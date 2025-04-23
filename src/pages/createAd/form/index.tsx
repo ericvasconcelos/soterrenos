@@ -150,7 +150,6 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
         return;
       }
     } catch (error) {
-      console.log('error', error);
       toast.error(`Erro ao buscar coordenadas: ${error}`);
       return;
     }
@@ -464,7 +463,6 @@ export const CreateAdForm = ({ defaultValues }: ICreatedAdForm) => {
           <FieldController
             component={Select}
             control={control}
-            id="address.state"
             name="address.state"
             label="Estado"
             options={states}

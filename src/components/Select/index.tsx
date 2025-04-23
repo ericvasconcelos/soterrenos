@@ -10,7 +10,6 @@ import { ISelect } from './types';
 export const Select = forwardRef<HTMLButtonElement, ISelect>(
   (
     {
-      id,
       value,
       name,
       label,
@@ -64,9 +63,7 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
     return (
       <FormField error={error} className={className}>
         <div className={containerClasses}>
-          {label && (
-            <Label id={id} text={label} invalid={!isValid && !!error} />
-          )}
+          {label && <Label text={label} invalid={!isValid && !!error} />}
 
           <SelectPrimitive.Root
             name={name}
@@ -78,6 +75,7 @@ export const Select = forwardRef<HTMLButtonElement, ISelect>(
             <SelectPrimitive.Trigger
               ref={ref}
               className="absolute top-0 right-0 left-0 bottom-0 px-3 w-full h-full flex items-center justify-between pt-4 text-gray-900 font-normal outline-none appearance-none"
+              aria-label="Selecione"
             >
               {value
                 ? options.find((opt) => opt.value === value)?.label

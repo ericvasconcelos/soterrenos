@@ -144,7 +144,6 @@ export const SearchForm = () => {
             <FieldController
               control={control}
               component={Select}
-              id="state"
               name="state"
               label="Estado"
               placeholder="Selecione um estado"
@@ -155,7 +154,6 @@ export const SearchForm = () => {
             <FieldController
               control={control}
               component={Select}
-              id="city"
               name="city"
               label="Cidade"
               placeholder="Selecione uma cidade"

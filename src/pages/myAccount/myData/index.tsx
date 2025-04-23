@@ -41,9 +41,9 @@ const MyData: React.FC = () => {
   const profileImage = watch('profileImage');
 
   const defaultImage = {
-    src: '/placeholder/user-icon-placeholder.jpg',
-    width: 512,
-    height: 512,
+    src: '/placeholder/user-112x112.webp',
+    width: 112,
+    height: 112,
   };
 
   const { mutateAsync: updateProfile, isPending } = useUpdateProfile();
@@ -193,7 +193,6 @@ const MyData: React.FC = () => {
                 <FieldController
                   control={control}
                   component={Select}
-                  id="creciState"
                   name="creciState"
                   label="Estado do CRECI"
                   options={states}

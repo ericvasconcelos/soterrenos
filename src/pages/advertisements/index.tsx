@@ -89,6 +89,7 @@ export default function Advertisements() {
                   icon="share"
                   iconPosition="left"
                   onClick={() => setIsModalShareOpen(true)}
+                  aria-label="Compartilhar"
                 >
                   <span className="hidden md:inline">Compartilhar</span>
                 </Button>
@@ -100,6 +101,7 @@ export default function Advertisements() {
               icon={isSaved ? 'heart-filled' : 'heart'}
               iconPosition="left"
               onClick={() => setIsSaved(!isSaved)}
+              aria-label="Salvar"
             >
               <span className="hidden md:inline">
                 {isSaved ? 'Salvo' : 'Salvar'}

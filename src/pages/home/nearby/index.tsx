@@ -1,6 +1,14 @@
-import { LandCard, MatchNotFound, Skeleton, Text } from '@/components';
+import { lazy, Suspense } from 'react';
+
+import { LandCard, Skeleton, Text } from '@/components';
 import { useLandList } from '@/hooks/useLandList';
 import { generateArray } from '@/utils';
+
+const MatchNotFound = lazy(() =>
+  import('@/components/MatchNotFound').then((module) => ({
+    default: module.MatchNotFound,
+  }))
+);
 
 export const Nearby = () => {
   const fakeList = generateArray(8);
@@ -24,7 +32,9 @@ export const Nearby = () => {
       </div>
 
       {!isLoading && !data && (
-        <MatchNotFound title="Infelizmente não encontramos terrenos perto de você" />
+        <Suspense>
+          <MatchNotFound title="Infelizmente não encontramos terrenos perto de você" />
+        </Suspense>
       )}
     </>
   );
