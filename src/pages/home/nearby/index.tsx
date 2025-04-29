@@ -15,7 +15,7 @@ export const Nearby = () => {
   const { data, isLoading } = useLandList({ size: 8 });
 
   return (
-    <>
+    <div className="mb-16 lg:mb-24">
       <Text size="2xl" weight="bold" className="mb-8">
         Terrenos próximos a você
       </Text>
@@ -36,6 +36,6 @@ export const Nearby = () => {
           <MatchNotFound title="Infelizmente não encontramos terrenos perto de você" />
         </Suspense>
       )}
-    </>
+    </div>
   );
 };

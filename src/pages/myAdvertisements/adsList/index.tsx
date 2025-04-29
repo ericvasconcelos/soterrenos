@@ -1,11 +1,11 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 
 import { LandCard, Skeleton, Spinner, Text } from '@/components';
+import { useLandsByUser } from '@/hooks/useLandList';
 import { useUser } from '@/hooks/useUser';
 import { ILand } from '@/types';
 import { generateArray } from '@/utils';
 
-import { useLandsByUser } from '../hooks';
 import { IAdsList } from './types';
 
 export const AdsList: FC<IAdsList> = ({ type }) => {

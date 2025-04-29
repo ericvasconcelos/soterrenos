@@ -13,6 +13,7 @@ import { Actives } from './pages/myAdvertisements/actives';
 import { Inactives } from './pages/myAdvertisements/inactives';
 import Agencies from './pages/partners/agencies';
 import Salesperson from './pages/partners/salesPerson';
+import PartnersLandList from './pages/partnersLandList';
 import Search from './pages/search';
 import SignUp from './pages/signUp';
 import TermsAndConditions from './pages/termsAndConditions';
@@ -54,6 +55,7 @@ export default function App() {
             <Route path="/central-de-ajuda" element={<HelpDesk />} />
             <Route path="/corretores" element={<Salesperson />} />
             <Route path="/imobiliarias" element={<Agencies />} />
+            <Route path="/parceiros/:id" element={<PartnersLandList />} />
           </Route>
         </Routes>
       </ScrollController>

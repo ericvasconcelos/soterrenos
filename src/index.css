@@ -33,7 +33,12 @@
   --color-primary-500: #6e60b2;
   --color-primary-700: #513e9f;
 
-  --color-secondary-700: #8c9f3e;
+  --color-success-50: #f3f7e5;
+  --color-success-100: #e8f0cc;
+  --color-success-200: #c9db99;
+  --color-success-300: #aac566;
+  --color-success-700: #8c9f3e;
+  --color-success-900: #6a7a2f;
 
   --font-primary: 'Noto Sans JP', 'serif';
 

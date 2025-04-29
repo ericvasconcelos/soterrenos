@@ -43,23 +43,47 @@ const Home = () => (
       <link rel="preload" href="/home/icons/searching-lands.svg" as="image" />
     </SEO>
 
-    <div className="relative w-full pt-12 bg-white bg-[url('/home/bg/hero-bg.svg')] bg-repeat bg-center">
-      <Container>
-        <SearchForm />
-      </Container>
+    <div className="relative w-full h-[654px] md:h-[530px] bg-white bg-[url('/home/bg/hero-bg.svg')] bg-repeat bg-center mb-12">
+      <picture className="opacity-85">
+        <source
+          media="(min-width: 1536px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <source
+          media="(min-width: 1280px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <source
+          media="(min-width: 1024px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <source
+          media="(min-width: 768px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <source
+          media="(min-width: 640px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <source
+          media="(min-width: 0px)"
+          srcSet="/home/soterrenos-campo-3840.webp"
+        />
+        <img
+          src="/home/soterrenos-campo-3840.webp"
+          alt="Campo com rio e vegetação"
+          className="w-full h-full object-cover"
+        />
+      </picture>
+
+      <div className="absolute top-0 left-0 right-0 bottom-0">
+        <Container className="h-full md:flex md:items-center py-12 md:py-0">
+          <SearchForm />
+        </Container>
+      </div>
     </div>
 
-    <Suspense
-      fallback={
-        <div className="flex items-center justify-center h-[200px]">
-          <Spinner size="lg" />
-        </div>
-      }
-    >
-      <HowItWorks />
-    </Suspense>
-
-    <Container className="mt-16 mb-16">
+    <Container>
       <Suspense
         fallback={
           <div className="flex items-center justify-center h-[200px]">
@@ -68,6 +92,16 @@ const Home = () => (
         }
       >
         <Nearby />
+      </Suspense>
+
+      <Suspense
+        fallback={
+          <div className="flex items-center justify-center h-[200px]">
+            <Spinner size="lg" />
+          </div>
+        }
+      >
+        <HowItWorks />
       </Suspense>
     </Container>
   </>
