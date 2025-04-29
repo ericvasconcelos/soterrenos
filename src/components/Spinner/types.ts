@@ -1,4 +1,10 @@
-export type ISpinnerColor = 'primary' | 'danger' | 'warning' | 'light' | 'dark';
+export type ISpinnerColor =
+  | 'primary'
+  | 'danger'
+  | 'warning'
+  | 'success'
+  | 'light'
+  | 'dark';
 
 export interface ISpinner {
   color?: ISpinnerColor;

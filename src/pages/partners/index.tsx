@@ -1,7 +1,7 @@
 import { lazy, Suspense, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import { Button, Container, Input, Skeleton, Text } from '@/components';
+import { Container, Input, Pagination, Skeleton, Text } from '@/components';
 import { SEO } from '@/layouts/Seo';
 import { IUser } from '@/types';
 import { generateArray, getPartnerName } from '@/utils';
@@ -127,46 +127,14 @@ const Partners = ({ type, variants }: IPartner) => {
           </Suspense>
         )}
 
-        <div className="flex justify-between gap-4 mt-8 mb-12">
-          <div className="flex items-center gap-4">
-            <Button
-              onClick={() => handlePageChange(prevPage)}
-              disabled={!prevPage}
-              variant="tertiary"
-            >
-              Anterior
-            </Button>
-
-            <Text className="mx-4">
-              Página {page} de {lastPage || '1'}
-            </Text>
-
-            <Button
-              onClick={() => handlePageChange(nextPage)}
-              disabled={page >= nextPage}
-              variant="tertiary"
-            >
-              Próximo
-            </Button>
-          </div>
-
-          <div className="flex justify-end items-center gap-2">
-            <Text tag="label">Itens por página:</Text>
-            <select
-              id="size"
-              name="size"
-              value={size}
-              onChange={(e) => {
-                setSearchParams({ page: '1', size: e.target.value });
-              }}
-              className="border border-gray-500 rounded px-2 py-1 outline-0"
-            >
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-            </select>
-          </div>
-        </div>
+        <Pagination
+          changePage={handlePageChange}
+          currentPage={page}
+          lastPage={lastPage}
+          prevPage={prevPage}
+          nextPage={nextPage}
+          size={size}
+        />
       </Container>
     </>
   );

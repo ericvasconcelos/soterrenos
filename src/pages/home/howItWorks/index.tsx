@@ -1,9 +1,9 @@
 import LazyLoad from 'react-lazyload';
 
-import { Container, Text, VideoPlayer } from '@/components';
+import { Text, VideoPlayer } from '@/components';
 
 export const HowItWorks = () => (
-  <Container className="py-12 lg:py-18">
+  <div className="mb-16 lg:mb-24">
     <Text
       tag="h2"
       color="primary-700"
@@ -20,7 +20,7 @@ export const HowItWorks = () => (
           <img
             src="/home/icons/secure-login.svg"
             alt="Cadastro Rápido e Seguro"
-            className="block max-h-[300px] w-auto mx-auto mb-10"
+            className="block max-h-[240px] w-auto mx-auto mb-10"
           />
         </LazyLoad>
         <Text
@@ -42,7 +42,7 @@ export const HowItWorks = () => (
           <img
             src="/home/icons/form-land.svg"
             alt="Crie Seu Anúncio"
-            className="block max-h-[300px] w-auto mx-auto mb-10"
+            className="block max-h-[240px] w-auto mx-auto mb-10"
           />
         </LazyLoad>
         <Text
@@ -64,7 +64,7 @@ export const HowItWorks = () => (
           <img
             src="/home/icons/launch-land.svg"
             alt="Publique e Venda!"
-            className="block max-h-[300px] w-auto mx-auto mb-10"
+            className="block max-h-[240px] w-auto mx-auto mb-10"
           />
         </LazyLoad>
         <Text
@@ -88,5 +88,5 @@ export const HowItWorks = () => (
         <VideoPlayer url="https://www.youtube.com/watch?v=RnMtWgjcrSM" />
       </div>
     </LazyLoad>
-  </Container>
+  </div>
 );

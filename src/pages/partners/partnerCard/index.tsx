@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import { Avatar, Button, Card, Icon, Text } from '@/components';
 import { filterPhoneMask, getPartnerName } from '@/utils';
@@ -23,6 +24,7 @@ export const PartnerCard = ({
   activeLandsCount,
   createdAt,
 }: IPartnerCard) => {
+  const navigate = useNavigate();
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
   const [showEmail, setShowEmail] = useState(false);
 
@@ -38,6 +40,10 @@ export const PartnerCard = ({
     personalLastName,
     tradeName,
   });
+
+  const goParnerLandList = useCallback(() => {
+    navigate(`/parceiros/${id}`);
+  }, [navigate, id]);
 
   return (
     <Card
@@ -122,6 +128,10 @@ export const PartnerCard = ({
           variant="secondary"
         >
           Solicitar Avaliação do Terreno
+        </Button>
+
+        <Button onClick={goParnerLandList} color="success" variant="secondary">
+          Lista de Terrenos
         </Button>
       </nav>
     </Card>

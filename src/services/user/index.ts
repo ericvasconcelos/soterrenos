@@ -15,6 +15,15 @@ export const getUser = async (): Promise<IUser> => {
   }
 };
 
+export const getUserData = async (id?: string): Promise<IUser> => {
+  try {
+    const { data } = await userService.get<IUser>(`/${id}`);
+    return data;
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};
+
 export const signUpUser = async (userData: ISignUpForm) => {
   try {
     const payload = transformUserData(userData);

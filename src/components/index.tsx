@@ -13,6 +13,7 @@ export { Label } from './Label';
 export { LandCard } from './LandCard';
 export { MatchNotFound } from './MatchNotFound';
 export { Modal } from './Modal';
+export { Pagination } from './Pagination';
 export { Radio } from './Radio';
 export { RadioFields } from './Radio/RadioFields';
 export { Select } from './Select';

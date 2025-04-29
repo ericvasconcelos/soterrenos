@@ -28,6 +28,7 @@ export const Button: FC<IButton> = ({
       'bg-primary-700 text-light': variant === 'primary' && color === 'primary',
       'bg-danger-700 text-light': variant === 'primary' && color === 'danger',
       'bg-warning-700 text-light': variant === 'primary' && color === 'warning',
+      'bg-success-700 text-light': variant === 'primary' && color === 'success',
 
       // Variant secondary
       'bg-primary-100 text-primary-700':
@@ -36,6 +37,8 @@ export const Button: FC<IButton> = ({
         variant === 'secondary' && color === 'danger',
       'bg-warning-50 text-warning-700':
         variant === 'secondary' && color === 'warning',
+      'bg-success-50 text-success-700':
+        variant === 'secondary' && color === 'success',
 
       // Variant tertiary
       'bg-transparent text-primary-700 hover:bg-primary-100':
@@ -44,6 +47,8 @@ export const Button: FC<IButton> = ({
         variant === 'tertiary' && color === 'danger',
       'bg-transparent text-warning-700 hover:bg-warning-50':
         variant === 'tertiary' && color === 'warning',
+      'bg-transparent text-success-700 hover:bg-success-50':
+        variant === 'tertiary' && color === 'success',
 
       // Sizes
       'h-8 px-4 text-sm': size === 'small',
@@ -76,6 +81,10 @@ export const Button: FC<IButton> = ({
 
     if (color === 'warning') {
       return 'warning';
+    }
+
+    if (color === 'success') {
+      return 'success';
     }
 
     return 'dark';

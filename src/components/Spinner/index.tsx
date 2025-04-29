@@ -16,6 +16,7 @@ export const Spinner: FC<ISpinner> = ({
       'border-primary-200 border-b-primary-700': color === 'primary',
       'border-danger-100 border-b-danger-700': color === 'danger',
       'border-warning-100 border-b-warning-700': color === 'warning',
+      'border-success-100 border-b-success-700': color === 'success',
       'border-gray-400 border-b-black': color === 'dark',
       'border-white/50 border-b-white': color === 'light',
       'w-4 h-4 border-[3px]': size === 'sm',
